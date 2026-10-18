@@ -23,7 +23,6 @@ import {
   PublicKey,
   Transaction,
   TransactionInstruction,
-  sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import bs58 from "bs58";
 import { createHash } from "node:crypto";
@@ -73,8 +72,24 @@ export function solana(chain: Chain): Driver {
       amount = BigInt(Math.round(Number(chain.asset.amount) * 10 ** decimals));
     }
   };
-  const confirm = (tx: Transaction, signers: Keypair[]): Promise<string> =>
-    sendAndConfirmTransaction(connection, tx, signers, { commitment: "confirmed" });
+  // Setup and teardown transactions are confirmed by polling over HTTP: the library's own
+  // confirmation opens a websocket, which not every RPC endpoint serves (Infura's does not).
+  const confirm = async (tx: Transaction, signers: Keypair[]): Promise<string> => {
+    const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash("confirmed");
+    tx.recentBlockhash = blockhash;
+    tx.feePayer ??= signers[0]?.publicKey;
+    tx.sign(...signers);
+    const sig = await connection.sendRawTransaction(tx.serialize());
+    for (;;) {
+      const s = (await statuses(connection, [sig])).get(sig);
+      if (s?.failed !== undefined) throw new Error(`${sig} failed on chain: ${s.failed}`);
+      if (s?.level === "confirmed" || s?.level === "finalized") return sig;
+      if ((await connection.getBlockHeight("confirmed")) > lastValidBlockHeight) {
+        throw new Error(`${sig} expired unconfirmed; check it before running again`);
+      }
+      await new Promise((r) => setTimeout(r, 500));
+    }
+  };
 
   return {
     levels: LEVELS,

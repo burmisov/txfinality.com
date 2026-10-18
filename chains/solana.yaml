@@ -1,7 +1,7 @@
 id: solana
 name: Solana
 family: solana
-status: candidate            # becomes measured with the first real run
+status: measured
 since: 2026-10-18
 icon: solana.jpg
 asset:

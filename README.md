@@ -45,8 +45,8 @@ figure is wrong, open an issue with your run file.
 
 ## Status
 
-18 October 2026: the runner exists and its Solana driver detects the three levels on live transfers
-(`watch`). No run is recorded yet: the first sender wallet is waiting for funds.
+18 October 2026: the first run is in `runs/solana/`: twenty transfers of 1 USDC from runner-1 through Infura, one at a time. Slowest confirmed 1.105 s, slowest finalized 8.075 s. The page is not
+built yet.
 
 ## Made by
 

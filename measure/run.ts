@@ -194,7 +194,8 @@ export function writeRun(run: Run): string {
   const dir = join(root, "runs", run.chain);
   mkdirSync(dir, { recursive: true });
   const file = join(dir, `${run.stamp}.json`);
-  writeFileSync(file, `${JSON.stringify(run, null, 2)}\n`);
+  // Runs are append-only: a second run of the same chain in the same minute must not replace the first.
+  writeFileSync(file, `${JSON.stringify(run, null, 2)}\n`, { flag: "wx" });
   return file;
 }
 
