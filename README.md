@@ -20,22 +20,28 @@ news.md      what changed, and when
 
 ## Run it yourself, for your chain
 
-This repository never holds a key. With your own wallets and RPC URL:
+This repository never holds a key. With Node 22.6 or newer, an RPC URL and two wallets of yours:
 
 ```sh
 git clone https://github.com/burmisov/txfinality.com
 cd txfinality.com
-cp .env.example .env            # your RPC URL and the two wallets for the chain you care about; never committed
 npm install
+cp .env.example .env               # your RPC URL for the chain; never committed
+npx txfinality wallet --chain solana        # or put your own sender key and recipient address in .env
+#   → prints the sender to fund: a little SOL for fees, and 200 USDC for 20 transfers of 10
 npx txfinality measure --chain solana --runs 20     # → runs/solana/<stamp>.json, with the hashes
 ```
+
+Without a wallet, `npx txfinality watch --chain solana` times other people's transfers from first sight,
+to see the levels move. It sends nothing.
 
 The page is built elsewhere from these files; the figures on it are the figures in `runs/`. If you think a
 figure is wrong, open an issue with your run file.
 
 ## Status
 
-Nothing is measured yet (18 October 2026). The runner is being written.
+18 October 2026: the runner exists and its Solana driver detects the three levels on live transfers
+(`watch`). No run is recorded yet: the first sender wallet is waiting for funds.
 
 ## Made by
 

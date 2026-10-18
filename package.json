@@ -1,0 +1,27 @@
+{
+  "name": "txfinality",
+  "version": "0.0.0",
+  "private": true,
+  "description": "How long until a stablecoin transfer is final? Measured, chain by chain.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "bin": {
+    "txfinality": "measure/bin.js"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test measure/run.test.ts measure/env.test.ts"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.4.15",
+    "@solana/web3.js": "^1.99.0",
+    "bs58": "^6.0.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.0"
+  }
+}
