@@ -1,0 +1,25 @@
+id: ethereum
+name: Ethereum
+family: evm-final-tag
+status: by-design            # shown with its docs, not measured
+since: 2026-10-18
+icon: ethereum.jpg
+asset:
+  symbol: USDC
+  contract: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+  amount: "10"
+rpc:
+  env: ETHEREUM_RPC_URL
+  provider: ""
+levels:
+  - { name: slot, detect: "receipt" }
+  - { name: safe, detect: "block tag safe", role: done }
+  - { name: finalized, detect: "block tag finalized", role: final }
+claim:
+  text: ""                   # to be quoted from the docs below
+  url: "https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/#finality"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  By design: 12-second slots; "safe" after one epoch, "final" after two. Faster finality is a research
+  track, not a setting. Not measured.

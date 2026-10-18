@@ -1,0 +1,28 @@
+# One file per chain. Copy, rename to <id>.yaml, fill. The page is built from these files.
+id: example
+name: Example Chain
+family: evm-final-tag        # solana | evm-final-tag | rollup | own-final-flag | …  (which driver measures it)
+status: candidate            # measured | by-design | candidate | dropped
+since: 2026-10-18
+icon: example.jpg            # site/icons/<icon>
+asset:
+  symbol: USDC
+  contract: "0x…"
+  amount: "10"
+rpc:
+  env: EXAMPLE_RPC_URL       # the variable's NAME; the value lives in .env, never here
+  provider: ""               # named in every run
+wallets:
+  from_env: EXAMPLE_FROM_KEY # the NAME of the variable holding the sending key
+  to_env: EXAMPLE_TO_ADDRESS
+levels:                      # the chain's own words, in order; how the driver detects each; which is done / final
+  - { name: "in block", detect: "receipt" }
+  - { name: "safe", detect: "block tag safe", role: done }
+  - { name: "finalized", detect: "block tag finalized", role: final }
+claim:                       # quoted from the docs, never paraphrased
+  text: ""
+  url: ""
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  Hand-written, in the author's voice. One or two sentences on what the levels mean on this chain.

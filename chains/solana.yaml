@@ -1,0 +1,28 @@
+id: solana
+name: Solana
+family: solana
+status: candidate            # becomes measured with the first real run
+since: 2026-10-18
+icon: solana.jpg
+asset:
+  symbol: USDC
+  contract: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+  amount: "10"
+rpc:
+  env: SOLANA_RPC_URL
+  provider: ""
+wallets:
+  from_env: SOLANA_FROM_KEY
+  to_env: SOLANA_TO_ADDRESS
+levels:
+  - { name: processed, detect: "commitment=processed" }
+  - { name: confirmed, detect: "commitment=confirmed", role: done }
+  - { name: finalized, detect: "commitment=finalized", role: final }
+claim:
+  text: ""                   # to be quoted from the docs below, not paraphrased
+  url: "https://solana.com/docs/rpc#configuring-state-commitment"
+  read_on: 2026-10-18        # the URL was identified today; the quote is still to be read in
+  next_read: 2026-11-18
+note: |
+  "Confirmed" is what wallets show; "finalized" is the rooted slot, some thirty confirmations later.
+  Both are real, and they are seconds apart.
