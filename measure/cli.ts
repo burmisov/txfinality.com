@@ -23,7 +23,8 @@ const usage = `usage:
   txfinality measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--machine "runner-1"]
   txfinality watch   --chain <id> [--limit 10] [--poll-ms 500]
   txfinality wallet  --chain <id>
-  txfinality return  --chain <id>`;
+  txfinality return  --chain <id>
+  txfinality select                      the landscape: who holds the most dollars today → landscape/<date>.json`;
 
 async function main(argv: string[]): Promise<number> {
   const [command, ...rest] = argv;
@@ -39,6 +40,13 @@ async function main(argv: string[]): Promise<number> {
     },
     strict: true,
   });
+  if (command === "select") {
+    const { select, describe } = await import("../select/select.ts");
+    const { file, landscape } = await select();
+    for (const line of describe(landscape)) console.log(line);
+    console.log(`saved ${file.slice(root.length + 1)}`);
+    return 0;
+  }
   if (!command || !["measure", "watch", "wallet", "return"].includes(command) || !values.chain) {
     console.error(usage);
     return 2;

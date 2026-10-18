@@ -12,7 +12,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test measure/run.test.ts measure/env.test.ts"
+    "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test measure/run.test.ts measure/env.test.ts select/select.test.ts"
   },
   "dependencies": {
     "@solana/spl-token": "^0.4.15",
