@@ -1,6 +1,6 @@
 # Method v0 (draft, 2026-10-18)
 
-a. A wallet of ours sends 1 USDC (USDT where USDC is not native on the chain) to a second wallet of
+a. A wallet of ours sends 1 USDC (USDT where the chain has only USDT) to a second wallet of
    ours, one the runner derives from the first wallet's key and never stores. Nothing else is in the transaction beyond what makes it land and tells it apart: on Solana, a
    memo naming the run and a small priority fee.
 b. The clock starts the instant before the signed transaction leaves our machine. The machine and the
@@ -24,10 +24,13 @@ g. Setup and teardown are not timed. Before the first transfer the runner create
    closes what it created and reclaims the rent. Their transaction ids are in the run file too.
 
 h. By design: a chain is listed with its documented figures and not measured when even the earliest level
-   it calls safe takes minutes (Ethereum: an epoch; Bitcoin: a block). Chains whose first safe level comes
+   it stands behind takes a minute or more (Ethereum: an epoch; Bitcoin: a block; Tron: solidified). Chains whose first safe level comes
    in seconds are measured, however long their last level takes — the rollups included.
 i. Until a chain is measured, the page shows the seconds its own docs give, marked ≈, with the quote beside
    them. Where the docs give no number, the page shows ?.
+
+j. A chain may be listed outside the cut by decision, when it is new and built for stablecoins (Arc), or
+   because everyone asks (Bitcoin); the landscape file says so.
 
 Open: whether the first level ("first in a block") is shown on the page or only kept in the run file;
 the cap per chain run (30 min in the code); what to do with a transfer that fails to land (recorded as

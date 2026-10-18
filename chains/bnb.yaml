@@ -7,7 +7,7 @@ icon: binance.jpg
 chainId: 56
 asset:
   symbol: USDT
-  contract: ""
+  contract: "0x55d398326f99059fF775485246999027B3197955"   # Binance-Peg BSC-USD: name "Tether USD", symbol USDT, 18 decimals, read over RPC 2026-10-18; not on Tether's own page
   amount: "1"
 rpc:
   env: BNB_RPC_URL
@@ -24,5 +24,5 @@ claim:
   next_read: 2026-11-18
 note: |
   Sub-half-second blocks and a finality vote two blocks later. The number to trust is the second one.
-  Not measured yet, and the asset is open: neither Circle nor Tether lists a USDC or USDT contract on
-  BSC; the usual ones are Binance-pegged.
+  The dollar here is USDT as Binance issues it on its chain (BSC-USD), which is what everyone on BNB
+  Chain uses. Not measured yet.

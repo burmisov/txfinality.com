@@ -1,0 +1,27 @@
+id: arc
+name: Arc
+family: evm
+status: candidate
+since: 2026-10-18
+icon: null
+chainId: 5042
+asset:
+  symbol: USDC
+  contract: "0x3600000000000000000000000000000000000000"
+  amount: "1"
+rpc:
+  env: ARC_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "final", detect: "receipt", role: done-final, seconds: 1 }   # "either pending or final"; "in under one second"
+claim:
+  text: "Arc uses a two-state transaction model. A transaction is either pending (in the mempool) or final (included in a committed block). There is no intermediate \"confirming\" state and no concept of accumulating confirmations."
+  url: "https://docs.arc.io/integrate/wallets/transaction-lifecycle"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  Circle's own chain, with USDC as the gas. Two states and nothing between: pending, then final, in
+  under a second by its docs. Below the cut by stablecoins held today; listed because it is new and
+  built for exactly this. Not measured yet.

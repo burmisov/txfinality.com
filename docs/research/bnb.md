@@ -26,4 +26,4 @@ Read 2026-10-18. Quotes are verbatim from the page named; nothing here is paraph
 
 - Chain id 56; public endpoints include https://bsc-dataseed.bnbchain.org.
 - Probabilistic fallback when votes are short: ">½" 88 blocks, ">⅔" 120 blocks.
-- ASSET OPEN: Circle lists no USDC on BSC; Tether's page lists only XAU₮ for BSC. The common USDT 0x55d398… and USDC 0x8AC76a… are Binance-Peg tokens, not on either issuer's page. Decide before the first run.
+- Asset: Circle lists no USDC on BSC and Tether's page lists only XAU₮ for BSC. The USDT everyone uses there is Binance-Peg BSC-USD, 0x55d398326f99059fF775485246999027B3197955; read over RPC on 2026-10-18 it answers name "Tether USD", symbol USDT, 18 decimals. His decision 2026-10-18: use USDT where a chain only has USDT.

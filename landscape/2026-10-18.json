@@ -1,6 +1,6 @@
 {
   "date": "2026-10-18",
-  "readAt": "2026-10-18T21:27:47.480Z",
+  "readAt": "2026-10-18T22:36:12.855Z",
   "method": "v0",
   "cut": 15,
   "sources": {
@@ -16,225 +16,250 @@
       "rank": 1,
       "name": "Ethereum",
       "id": "ethereum",
-      "stablecoinsUsd": 144951486134,
-      "marketCapUsd": 287898652386,
+      "stablecoinsUsd": 144961817727,
+      "marketCapUsd": 291134269449,
       "inside": true,
+      "listed": true,
       "status": "by-design"
     },
     {
       "rank": 2,
       "name": "Tron",
       "id": "tron",
-      "stablecoinsUsd": 95021569443,
-      "marketCapUsd": 31546506591,
+      "stablecoinsUsd": 95028658632,
+      "marketCapUsd": 31631438725,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "by-design"
     },
     {
       "rank": 3,
       "name": "Solana",
       "id": "solana",
-      "stablecoinsUsd": 15523220425,
-      "marketCapUsd": 59753205555,
+      "stablecoinsUsd": 15537244311,
+      "marketCapUsd": 60766571307,
       "inside": true,
+      "listed": true,
       "status": "measured"
     },
     {
       "rank": 4,
       "name": "BSC",
       "id": "bnb",
-      "stablecoinsUsd": 13624125665,
-      "marketCapUsd": 94426407475,
+      "stablecoinsUsd": 13624634453,
+      "marketCapUsd": 95426199851,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 5,
       "name": "Hyperliquid L1",
       "id": "hyperliquid",
-      "stablecoinsUsd": 7055085535,
-      "marketCapUsd": 17048034730,
+      "stablecoinsUsd": 7081221741,
+      "marketCapUsd": 17380538560,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 6,
       "name": "Base",
       "id": "base",
-      "stablecoinsUsd": 5194903473,
+      "stablecoinsUsd": 5189495554,
       "marketCapUsd": null,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 7,
       "name": "Arbitrum",
       "id": "arbitrum",
-      "stablecoinsUsd": 3690078887,
-      "marketCapUsd": 1219405507,
+      "stablecoinsUsd": 3663781882,
+      "marketCapUsd": 1259874145,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 8,
       "name": "Polygon",
       "id": "polygon",
-      "stablecoinsUsd": 2877427353,
-      "marketCapUsd": 943408393,
+      "stablecoinsUsd": 2877837646,
+      "marketCapUsd": 963165591,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 9,
       "name": "X Layer",
       "id": "xlayer",
-      "stablecoinsUsd": 1495627001,
-      "marketCapUsd": 2331570038,
+      "stablecoinsUsd": 1495804382,
+      "marketCapUsd": 2364214442,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 10,
       "name": "Avalanche",
       "id": "avalanche",
-      "stablecoinsUsd": 1312267103,
-      "marketCapUsd": 4171483333,
+      "stablecoinsUsd": 1312280422,
+      "marketCapUsd": 4260285381,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 11,
       "name": "Plasma",
       "id": "plasma",
-      "stablecoinsUsd": 1275908856,
-      "marketCapUsd": 336861405,
+      "stablecoinsUsd": 1276178627,
+      "marketCapUsd": 344507455,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 12,
       "name": "XRPL",
       "id": "xrpl",
-      "stablecoinsUsd": 1112199583,
-      "marketCapUsd": 79995267097,
+      "stablecoinsUsd": 1112281644,
+      "marketCapUsd": 81903271763,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 13,
       "name": "Robinhood Chain",
       "id": "robinhood",
-      "stablecoinsUsd": 1051879717,
+      "stablecoinsUsd": 1051872806,
       "marketCapUsd": null,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 14,
       "name": "Aptos",
       "id": "aptos",
-      "stablecoinsUsd": 935910474,
-      "marketCapUsd": 655781374,
+      "stablecoinsUsd": 938981258,
+      "marketCapUsd": 674704584,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 15,
       "name": "TON",
       "id": "ton",
-      "stablecoinsUsd": 739559748,
-      "marketCapUsd": 3758776489,
+      "stablecoinsUsd": 739611156,
+      "marketCapUsd": 3804334970,
       "inside": true,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 16,
       "name": "Tempo",
       "id": "tempo",
-      "stablecoinsUsd": 718674405,
+      "stablecoinsUsd": 719511612,
       "marketCapUsd": null,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 17,
       "name": "Monad",
       "id": "monad",
-      "stablecoinsUsd": 696396218,
-      "marketCapUsd": 238319300,
+      "stablecoinsUsd": 696101430,
+      "marketCapUsd": 248831569,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 18,
       "name": "Arc",
       "id": "arc",
-      "stablecoinsUsd": 668855261,
+      "stablecoinsUsd": 668711480,
       "marketCapUsd": null,
       "inside": false,
-      "status": "no chain file"
+      "listed": true,
+      "status": "candidate"
     },
     {
       "rank": 19,
       "name": "OP Mainnet",
       "id": "optimism",
-      "stablecoinsUsd": 602522565,
-      "marketCapUsd": 274759835,
+      "stablecoinsUsd": 602594932,
+      "marketCapUsd": 283683648,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 20,
       "name": "Stellar",
       "id": "stellar",
-      "stablecoinsUsd": 541824547,
-      "marketCapUsd": 6085315041,
+      "stablecoinsUsd": 537942172,
+      "marketCapUsd": 6215330577,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 21,
       "name": "Mantle",
       "id": "mantle",
-      "stablecoinsUsd": 536050333,
-      "marketCapUsd": 1718355298,
+      "stablecoinsUsd": 536088036,
+      "marketCapUsd": 1733187117,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 22,
       "name": "Sui",
       "id": "sui",
-      "stablecoinsUsd": 502468702,
-      "marketCapUsd": 3910465815,
+      "stablecoinsUsd": 502469764,
+      "marketCapUsd": 4018745625,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 23,
       "name": "Provenance",
       "id": "provenance",
-      "stablecoinsUsd": 473567387,
+      "stablecoinsUsd": 473557764,
       "marketCapUsd": null,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 24,
       "name": "Fantom",
       "id": "fantom",
-      "stablecoinsUsd": 337532496,
+      "stablecoinsUsd": 337560211,
       "marketCapUsd": null,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
       "rank": 25,
       "name": "Kaia",
       "id": "kaia",
-      "stablecoinsUsd": 226002421,
+      "stablecoinsUsd": 226017859,
       "marketCapUsd": null,
       "inside": false,
+      "listed": false,
       "status": "no chain file"
     },
     {
@@ -242,9 +267,10 @@
       "name": "Bitcoin",
       "id": "bitcoin",
       "stablecoinsUsd": 0,
-      "marketCapUsd": 1625983108160,
+      "marketCapUsd": 1637663738839,
       "inside": false,
-      "status": "no chain file"
+      "listed": true,
+      "status": "by-design"
     }
   ]
 }

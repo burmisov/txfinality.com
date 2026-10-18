@@ -1,7 +1,7 @@
 id: tron
 name: Tron
 family: tron
-status: candidate
+status: by-design            # by his decision 2026-10-18: no intermediate level the chain stands behind, and solid takes a minute
 since: 2026-10-18
 icon: tron.jpg
 asset:
@@ -14,14 +14,14 @@ rpc:
 wallets:
   from_env: TRON_FROM_KEY
 levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
-  - { name: "in a block", detect: "wallet/gettransactioninfobyid", role: done, seconds: 3 }   # 3-second blocks; the docs call this pending
-  - { name: "solidified", detect: "walletsolidity/gettransactioninfobyid", role: final, seconds: 60 }   # 19 distinct SRs, "typically in about 1 minute"
+  - { name: "in a block", detect: "wallet/gettransactioninfobyid", seconds: 3 }   # 3-second blocks; the docs call this pending and reorganisable
+  - { name: "solidified", detect: "walletsolidity/gettransactioninfobyid", role: done-final, seconds: 60 }   # 19 distinct SRs, "typically in about 1 minute"
 claim:
   text: "Blocks become irreversible — solidified — once at least 19 distinct active SRs have each produced a block at that height or above, typically in about 1 minute."
   url: "https://developers.tron.network/docs/concensus"
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |
-  Tron is where most of the dollars are, and a block is three seconds. "Solidified" takes nineteen of
-  them, about a minute, and the docs say exchanges and wallets settle on that. Not measured yet: the
-  driver is to be written; the figures are the docs' own.
+  By design: a block every three seconds, but the docs call that pending; the only level Tron stands
+  behind is "solidified", nineteen producers later, about a minute. Nothing in between to measure, so
+  it is listed with its docs, like Ethereum.

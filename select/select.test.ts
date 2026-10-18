@@ -37,4 +37,7 @@ test("the landscape ranks by total stablecoin USD, cuts at CUT, maps known names
   assert.equal(btc.rank, null, "not in the source's list at all");
   assert.equal(btc.inside, false);
   assert.equal(btc.marketCapUsd, 1600e9);
+  assert.equal(btc.listed, true);
+  assert.equal(l.chains.find((c) => c.name === "Chain 0")?.listed, true, "inside the cut");
+  assert.equal(l.chains.find((c) => c.name === "Chain 20")?.listed, false, "below the cut and not by decision");
 });

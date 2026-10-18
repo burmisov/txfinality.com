@@ -39,8 +39,9 @@ export const KNOWN: Record<string, { id: string; coin: string | null }> = {
   Bitcoin: { id: "bitcoin", coin: "bitcoin" },
 };
 
-/** Listed whatever the ranking says, because everyone asks. */
-export const ALWAYS = ["Bitcoin"];
+/** Listed whatever the ranking says: Bitcoin because everyone asks, Arc because it is new and built
+ *  for stablecoins (his decision, 2026-10-18). Method v0, rule j. */
+export const ALWAYS = ["Bitcoin", "Arc"];
 
 export type Entry = {
   rank: number | null;
@@ -49,6 +50,8 @@ export type Entry = {
   stablecoinsUsd: number;
   marketCapUsd: number | null;
   inside: boolean;
+  /** on the page: inside the cut, or listed by decision (ALWAYS) */
+  listed: boolean;
   /** from chains/<id>.yaml, or "no chain file" */
   status: string;
 };
@@ -94,6 +97,7 @@ export function landscape(llama: LlamaChain[], gecko: GeckoCoin[], readAt: Date)
       stablecoinsUsd: Math.round(c.usd),
       marketCapUsd: coin === null ? null : (caps.get(coin) ?? null),
       inside: i < CUT,
+      listed: i < CUT || ALWAYS.includes(c.name),
       status: statusOf(id),
     });
   });
@@ -109,6 +113,7 @@ export function landscape(llama: LlamaChain[], gecko: GeckoCoin[], readAt: Date)
       stablecoinsUsd: Math.round(found?.usd ?? 0),
       marketCapUsd: known?.coin ? (caps.get(known.coin) ?? null) : null,
       inside: false,
+      listed: true,
       status: statusOf(id),
     });
   }
@@ -149,6 +154,6 @@ export function describe(l: Landscape): string[] {
   const bn = (n: number | null): string => (n === null ? "—" : `$${(n / 1e9).toFixed(2)} bn`);
   return l.chains.map(
     (c) =>
-      `${String(c.rank ?? "·").padStart(3)} ${c.inside ? "in " : "   "} ${c.name.padEnd(16)} ${bn(c.stablecoinsUsd).padStart(11)}  ${bn(c.marketCapUsd).padStart(11)}  ${c.status}`,
+      `${String(c.rank ?? "·").padStart(3)} ${c.inside ? "in " : c.listed ? "+  " : "   "} ${c.name.padEnd(16)} ${bn(c.stablecoinsUsd).padStart(11)}  ${bn(c.marketCapUsd).padStart(11)}  ${c.status}`,
   );
 }
