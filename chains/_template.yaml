@@ -8,13 +8,12 @@ icon: example.jpg            # site/icons/<icon>
 asset:
   symbol: USDC
   contract: "0x…"
-  amount: "10"
+  amount: "1"
 rpc:
   env: EXAMPLE_RPC_URL       # the variable's NAME; the value lives in .env, never here
   provider: ""               # named in every run
 wallets:
-  from_env: EXAMPLE_FROM_KEY # the NAME of the variable holding the sending key
-  to_env: EXAMPLE_TO_ADDRESS
+  from_env: EXAMPLE_FROM_KEY # the NAME of the variable holding the sending key; the recipient is derived from it
 levels:                      # the chain's own words, in order; how the driver detects each; which is done / final
   - { name: "in block", detect: "receipt" }
   - { name: "safe", detect: "block tag safe", role: done }

@@ -1,12 +1,15 @@
-// The runner. Sends n transfers one per second, polls them together until every one has reached
-// the chain's final level or the cap is hit, and writes `runs/<chain>/<stamp>.json`.
+// The runner. Sends n transfers one at a time: each is sent alone, watched until it reaches the
+// chain's final level (or fails, or its cap passes), and only then is the next one built and sent.
+// Nothing else happens while a transfer is in flight. It writes `runs/<chain>/<stamp>.json`.
 //
 // The clock for a transfer starts the instant before its bytes leave this machine. A level's time
-// is the instant the poll that first showed it came back, so every figure includes one poll
-// interval and one RPC round trip of slack: the number is never smaller than the truth.
+// is the instant the poll that first showed it came back, so every figure includes up to one poll
+// interval and one RPC round trip of slack: the number is never smaller than the truth. Durations
+// come from the monotonic clock, to the millisecond.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { hostname } from "node:os";
 import { join } from "node:path";
+import { performance } from "node:perf_hooks";
 
 import { type Chain, roleLevel } from "./chain.ts";
 import type { Driver } from "./driver.ts";
@@ -17,9 +20,11 @@ export const METHOD = "v0";
 export type Transfer = {
   id: string;
   sent: string;
-  /** seconds from `sent` to the first sight of each level, in the chain file's words */
+  /** seconds from `sent` to the first sight of each level, in the chain file's words, to the ms */
   levels: Record<string, number>;
   failed?: string;
+  /** how many status polls it took; with pollMs, the slack this transfer's figures carry */
+  polls: number;
 };
 
 export type Run = {
@@ -31,6 +36,10 @@ export type Run = {
   asset: string;
   amount: string;
   chainFile: string;
+  wallets: { from: string; to: string };
+  /** transactions outside the clock: what setup created and what teardown undid */
+  setup: string[];
+  teardown: string[];
   runs: number;
   pollMs: number;
   capMinutes: number;
@@ -42,6 +51,7 @@ export type Run = {
 export type Options = {
   runs: number;
   pollMs: number;
+  /** per transfer: a transfer still short of final after this long is left where it is */
   capMinutes: number;
   machine?: string;
   /** host of the RPC endpoint, for the record; never the URL */
@@ -91,42 +101,34 @@ export function stampOf(d: Date): string {
 
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
-/** Polls `driver.status` for the transfers in `transfers` until each has reached the last level,
- *  failed, or `deadline` passes. New transfers may be pushed while it runs. */
-export async function watchLevels(
+/** Polls `driver.status` for one transfer until it has reached the last level, failed, or
+ *  `capMs` has passed since `from` (a `performance.now()` reading taken before sending). */
+export async function watchOne(
   driver: Driver,
-  transfers: Transfer[],
-  sentAt: Map<string, number>,
-  deadline: number,
+  t: Transfer,
+  from: number,
+  capMs: number,
   pollMs: number,
-  sending: () => boolean,
   log?: Options["log"],
 ): Promise<void> {
   const final = driver.levels[driver.levels.length - 1];
   if (final === undefined) throw new Error("driver has no levels");
-  const over = (t: Transfer): boolean => t.failed !== undefined || t.levels[final] !== undefined;
-  for (;;) {
-    const open = transfers.filter((t) => !over(t));
-    if (open.length === 0 && !sending()) return;
-    if (Date.now() > deadline) return;
-    if (open.length > 0) {
-      const statuses = await driver.status(open.map((t) => t.id));
-      const now = Date.now();
-      for (const t of open) {
-        const s = statuses.get(t.id);
-        if (!s) continue;
-        const from = sentAt.get(t.id);
-        if (from === undefined) continue;
-        for (const level of reached(driver.levels, s.level)) {
-          if (t.levels[level] === undefined) {
-            t.levels[level] = Math.round((now - from) / 10) / 100;
-            say(log, `  ${t.id.slice(0, 8)}… ${level} ${t.levels[level]}s`);
-          }
+  while (t.failed === undefined && t.levels[final] === undefined) {
+    if (performance.now() - from > capMs) return;
+    const statuses = await driver.status([t.id]);
+    const now = performance.now();
+    t.polls++;
+    const s = statuses.get(t.id);
+    if (s) {
+      for (const level of reached(driver.levels, s.level)) {
+        if (t.levels[level] === undefined) {
+          t.levels[level] = Math.round(now - from) / 1000;
+          say(log, `  ${level.padEnd(12)} ${t.levels[level]}s`);
         }
-        if (s.failed !== undefined && t.failed === undefined) {
-          t.failed = s.failed;
-          say(log, `  ${t.id.slice(0, 8)}… failed on chain: ${s.failed}`);
-        }
+      }
+      if (s.failed !== undefined) {
+        t.failed = s.failed;
+        say(log, `  failed on chain: ${s.failed}`);
       }
     }
     await sleep(pollMs);
@@ -140,29 +142,31 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
   const started = new Date();
   const stamp = stampOf(started);
   const tag = `txfinality ${chain.id} ${stamp}`;
-  for (const line of await driver.setup()) say(opts.log, line);
+  const setup = await driver.setup();
+  for (const line of setup.lines) say(opts.log, line);
 
   const transfers: Transfer[] = [];
-  const sentAt = new Map<string, number>();
-  let sending = true;
-  const deadline = started.getTime() + opts.capMinutes * 60_000;
-  const watching = watchLevels(driver, transfers, sentAt, deadline, opts.pollMs, () => sending, opts.log);
-
-  say(opts.log, `sending ${opts.runs} transfers of ${chain.asset.amount} ${chain.asset.symbol}, one per second`);
-  for (let i = 0; i < opts.runs; i++) {
-    const signed = await driver.prepare(i, opts.runs, `${tag} ${i + 1}/${opts.runs}`);
-    const at = Date.now();
-    sentAt.set(signed.id, at);
-    transfers.push({ id: signed.id, sent: new Date(at).toISOString(), levels: {} });
-    await driver.send(signed);
-    say(opts.log, `  ${i + 1}/${opts.runs} ${signed.id}`);
-    const rest = at + 1000 - Date.now();
-    if (rest > 0 && i + 1 < opts.runs) await sleep(rest);
+  say(opts.log, `${opts.runs} transfers of ${chain.asset.amount} ${chain.asset.symbol}, one at a time, each to final before the next`);
+  let teardown: { lines: string[]; txs: string[] } = { lines: [], txs: [] };
+  try {
+    for (let i = 0; i < opts.runs; i++) {
+      const signed = await driver.prepare(i, opts.runs, `${tag} ${i + 1}/${opts.runs}`);
+      const t: Transfer = { id: signed.id, sent: "", levels: {}, polls: 0 };
+      const from = performance.now();
+      t.sent = new Date().toISOString();
+      await driver.send(signed);
+      say(opts.log, `${i + 1}/${opts.runs} ${signed.id}`);
+      transfers.push(t);
+      await watchOne(driver, t, from, opts.capMinutes * 60_000, opts.pollMs, opts.log);
+    }
+  } finally {
+    // Whatever happened above, what setup created is undone and the asset goes back to the
+    // sender. If this itself fails, `txfinality return` does the same thing by hand.
+    teardown = await driver.teardown();
+    for (const line of teardown.lines) say(opts.log, line);
   }
-  sending = false;
-  await watching;
 
-  const run: Run = {
+  return {
     chain: chain.id,
     method: METHOD,
     stamp,
@@ -171,6 +175,9 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     asset: chain.asset.symbol,
     amount: chain.asset.amount,
     chainFile: chain.hash,
+    wallets: driver.wallets,
+    setup: setup.txs,
+    teardown: teardown.txs,
     runs: opts.runs,
     pollMs: opts.pollMs,
     capMinutes: opts.capMinutes,
@@ -181,7 +188,6 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     },
     notReached: notReached(transfers, driver.levels),
   };
-  return run;
 }
 
 export function writeRun(run: Run): string {

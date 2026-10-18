@@ -17,7 +17,8 @@ export type Chain = {
   status: "measured" | "by-design" | "candidate" | "dropped";
   asset: { symbol: string; contract: string; amount: string };
   rpc: { env: string; provider: string };
-  wallets: { from_env: string; to_env: string };
+  /** only the sender's key; the recipient is the driver's own, derived from it */
+  wallets: { from_env: string };
   levels: Level[];
   claim: { text: string; url: string; read_on: string; next_read: string };
   note: string;

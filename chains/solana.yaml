@@ -7,13 +7,12 @@ icon: solana.jpg
 asset:
   symbol: USDC
   contract: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-  amount: "10"
+  amount: "1"
 rpc:
   env: SOLANA_RPC_URL
   provider: ""
 wallets:
   from_env: SOLANA_FROM_KEY
-  to_env: SOLANA_TO_ADDRESS
 levels:
   - { name: processed, detect: "commitment=processed" }
   - { name: confirmed, detect: "commitment=confirmed", role: done }
