@@ -1,0 +1,27 @@
+id: avalanche
+name: Avalanche
+family: evm
+status: candidate
+since: 2026-10-18
+icon: avalanche.jpg
+chainId: 43114
+asset:
+  symbol: USDC
+  contract: "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
+  amount: "1"
+rpc:
+  env: AVALANCHE_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "accepted", detect: "receipt", role: done, seconds: 1 }   # "acceptance/rejection are final and irreversible"; "~1 second acceptance latency"
+  - { name: "settled", detect: "block tag finalized", role: final }   # "the most recent block whose execution results are included in an accepted block"; no number
+claim:
+  text: "In Avalanche, acceptance/rejection are final and irreversible and only take a few seconds."
+  url: "https://build.avax.network/docs/primary-network/avalanche-consensus"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  Accepted is final, the docs say, in about a second; the RPC's finalized tag points one step later,
+  at the block whose execution results are themselves accepted. Not measured yet.

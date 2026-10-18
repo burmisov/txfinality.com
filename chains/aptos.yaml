@@ -1,0 +1,25 @@
+id: aptos
+name: Aptos
+family: aptos
+status: candidate
+since: 2026-10-18
+icon: aptos.jpg
+asset:
+  symbol: USDC
+  contract: "0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b"
+  amount: "1"
+rpc:
+  env: APTOS_API_URL
+  provider: ""
+wallets:
+  from_env: APTOS_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "committed", detect: "GET /transactions/by_hash → user_transaction with success", role: done-final, seconds: 1 }   # "final as soon as it commits"; end to end "typically sub-second"
+claim:
+  text: "A successful payment is final as soon as the transaction commits (BFT consensus, no extra block confirmations)."
+  url: "https://aptos.dev/build/guides/payments"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  One level: committed is final, and the docs say it takes under a second end to end. Not measured
+  yet: the driver is to be written; the figure is the docs' own.

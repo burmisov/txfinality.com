@@ -1,0 +1,27 @@
+id: ton
+name: TON
+family: ton
+status: candidate
+since: 2026-10-18
+icon: ton.jpg
+asset:
+  symbol: USDT
+  contract: "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs"
+  amount: "1"
+rpc:
+  env: TON_API_URL
+  provider: ""
+wallets:
+  from_env: TON_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a shardchain block", detect: "transaction seen in the shard" }   # the docs give no number and say this is not yet final
+  - { name: "in a masterchain block", detect: "referenced by a masterchain block", role: done-final, seconds: 1 }   # "typically within 1 second"
+claim:
+  text: "TON achieves transaction finality after a single masterchain block confirmation, typically within 1 second."
+  url: "https://docs.ton.org/v3/guidelines/dapps/asset-processing/payments-processing"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  A shard block is quick, and the masterchain block that seals it is what the docs call final: about a
+  second, they say. One level counts, and it is fast. Not measured yet: the driver is to be written;
+  the figure is the docs' own.

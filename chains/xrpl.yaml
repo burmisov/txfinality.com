@@ -1,0 +1,26 @@
+id: xrpl
+name: XRP Ledger
+family: xrpl
+status: candidate
+since: 2026-10-18
+icon: xrp.jpg
+asset:
+  symbol: USDC
+  contract: "USDC.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE"
+  amount: "1"
+rpc:
+  env: XRPL_RPC_URL
+  provider: ""
+wallets:
+  from_env: XRPL_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "validated", detect: "tx → validated: true and tesSUCCESS", role: done-final, seconds: 6 }   # "three to six seconds"; the open and closed ledgers before it are not final
+claim:
+  text: "When the network agrees on the contents of a ledger version, that ledger version is validated , and its contents can never change."
+  url: "https://xrpl.org/docs/concepts/consensus-protocol/consensus-structure"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  A ledger closes every few seconds and a validated ledger is final; there is nothing after it. Old,
+  simple, and it has not changed. Not measured yet: the driver is to be written; the figure is the
+  docs' upper bound.

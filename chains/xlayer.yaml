@@ -1,0 +1,27 @@
+id: xlayer
+name: X Layer
+family: evm
+status: candidate
+since: 2026-10-18
+icon: xlayer.jpg
+chainId: 196
+asset:
+  symbol: USDC
+  contract: "0xB6CEceAB302E2E4948951eE7843FC24E92933061"
+  amount: "1"
+rpc:
+  env: XLAYER_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done, seconds: 1 }   # "1-second block times"
+  - { name: "L1 finalized", detect: "block tag finalized", role: final }   # OP Stack semantics assumed; the docs do not define the tags and give no number
+claim:
+  text: "Fast execution happens on L2 with 1-second block times."
+  url: "https://web3.okx.com/xlayer/docs/developer/build-on-xlayer/quickstart"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  OKX's chain, now on the OP Stack with the AggLayer. One-second blocks; what final means on Ethereum,
+  the docs do not yet say in numbers. Not measured yet.

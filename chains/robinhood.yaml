@@ -1,0 +1,28 @@
+id: robinhood
+name: Robinhood Chain
+family: evm
+status: candidate
+since: 2026-10-18
+icon: null
+chainId: 4663
+asset:
+  symbol: USDG
+  contract: "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168"
+  amount: "1"
+rpc:
+  env: ROBINHOOD_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done, seconds: 1 }   # "Soft confirmation": "Sub-second"
+  - { name: "posted to L1", detect: "block tag safe" }   # "Posted to Ethereum": "Minutes"
+  - { name: "L1 finalized", detect: "block tag finalized", role: final }   # "~13 minutes after posting"; no total given
+claim:
+  text: "Full finality — your transaction inherits Ethereum's security and is irreversible."
+  url: "https://docs.robinhood.com/chain/transaction-finality"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  An Arbitrum chain run by Robinhood. Its docs list no USDC or USDT, only Paxos's USDG, so that is the
+  dollar this row would move. Final means Ethereum, minutes after posting. Not measured yet.

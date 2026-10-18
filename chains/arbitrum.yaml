@@ -1,0 +1,28 @@
+id: arbitrum
+name: Arbitrum One
+family: evm
+status: candidate
+since: 2026-10-18
+icon: arbitrum.jpg
+chainId: 42161
+asset:
+  symbol: USDC
+  contract: "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
+  amount: "1"
+rpc:
+  env: ARBITRUM_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done, seconds: 1 }   # "Sub-second" soft finality from the sequencer; 250 ms blocks
+  - { name: "posted to L1", detect: "block tag safe" }   # the batch reached Ethereum's safe block; the docs give no number
+  - { name: "L1 finalized", detect: "block tag finalized", role: final, seconds: 900 }   # "~2 epochs, roughly 12–15 minutes"
+claim:
+  text: "Hard finality—the `safe` and `finalized` tags—is inherited from the parent chain and is what makes a block reorg-proof."
+  url: "https://docs.arbitrum.io/how-arbitrum-works/reference/finality-and-reorgs"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  Same shape as Base: instant from the sequencer, final on Ethereum's clock, a quarter of an hour. Not
+  measured yet; the figures are the docs' own.

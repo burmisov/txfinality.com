@@ -1,9 +1,10 @@
 id: ethereum
 name: Ethereum
-family: evm-final-tag
-status: by-design            # shown with its docs, not measured
+family: evm
+status: by-design
 since: 2026-10-18
 icon: ethereum.jpg
+chainId: 1
 asset:
   symbol: USDC
   contract: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
@@ -12,16 +13,18 @@ rpc:
   env: ETHEREUM_RPC_URL
   provider: ""
 wallets:
-  from_env: ETHEREUM_FROM_KEY
-levels:                      # seconds: from the docs, for a by-design chain (not measured)
-  - { name: slot, detect: "receipt", seconds: 12 }
-  - { name: safe, detect: "block tag safe", role: done, seconds: 384 }
-  - { name: finalized, detect: "block tag finalized", role: final, seconds: 768 }
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "slot", detect: "receipt", seconds: 12 }   # "slots (12 seconds)"
+  - { name: "safe", detect: "block tag safe", role: done, seconds: 384 }   # DERIVED: one epoch = 32 × 12 s; the docs give no time for safe
+  - { name: "finalized", detect: "block tag finalized", role: final, seconds: 768 }   # DERIVED: two epoch checkpoints = 64 × 12 s; the docs give the mechanism, not the minutes
 claim:
-  text: ""                   # to be quoted from the docs below
-  url: "https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/#finality"
+  text: "Time in proof-of-stake Ethereum is divided into slots (12 seconds) and epochs (32 slots)."
+  url: "https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/"
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |
-  By design: 12-second slots; "safe" after one epoch, "final" after two. Faster finality is a research
-  track, not a setting. Not measured.
+  By design: a slot every twelve seconds, and a block is finalized once the checkpoint after its
+  epoch's checkpoint is justified. The docs give the mechanism and the slot, not the minutes; the 6.4
+  and 12.8 minutes here are arithmetic on them. Faster finality is a research track, not a setting.
+  Not measured.

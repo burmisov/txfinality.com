@@ -1,26 +1,27 @@
 id: bitcoin
 name: Bitcoin
 family: bitcoin
-status: by-design            # shown with its docs, not measured; outside the rule (no major stablecoin)
+status: by-design
 since: 2026-10-18
 icon: bitcoin.jpg
 asset:
   symbol: BTC
   contract: ""
-  amount: "0"
+  amount: "1"
 rpc:
   env: BITCOIN_RPC_URL
   provider: ""
 wallets:
   from_env: BITCOIN_FROM_KEY
-levels:                      # seconds: from the docs, for a by-design chain (not measured)
-  - { name: one block, detect: "in a block", role: done, seconds: 600 }
-  - { name: six blocks, detect: "six confirmations", role: final, seconds: 3600 }
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "one confirmation", detect: "gettransaction → confirmations ≥ 1", role: done, seconds: 600 }   # "10 minutes on average"
+  - { name: "six confirmations", detect: "gettransaction → confirmations ≥ 6", role: final, seconds: 3600 }   # "about an hour"; "somewhat arbitrary", a custom, not finality
 claim:
-  text: ""                   # to be quoted from the docs below
-  url: "https://developer.bitcoin.org/devguide/block_chain.html"
+  text: "6 confirmations: The network has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks."
+  url: "https://developer.bitcoin.org/devguide/payment_processing.html"
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |
-  By design: a block about every ten minutes, and six of them is the custom. Holds no major stablecoin,
-  so the rule leaves it out; shown because it is the chain everyone asks about. Not measured.
+  By design: a block about every ten minutes, and six of them is the custom, which the docs themselves
+  call somewhat arbitrary. Holds no major stablecoin, so the rule leaves it out; shown because it is
+  the chain everyone asks about. Not measured.

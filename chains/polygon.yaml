@@ -1,0 +1,27 @@
+id: polygon
+name: Polygon PoS
+family: evm
+status: candidate
+since: 2026-10-18
+icon: polygon.jpg
+chainId: 137
+asset:
+  symbol: USDC
+  contract: "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359"
+  amount: "1"
+rpc:
+  env: POLYGON_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done }   # the docs give no Bor block interval
+  - { name: "milestone", detect: "block tag finalized", role: final, seconds: 5 }   # "Milestones typically finalize a transaction within 2 to 5 seconds."
+claim:
+  text: "Milestones typically finalize a transaction within 2 to 5 seconds."
+  url: "https://docs.polygon.technology/pos/concepts/finality/finality"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  Blocks come quickly, but a milestone is what makes them final, and the docs now put that at two to
+  five seconds. The checkpoint to Ethereum comes later and is a separate matter. Not measured yet.

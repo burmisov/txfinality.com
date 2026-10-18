@@ -1,0 +1,26 @@
+id: hyperliquid
+name: Hyperliquid
+family: evm
+status: candidate
+since: 2026-10-18
+icon: hyperliquid.jpg
+chainId: 999
+asset:
+  symbol: USDC
+  contract: "0xb88339CB7199b77E23DB6E890353E22632Ba630f"
+  amount: "1"
+rpc:
+  env: HYPEREVM_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done-final, seconds: 1 }   # small blocks every 1 s, committed by HyperBFT; the docs name no later level and give no finality time
+claim:
+  text: "The HyperEVM consists of EVM blocks built as part of Hyperliquid's execution, inheriting all security from HyperBFT consensus."
+  url: "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  The EVM of an exchange chain: blocks every second, committed by HyperBFT, and no later level named.
+  One level, and it is fast, if the docs are right. Not measured yet.

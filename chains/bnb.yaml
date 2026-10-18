@@ -1,0 +1,28 @@
+id: bnb
+name: BNB Chain
+family: evm
+status: candidate
+since: 2026-10-18
+icon: binance.jpg
+chainId: 56
+asset:
+  symbol: USDT
+  contract: ""
+  amount: "1"
+rpc:
+  env: BNB_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done, seconds: 0.45 }   # "0.45 seconds on mainnet"
+  - { name: "fast finality", detect: "block tag finalized", role: final, seconds: 1.125 }   # "finalized within two blocks" … "approximately 1.125 seconds"
+claim:
+  text: "With Fast Finality enabled (since the Plato upgrade), the chain is finalized within two blocks if ⅔*N or more validators vote normally. At the current block time of 0.45 seconds, this means finality is achieved in approximately 1.125 seconds."
+  url: "https://docs.bnbchain.org/bnb-smart-chain/introduction/"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  Sub-half-second blocks and a finality vote two blocks later. The number to trust is the second one.
+  Not measured yet, and the asset is open: neither Circle nor Tether lists a USDC or USDT contract on
+  BSC; the usual ones are Binance-pegged.

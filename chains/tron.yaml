@@ -1,0 +1,27 @@
+id: tron
+name: Tron
+family: tron
+status: candidate
+since: 2026-10-18
+icon: tron.jpg
+asset:
+  symbol: USDT
+  contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"
+  amount: "1"
+rpc:
+  env: TRON_RPC_URL
+  provider: ""
+wallets:
+  from_env: TRON_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "wallet/gettransactioninfobyid", role: done, seconds: 3 }   # 3-second blocks; the docs call this pending
+  - { name: "solidified", detect: "walletsolidity/gettransactioninfobyid", role: final, seconds: 60 }   # 19 distinct SRs, "typically in about 1 minute"
+claim:
+  text: "Blocks become irreversible — solidified — once at least 19 distinct active SRs have each produced a block at that height or above, typically in about 1 minute."
+  url: "https://developers.tron.network/docs/concensus"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  Tron is where most of the dollars are, and a block is three seconds. "Solidified" takes nineteen of
+  them, about a minute, and the docs say exchanges and wallets settle on that. Not measured yet: the
+  driver is to be written; the figures are the docs' own.

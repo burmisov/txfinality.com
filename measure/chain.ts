@@ -8,13 +8,16 @@ import { parse } from "yaml";
 
 import { root } from "./root.ts";
 
-export type Level = { name: string; detect: string; role?: "done" | "final" };
+/** `done-final`: one level is both the earliest safe level and the last one (Aptos, XRPL, TON). */
+export type Level = { name: string; detect: string; role?: "done" | "final" | "done-final"; seconds?: number };
 
 export type Chain = {
   id: string;
   name: string;
   family: string;
   status: "measured" | "by-design" | "candidate" | "dropped";
+  /** EVM chains: the chain id the transaction is signed for */
+  chainId?: number;
   asset: { symbol: string; contract: string; amount: string };
   rpc: { env: string; provider: string };
   /** only the sender's key; the recipient is the driver's own, derived from it */
@@ -46,15 +49,17 @@ function check(c: Chain): void {
   }
   if (missing.length) throw new Error(`chains/${c.id ?? "?"}.yaml lacks: ${missing.join(", ")}`);
   if (!Array.isArray(c.levels) || c.levels.length === 0) throw new Error(`chains/${c.id}.yaml: no levels`);
-  const roles = c.levels.map((l) => l.role).filter(Boolean);
-  if (!roles.includes("final")) throw new Error(`chains/${c.id}.yaml: no level has role: final`);
-  if (c.levels[c.levels.length - 1]?.role !== "final") {
-    throw new Error(`chains/${c.id}.yaml: the last level must be the final one`);
+  const last = c.levels[c.levels.length - 1]?.role;
+  if (last !== "final" && last !== "done-final") {
+    throw new Error(`chains/${c.id}.yaml: the last level must be the final one (role: final or done-final)`);
+  }
+  if (!c.levels.some((l) => l.role === "done" || l.role === "done-final")) {
+    throw new Error(`chains/${c.id}.yaml: no level has role: done`);
   }
 }
 
 export function roleLevel(c: Chain, role: "done" | "final"): string {
-  const level = c.levels.find((l) => l.role === role);
+  const level = c.levels.find((l) => l.role === role || l.role === "done-final");
   if (!level) throw new Error(`chains/${c.id}.yaml: no level has role: ${role}`);
   return level.name;
 }

@@ -9,15 +9,17 @@ import { parseArgs } from "node:util";
 
 import { Keypair } from "@solana/web3.js";
 import bs58 from "bs58";
+import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 
 import { loadChain, roleLevel } from "./chain.ts";
+import { evm } from "./chains/evm.ts";
 import { solana } from "./chains/solana.ts";
 import type { Driver } from "./driver.ts";
 import { hostOf, loadEnv, maybe, MissingVariable, need } from "./env.ts";
 import { root } from "./root.ts";
 import { measure, summary, type Transfer, watchOne, writeRun } from "./run.ts";
 
-const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana };
+const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm };
 
 const usage = `usage:
   txfinality measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--machine "runner-1"]
@@ -53,7 +55,7 @@ async function main(argv: string[]): Promise<number> {
   }
   loadEnv();
   const chain = loadChain(values.chain);
-  if (command === "wallet") return wallet(chain.id, chain.wallets.from_env);
+  if (command === "wallet") return wallet(chain.family, chain.wallets.from_env);
 
   const make = drivers[chain.family];
   if (!make) {
@@ -103,10 +105,11 @@ async function main(argv: string[]): Promise<number> {
   const done = roleLevel(chain, "done");
   const final = roleLevel(chain, "final");
   const transfers: Transfer[] = ids.map((id) => ({ id, sent: new Date().toISOString(), levels: {}, polls: 0 }));
-  // Watched one after another, as a run does; later ones are seen correspondingly later.
+  // Watched one after another, as a run does; each gets five minutes of its own from when its
+  // watch starts, while its clock still runs from first sight.
   for (const t of transfers) {
     console.log(t.id);
-    await watchOne(driver, t, seen, 5 * 60_000, pollMs);
+    await watchOne(driver, t, seen, 5 * 60_000 + (performance.now() - seen), pollMs);
   }
   for (const t of transfers) {
     console.log(`${t.id.slice(0, 8)}…  ${done} ${t.levels[done] ?? "?"}s  ${final} ${t.levels[final] ?? "?"}s`);
@@ -116,26 +119,34 @@ async function main(argv: string[]): Promise<number> {
 
 /** Makes a sender for the chain, writes its key to `.env` (mode 0600) and prints only the address.
  *  Refuses if the sender variable is already set anywhere. The recipient is derived at run time. */
-function wallet(chain: string, fromEnv: string): number {
-  if (chain !== "solana") {
-    console.error("wallet: only solana so far");
-    return 2;
-  }
+function wallet(family: string, fromEnv: string): number {
   if (maybe(fromEnv) !== undefined) {
     console.error(`${fromEnv} is already set; not overwriting a key. Unset it or edit .env by hand.`);
     return 1;
   }
-  const from = Keypair.generate();
+  let secret: string;
+  let address: string;
+  let fund: string;
+  if (family === "solana") {
+    const kp = Keypair.generate();
+    secret = bs58.encode(kp.secretKey);
+    address = kp.publicKey.toBase58();
+    fund = "a little SOL for fees and rent, and the USDC to send";
+  } else if (family === "evm") {
+    const key = generatePrivateKey();
+    secret = key;
+    address = privateKeyToAccount(key).address;
+    fund = "a little gas on each EVM chain you will run, and the USDC to send there; the same address on every EVM chain";
+  } else {
+    console.error(`wallet: no key generator for family "${family}"`);
+    return 2;
+  }
   const file = join(root, ".env");
   const fresh = !existsSync(file);
-  const block = [
-    `# solana · made by \`txfinality wallet\` on ${new Date().toISOString().slice(0, 10)}`,
-    `${fromEnv}=${bs58.encode(from.secretKey)}`,
-    "",
-  ].join("\n");
+  const block = [`# ${family} · made by \`txfinality wallet\` on ${new Date().toISOString().slice(0, 10)}`, `${fromEnv}=${secret}`, ""].join("\n");
   appendFileSync(file, (fresh ? "" : "\n") + block, { mode: 0o600 });
   console.log(`wrote ${fromEnv} to .env (the key stays there; never commit it)`);
-  console.log(`sender ${from.publicKey.toBase58()}   fund: a little SOL for fees and rent, and the USDC to send`);
+  console.log(`sender ${address}   fund: ${fund}`);
   return 0;
 }
 

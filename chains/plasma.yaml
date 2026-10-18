@@ -1,0 +1,27 @@
+id: plasma
+name: Plasma
+family: evm
+status: candidate
+since: 2026-10-18
+icon: plasma.jpg
+chainId: 9745
+asset:
+  symbol: USDC
+  contract: "0x2d661C89D812261039AF9764eceaAee884f5F67F"
+  amount: "1"
+rpc:
+  env: PLASMA_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done }   # the docs give no block interval
+  - { name: "finalized", detect: "block tag finalized", role: final }   # "finalized after two consecutive QCs", "in seconds"; the tag itself is not documented
+claim:
+  text: "Block finality is achieved in seconds with minimal communication overhead, and validator selection is driven by a simplified Proof of Stake system optimized for performance and predictable behavior."
+  url: "https://www.plasma.org/docs/plasma-chain/architecture/consensus"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  A new chain made for stablecoins, with native USDC. Its docs promise finality in seconds and say the
+  consensus design is still subject to change; the runs will say. Not measured yet.

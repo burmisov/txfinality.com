@@ -1,0 +1,29 @@
+id: base
+name: Base
+family: evm
+status: candidate
+since: 2026-10-18
+icon: base.jpg
+chainId: 8453
+asset:
+  symbol: USDC
+  contract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+  amount: "1"
+rpc:
+  env: BASE_RPC_URL
+  provider: ""
+wallets:
+  from_env: EVM_FROM_KEY
+levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
+  - { name: "in a block", detect: "receipt", role: done, seconds: 2 }   # "After roughly 2 seconds"; flashblocks at 200 ms are not visible to a receipt poll
+  - { name: "posted to L1", detect: "block tag safe", seconds: 120 }   # "After roughly 2 minutes"
+  - { name: "L1 finalized", detect: "block tag finalized", role: final, seconds: 1200 }   # "L1 Batch Finality: ~20m"
+claim:
+  text: "After roughly 2 minutes, a Base batch containing the transaction has been posted to Ethereum."
+  url: "https://docs.base.org/specifications/transactions/transaction-finality"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  A rollup: the sequencer answers in two seconds (and in 200 ms if you read its flashblocks), Ethereum
+  makes it final about twenty minutes later. Which one you need depends on whom you are trusting. Not
+  measured yet; the figures are the docs' own.
