@@ -11,10 +11,12 @@ asset:
 rpc:
   env: ETHEREUM_RPC_URL
   provider: ""
-levels:
-  - { name: slot, detect: "receipt" }
-  - { name: safe, detect: "block tag safe", role: done }
-  - { name: finalized, detect: "block tag finalized", role: final }
+wallets:
+  from_env: ETHEREUM_FROM_KEY
+levels:                      # seconds: from the docs, for a by-design chain (not measured)
+  - { name: slot, detect: "receipt", seconds: 12 }
+  - { name: safe, detect: "block tag safe", role: done, seconds: 384 }
+  - { name: finalized, detect: "block tag finalized", role: final, seconds: 768 }
 claim:
   text: ""                   # to be quoted from the docs below
   url: "https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/#finality"

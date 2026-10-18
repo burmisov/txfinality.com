@@ -1,0 +1,26 @@
+id: bitcoin
+name: Bitcoin
+family: bitcoin
+status: by-design            # shown with its docs, not measured; outside the rule (no major stablecoin)
+since: 2026-10-18
+icon: bitcoin.jpg
+asset:
+  symbol: BTC
+  contract: ""
+  amount: "0"
+rpc:
+  env: BITCOIN_RPC_URL
+  provider: ""
+wallets:
+  from_env: BITCOIN_FROM_KEY
+levels:                      # seconds: from the docs, for a by-design chain (not measured)
+  - { name: one block, detect: "in a block", role: done, seconds: 600 }
+  - { name: six blocks, detect: "six confirmations", role: final, seconds: 3600 }
+claim:
+  text: ""                   # to be quoted from the docs below
+  url: "https://developer.bitcoin.org/devguide/block_chain.html"
+  read_on: 2026-10-18
+  next_read: 2026-11-18
+note: |
+  By design: a block about every ten minutes, and six of them is the custom. Holds no major stablecoin,
+  so the rule leaves it out; shown because it is the chain everyone asks about. Not measured.
