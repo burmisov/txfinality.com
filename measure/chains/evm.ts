@@ -142,11 +142,21 @@ export function evm(chain: Chain): Driver {
     });
     return { id: keccak256(raw), raw: Buffer.from(raw.slice(2), "hex") };
   };
+  // The receipt is polled for directly: the library's own wait gave up on transactions that had
+  // landed (Base, HyperEVM through Infura, 2026-10-19), because the nodes behind one endpoint do
+  // not all see a transaction at the same moment.
   const sendAndWait = async (signed: Signed): Promise<Hex> => {
     const hash = await client.sendRawTransaction({ serializedTransaction: `0x${Buffer.from(signed.raw).toString("hex")}` });
-    const r = await client.waitForTransactionReceipt({ hash, pollingInterval: 500 });
-    if (r.status !== "success") throw new Error(`${hash} reverted`);
-    return hash;
+    const until = Date.now() + 10 * 60_000;
+    for (;;) {
+      const r = await client.getTransactionReceipt({ hash }).catch(() => null);
+      if (r) {
+        if (r.status !== "success") throw new Error(`${hash} reverted`);
+        return hash;
+      }
+      if (Date.now() > until) throw new Error(`${hash} has no receipt after 10 minutes; check it before running again`);
+      await new Promise((res) => setTimeout(res, 500));
+    }
   };
   const transferData = (to: Address, value: bigint): Hex =>
     encodeFunctionData({ abi: erc20Abi, functionName: "transfer", args: [to, value] });
