@@ -48,3 +48,7 @@ k. Where the final level is documented at a minute or more (a rollup's L1 finali
    L1 finality plus twenty done-times rather than twenty L1 finalities. The run file names the gate
    level (`overlapAfter`); null means strictly serial. Levels the docs give no number for can be
    declared slow for a run (`--slow`); the run file lists them (`slowLevels`). Added 2026-10-19.
+l. A chain in the cut may be parked by decision when it cannot be run yet — Aptos on 2026-10-19: its
+   driver exists, but nothing the runner can reach delivers the gas token, so a run waits for a deposit.
+   A parked chain is off the page and out of the "of N" count; its chain file says `dropped` and why,
+   the landscape marks it unlisted, and it comes back the day it runs. Added 2026-10-19.

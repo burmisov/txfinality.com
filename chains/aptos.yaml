@@ -1,7 +1,7 @@
 id: aptos
 name: Aptos
 family: aptos
-status: candidate
+status: dropped
 since: 2026-10-18
 icon: aptos.jpg
 asset:
@@ -21,5 +21,7 @@ claim:
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |
-  One level: committed is final, and the docs say it takes under a second end to end. Not measured
-  yet: the driver is to be written; the figure is the docs' own.
+  One level: committed is final, and the docs say it takes under a second end to end. Parked by
+  decision on 2026-10-19 (method rule l): the driver is written and unit-tested, but no bridge the runner
+  can reach delivers APT, and without APT the account cannot pay for anything, so the row waits for a
+  deposit. Off the page until then.

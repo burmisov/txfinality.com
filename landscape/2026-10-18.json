@@ -149,8 +149,8 @@
       "stablecoinsUsd": 938981258,
       "marketCapUsd": 674704584,
       "inside": true,
-      "listed": true,
-      "status": "candidate"
+      "listed": false,
+      "status": "dropped"
     },
     {
       "rank": 15,

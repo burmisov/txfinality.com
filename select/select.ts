@@ -42,6 +42,8 @@ export const KNOWN: Record<string, { id: string; coin: string | null }> = {
 /** Listed whatever the ranking says: Bitcoin because everyone asks, Arc because it is new and built
  *  for stablecoins (his decision, 2026-10-18). Method v0, rule j. */
 export const ALWAYS = ["Bitcoin", "Arc"];
+/** Parked by decision (method rule l): in the cut by supply, but off the page for now; the chain file says why. */
+export const PARKED = ["Aptos"];
 
 export type Entry = {
   rank: number | null;
@@ -97,7 +99,7 @@ export function landscape(llama: LlamaChain[], gecko: GeckoCoin[], readAt: Date)
       stablecoinsUsd: Math.round(c.usd),
       marketCapUsd: coin === null ? null : (caps.get(coin) ?? null),
       inside: i < CUT,
-      listed: i < CUT || ALWAYS.includes(c.name),
+      listed: (i < CUT || ALWAYS.includes(c.name)) && !PARKED.includes(c.name),
       status: statusOf(id),
     });
   });

@@ -110,3 +110,9 @@ polled every 200 ms through xrplcluster.com; slowest *validated* 13.291 s, media
 The recipient's trust line and reserve XRP were set up before the clock and stay for the next run; the
 USDC came back. Thirteen of the fifteen are measured; Aptos waits for funds, Ethereum and Tron are by
 design.
+
+## 2026-10-19 — Aptos parked
+
+Aptos leaves the page for now (method rule l). Its driver is written and unit-tested, but no bridge the
+runner can reach delivers APT, and an Aptos account without APT cannot pay for anything, so the first
+run waits for a deposit. The chain file says `dropped` with the reason; the row comes back the day it runs.
