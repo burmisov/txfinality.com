@@ -7,7 +7,7 @@ icon: solana.jpg
 asset:
   symbol: USDC
   contract: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: SOLANA_RPC_URL
   provider: ""

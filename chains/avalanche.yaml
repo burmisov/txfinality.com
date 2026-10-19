@@ -8,7 +8,7 @@ chainId: 43114
 asset:
   symbol: USDC
   contract: "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: AVALANCHE_RPC_URL
   provider: ""

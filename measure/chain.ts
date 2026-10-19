@@ -58,6 +58,13 @@ function check(c: Chain): void {
   }
 }
 
+/** A level the docs put at a minute or more is polled slowly (see run.ts): there is nothing to gain
+ *  from asking ten times a second for twenty minutes, and the RPC is somebody's. */
+export const SLOW_LEVEL_SECONDS = 60;
+export function slowLevels(c: Chain): string[] {
+  return c.levels.filter((l) => (l.seconds ?? 0) >= SLOW_LEVEL_SECONDS).map((l) => l.name);
+}
+
 export function roleLevel(c: Chain, role: "done" | "final"): string {
   const level = c.levels.find((l) => l.role === role || l.role === "done-final");
   if (!level) throw new Error(`chains/${c.id}.yaml: no level has role: ${role}`);

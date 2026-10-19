@@ -8,7 +8,7 @@ chainId: 56
 asset:
   symbol: USDT
   contract: "0x55d398326f99059fF775485246999027B3197955"   # Binance-Peg BSC-USD: name "Tether USD", symbol USDT, 18 decimals, read over RPC 2026-10-18; not on Tether's own page
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: BNB_RPC_URL
   provider: ""

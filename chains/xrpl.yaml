@@ -7,7 +7,7 @@ icon: xrp.jpg
 asset:
   symbol: USDC
   contract: "USDC.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: XRPL_RPC_URL
   provider: ""

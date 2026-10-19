@@ -7,7 +7,7 @@ icon: ton.jpg
 asset:
   symbol: USDT
   contract: "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: TON_API_URL
   provider: ""

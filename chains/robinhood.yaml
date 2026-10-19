@@ -8,7 +8,7 @@ chainId: 4663
 asset:
   symbol: USDG
   contract: "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: ROBINHOOD_RPC_URL
   provider: ""

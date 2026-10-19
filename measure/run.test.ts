@@ -157,3 +157,15 @@ test("measure tears down even when a transfer throws", async () => {
   await assert.rejects(measure(chain, driver, { runs: 1, pollMs: 1, capMinutes: 1, rpc: "rpc", log: () => {} }), /rpc down/);
   assert.ok(driver.log.includes("teardown"));
 });
+
+test("pollFor slows only while the next unreached level is a slow one", async () => {
+  const { pollFor } = await import("./run.ts");
+  const levels = ["in a block", "posted to L1", "L1 finalized"];
+  const slow = { ms: 2000, levels: ["posted to L1", "L1 finalized"] };
+  const t = { id: "x", sent: "", levels: {} as Record<string, number>, polls: 0 };
+  assert.equal(pollFor(levels, t, 100, slow), 100);
+  t.levels["in a block"] = 0.3;
+  assert.equal(pollFor(levels, t, 100, slow), 2000);
+  assert.equal(pollFor(levels, t, 5000, slow), 5000);
+  assert.equal(pollFor(levels, t, 100, undefined), 100);
+});

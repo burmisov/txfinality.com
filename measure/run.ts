@@ -6,6 +6,11 @@
 // is the instant the poll that first showed it came back, so every figure includes up to one poll
 // interval and one RPC round trip of slack: the number is never smaller than the truth. Durations
 // come from the monotonic clock, to the millisecond.
+//
+// Polling is fast (100 ms by default) while the next level is one the chain's docs put under a
+// minute. Once the only levels left are ones documented at a minute or more — a rollup's batch on
+// L1, say — the poll slows to `slowPollMs` (2 s by default): a figure of twenty minutes carries two
+// seconds of slack, which is a tenth of a percent, and the RPC is spared a hundred thousand calls.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { hostname } from "node:os";
 import { join } from "node:path";
@@ -42,6 +47,9 @@ export type Run = {
   teardown: string[];
   runs: number;
   pollMs: number;
+  /** the poll interval once only slow levels remain, and which levels those are (none: never slowed) */
+  slowPollMs: number;
+  slowLevels: string[];
   capMinutes: number;
   transfers: Transfer[];
   slowest: { done: number | null; final: number | null };
@@ -51,6 +59,9 @@ export type Run = {
 export type Options = {
   runs: number;
   pollMs: number;
+  /** levels documented at a minute or more; polled at `slowPollMs` once every faster level is seen */
+  slow?: readonly string[];
+  slowPollMs?: number;
   /** per transfer: a transfer still short of final after this long is left where it is */
   capMinutes: number;
   machine?: string;
@@ -101,6 +112,15 @@ export function stampOf(d: Date): string {
 
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
+export const SLOW_POLL_MS = 2000;
+
+/** The poll interval for the next unreached level: `slow.ms` if that level is one of `slow.levels`. */
+export function pollFor(levels: readonly string[], t: Transfer, fast: number, slow?: { ms: number; levels: readonly string[] }): number {
+  if (!slow) return fast;
+  const next = levels.find((l) => t.levels[l] === undefined);
+  return next !== undefined && slow.levels.includes(next) ? Math.max(fast, slow.ms) : fast;
+}
+
 /** Polls `driver.status` for one transfer until it has reached the last level, failed, or
  *  `capMs` has passed since `from` (a `performance.now()` reading taken before sending). */
 export async function watchOne(
@@ -110,6 +130,7 @@ export async function watchOne(
   capMs: number,
   pollMs: number,
   log?: Options["log"],
+  slow?: { ms: number; levels: readonly string[] },
 ): Promise<void> {
   const final = driver.levels[driver.levels.length - 1];
   if (final === undefined) throw new Error("driver has no levels");
@@ -131,7 +152,7 @@ export async function watchOne(
         say(log, `  failed on chain: ${s.failed}`);
       }
     }
-    await sleep(pollMs);
+    await sleep(pollFor(driver.levels, t, pollMs, slow));
   }
 }
 
@@ -141,6 +162,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
   }
   const started = new Date();
   const stamp = stampOf(started);
+  const slow = { ms: opts.slowPollMs ?? SLOW_POLL_MS, levels: opts.slow ?? [] };
   const tag = `txfinality ${chain.id} ${stamp}`;
   const setup = await driver.setup();
   for (const line of setup.lines) say(opts.log, line);
@@ -157,7 +179,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
       await driver.send(signed);
       say(opts.log, `${i + 1}/${opts.runs} ${signed.id}`);
       transfers.push(t);
-      await watchOne(driver, t, from, opts.capMinutes * 60_000, opts.pollMs, opts.log);
+      await watchOne(driver, t, from, opts.capMinutes * 60_000, opts.pollMs, opts.log, slow);
     }
   } finally {
     // Whatever happened above, what setup created is undone and the asset goes back to the
@@ -180,6 +202,8 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     teardown: teardown.txs,
     runs: opts.runs,
     pollMs: opts.pollMs,
+    slowPollMs: slow.ms,
+    slowLevels: [...slow.levels],
     capMinutes: opts.capMinutes,
     transfers,
     slowest: {

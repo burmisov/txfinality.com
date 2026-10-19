@@ -7,7 +7,7 @@ icon: aptos.jpg
 asset:
   symbol: USDC
   contract: "0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: APTOS_API_URL
   provider: ""

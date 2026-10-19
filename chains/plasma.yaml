@@ -8,7 +8,7 @@ chainId: 9745
 asset:
   symbol: USDC
   contract: "0x2d661C89D812261039AF9764eceaAee884f5F67F"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: PLASMA_RPC_URL
   provider: ""

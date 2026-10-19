@@ -8,7 +8,7 @@ chainId: 999
 asset:
   symbol: USDC
   contract: "0xb88339CB7199b77E23DB6E890353E22632Ba630f"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: HYPEREVM_RPC_URL
   provider: ""

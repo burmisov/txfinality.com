@@ -8,7 +8,7 @@ icon: example.jpg            # site/icons/<icon>
 asset:
   symbol: USDC
   contract: "0x…"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: EXAMPLE_RPC_URL       # the variable's NAME; the value lives in .env, never here
   provider: ""               # named in every run

@@ -46,7 +46,8 @@ figure is wrong, open an issue with your run file.
 ## Status
 
 18 October 2026: the first run is in `runs/solana/`: twenty transfers of 1 USDC from runner-1 through Infura, one at a time. Slowest confirmed 1.105 s, slowest finalized 8.075 s. The page is not
-built yet.
+built yet. 19 October 2026: the amount per transfer is 0.1 USDC from here on, so a run needs about 2 USDC
+and a little gas on the chain.
 
 ## Made by
 

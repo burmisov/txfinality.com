@@ -7,7 +7,7 @@ icon: bitcoin.jpg
 asset:
   symbol: BTC
   contract: ""
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: BITCOIN_RPC_URL
   provider: ""

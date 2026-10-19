@@ -1,6 +1,7 @@
 # Method v0 (draft, 2026-10-18)
 
-a. A wallet of ours sends 1 USDC (USDT where the chain has only USDT) to a second wallet of
+a. A wallet of ours sends 0.1 USDC (USDT where the chain has only USDT; the first Solana run, on
+   2026-10-18, sent 1 USDC — the amount is in every run file and has no bearing on the time) to a second wallet of
    ours, one the runner derives from the first wallet's key and never stores. Nothing else is in the transaction beyond what makes it land and tells it apart: on Solana, a
    memo naming the run and a small priority fee.
 b. The clock starts the instant before the signed transaction leaves our machine. The machine and the
@@ -11,7 +12,9 @@ c. The transaction is polled on the chain's own RPC until it reaches each level 
    (*final*). The chain's own names for its levels are kept and printed. A level's time is the moment
    the poll that first showed it came back, so a figure carries up to one poll interval (100 ms by
    default, recorded in the run, with the number of polls each transfer took) plus one RPC round trip of slack. Figures are never smaller than the
-   truth.
+   truth. Once the only levels still to come are ones the chain's docs put at a minute or more (a
+   rollup's batch reaching Ethereum, say), the poll slows to 2 s by default: those figures carry up to
+   2 s of slack instead, which the run file records (`slowPollMs`, `slowLevels`).
 d. Twenty transfers per chain per run, one at a time: a transfer is sent alone and watched until it is
    final (or fails, or its cap passes) before the next one is built. Nothing else runs meanwhile. One run
    a week. The page shows the slowest of the twenty; the run file has all of them, with hashes.

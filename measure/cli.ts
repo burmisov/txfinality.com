@@ -11,7 +11,7 @@ import { Keypair } from "@solana/web3.js";
 import bs58 from "bs58";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 
-import { loadChain, roleLevel } from "./chain.ts";
+import { loadChain, roleLevel, slowLevels } from "./chain.ts";
 import { evm } from "./chains/evm.ts";
 import { solana } from "./chains/solana.ts";
 import type { Driver } from "./driver.ts";
@@ -72,7 +72,7 @@ async function main(argv: string[]): Promise<number> {
     console.log(
       `$ txfinality measure --chain ${chain.id} --runs ${runs}   (rpc: ${rpc}, poll ${pollMs} ms, cap ${capMinutes} min per transfer)`,
     );
-    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc });
+    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc, slow: slowLevels(chain) });
     for (const line of summary(run, chain)) console.log(line);
     const file = writeRun(run);
     console.log(`saved ${file.slice(root.length + 1)}`);

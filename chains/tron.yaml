@@ -7,7 +7,7 @@ icon: tron.jpg
 asset:
   symbol: USDT
   contract: "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"
-  amount: "1"
+  amount: "0.1"
 rpc:
   env: TRON_RPC_URL
   provider: ""
