@@ -15,11 +15,10 @@ Their Terms of Use (`defillama.com/terms`, effective 24 June 2025) cover "offici
 written consent" (cl. 8), with liquidated damages up to USD 100,000 per violation (cl. 14). No
 attribution clause. The "free, open-source" line and the Terms are not reconciled anywhere on their site.
 
-Use, as of 2026-10-19: the ranking, and each listed chain's stablecoin supply in dollars as DeFiLlama
-reports it on the reading day, credited on the page ("stablecoin supply by DefiLlama") and in llms.txt.
-Own on-chain readings of the supply are not implemented. Written permission for the republished figures
-has not been requested yet; that is the author's open item, and the figures come off the page if it is
-refused.
+Use, as of 2026-10-19 (decision): the ranking, and beside each listed chain an estimate of its stablecoin
+supply — the reading-day figure rounded to the nearest hundred million dollars and marked ≈ — with no link
+to DeFiLlama and no republication of the figures themselves; the landscape files keep the readings for the
+record. Own on-chain readings of the supply are not implemented.
 
 ## CoinGecko — `https://api.coingecko.com/api/v3/coins/markets` (Demo plan, key or keyless)
 
@@ -32,8 +31,9 @@ beyond that (6.2); a public product needs a user agreement and privacy policy na
 The pricing page's Demo column says "Attribution required", 10k calls/month, 100/min, and its License
 cell is an ✗ where every paid plan says "Commercial" (Basic, $29/mo yearly, "for personal use cases").
 
-Use, as of 2026-10-19: the carrier coin's market cap in each row's second line, credited on the page
-("market caps powered by CoinGecko", linked) and in llms.txt, under the Demo plan.
+Use, as of 2026-10-19: the carrier coin's market cap in each row's second line, rounded to the nearest
+hundred million and marked ≈, credited on the page ("market caps powered by CoinGecko", linked) and in
+llms.txt, under the Demo plan.
 
 ## CoinMarketCap — Basic plan (free, key)
 
