@@ -179,7 +179,7 @@ export function evm(chain: Chain): Driver {
       // with headroom. Topped up once, before the clock; whatever is left comes back after.
       const needGas = (await fees()).maxFeePerGas * 200_000n;
       if (rGas < needGas) {
-        const signed = await sign(sender, { to: recipient.address, value: needGas * 2n - rGas, gas: 21_000n });
+        const signed = await sign(sender, { to: recipient.address, value: needGas * 2n - rGas });
         txs.push(await sendAndWait(signed));
         lines.push(`gave the recipient gas for the return (not timed): ${txs[txs.length - 1]}`);
       }
@@ -246,20 +246,40 @@ export function evm(chain: Chain): Driver {
       const txs: string[] = [];
       const held = assetIsGas ? 0n : await balanceOf(recipient.address);
       if (held > 0n) {
-        const signed = await sign(recipient, { to: token, data: transferData(sender.address, held) }, await client.getBalance({ address: recipient.address }));
+        // The price may have risen since setup funded the recipient (Arbitrum: tenfold within an
+        // hour). If what it holds cannot pay for the return and the sweep, the sender tops it up.
+        const data = transferData(sender.address, held);
+        const [have, caps, est] = await Promise.all([
+          client.getBalance({ address: recipient.address }),
+          fees(),
+          client.estimateGas({ account: recipient.address, to: token, data }),
+        ]);
+        const needed = caps.maxFeePerGas * ((est * 12n) / 10n + 21_000n);
+        if (have < needed) {
+          const topUp = await sign(sender, { to: recipient.address, value: needed * 2n - have });
+          txs.push(await sendAndWait(topUp));
+          lines.push(`gave the recipient gas for the return, the price having risen: ${txs[txs.length - 1]}`);
+        }
+        const signed = await sign(recipient, { to: token, data }, await client.getBalance({ address: recipient.address }));
         txs.push(await sendAndWait(signed));
         lines.push(`returned ${formatUnits(held, decimals)} ${chain.asset.symbol}: ${txs[txs.length - 1]}`);
       }
+      // The sweep: a plain transfer is not 21,000 gas everywhere (Arbitrum adds the L1 share to the
+      // limit), and a rollup charges an L1 data fee on top of gas × price (Base), so the estimate is
+      // asked for and twice the cost is left behind. The dust is far below a cent.
       const gasLeft = await client.getBalance({ address: recipient.address });
-      const cost = (await fees()).maxFeePerGas * 21_000n;
-      if (gasLeft > cost * 2n) {
-        const signed = await sign(recipient, { to: sender.address, value: gasLeft - cost, gas: 21_000n });
+      const sweepGas = gasLeft > 0n ? ((await client.estimateGas({ account: recipient.address, to: sender.address, value: 1n })) * 12n) / 10n : 21_000n;
+      const cost = (await fees()).maxFeePerGas * sweepGas;
+      if (gasLeft > cost * 3n) {
+        const value = gasLeft - cost * 2n;
+        // priced within what is left, so a second, higher quote cannot make the sweep unaffordable
+        const signed = await sign(recipient, { to: sender.address, value, gas: sweepGas }, gasLeft);
         txs.push(await sendAndWait(signed));
-        lines.push(`returned ${formatEther(gasLeft - cost)} gas: ${txs[txs.length - 1]}`);
+        lines.push(`returned ${formatEther(value)} gas: ${txs[txs.length - 1]}`);
       } else if (held === 0n) {
         lines.push("the recipient holds nothing to return");
       }
-      if (assetIsGas && gasLeft > cost * 2n) lines[lines.length - 1] = `returned ${formatEther(gasLeft - cost)} ${chain.asset.symbol} (the asset is the gas): ${txs[txs.length - 1]}`;
+      if (assetIsGas && gasLeft > cost * 3n) lines[lines.length - 1] = `returned ${formatEther(gasLeft - cost * 2n)} ${chain.asset.symbol} (the asset is the gas): ${txs[txs.length - 1]}`;
       return { lines, txs };
     },
 
