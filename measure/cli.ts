@@ -14,18 +14,20 @@ import { Account, Ed25519PrivateKey } from "@aptos-labs/ts-sdk";
 import { keyPairFromSeed } from "@ton/crypto";
 import { WalletContractV4 } from "@ton/ton";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
+import { Wallet as XrplWallet } from "xrpl";
 
 import { loadChain, roleLevel, slowLevels } from "./chain.ts";
 import { aptos } from "./chains/aptos.ts";
 import { evm } from "./chains/evm.ts";
 import { solana } from "./chains/solana.ts";
 import { ton } from "./chains/ton.ts";
+import { xrpl } from "./chains/xrpl.ts";
 import type { Driver } from "./driver.ts";
 import { hostOf, loadEnv, maybe, MissingVariable, need, redacted } from "./env.ts";
 import { root } from "./root.ts";
 import { measure, summary, type Transfer, watchOne, writeRun } from "./run.ts";
 
-const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm, ton, aptos };
+const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm, ton, aptos, xrpl };
 
 const usage = `usage:
   txfinality measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--slow "level,level"] [--slow-poll-ms 2000] [--machine "runner-1"]
@@ -160,6 +162,11 @@ function wallet(family: string, fromEnv: string): number {
     secret = key.toString("hex");
     address = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey(key) }).accountAddress.toString();
     fund = "a little APT for fees (a run needs about 0.05 APT), and the USDC to send; the account is created by its first deposit";
+  } else if (family === "xrpl") {
+    const w = XrplWallet.generate();
+    secret = w.seed ?? "";
+    address = w.classicAddress;
+    fund = "XRP for the reserve and fees (about 3 XRP: the account's base reserve, a trust line, and the recipient's share), and the USDC to send; the account exists once it holds the base reserve";
   } else {
     console.error(`wallet: no key generator for family "${family}"`);
     return 2;
