@@ -1,0 +1,213 @@
+{
+  "chain": "avalanche",
+  "method": "v0",
+  "stamp": "2026-10-19T1151Z",
+  "machine": "runner-1",
+  "rpc": "avalanche-mainnet.infura.io",
+  "asset": "USDC",
+  "amount": "0.1",
+  "chainFile": "cd4df02c0bc831f90122db2451ee34e714846f574232f2b0d23f3c0cce3454ae",
+  "wallets": {
+    "from": "0x047aD213F05cCdC9C30bBEd96e2eAE624905b9dE",
+    "to": "0xd7194364f4Fe80784216149C9Da7157726163B1b"
+  },
+  "setup": [
+    "0x84ffa755bcf28f77a7aeb3c4b78aadc6221a53c84cc06253d50d12247d35ed48"
+  ],
+  "teardown": [
+    "0x28566e550014b756362d1a699dfe8aa0fdde6c7bd3c6a58c9972633a0c96b814",
+    "0x2145e8b14078e163166a73e0494eae71c24288e424d3c3369cea0acf6bdf89a7"
+  ],
+  "runs": 20,
+  "pollMs": 100,
+  "slowPollMs": 2000,
+  "slowLevels": [],
+  "capMinutes": 30,
+  "transfers": [
+    {
+      "id": "0x90d03f5356a30a6e141ee2b3df164715decec5342b35398f1a88fd1bb9c53474",
+      "sent": "2026-10-19T11:51:17.236Z",
+      "levels": {
+        "accepted": 1.335,
+        "settled": 7.178
+      },
+      "polls": 32
+    },
+    {
+      "id": "0xb522f24a9c762b1f031230110058793a4aea204d977ae9d099c6cae76708f583",
+      "sent": "2026-10-19T11:51:24.776Z",
+      "levels": {
+        "accepted": 1.317,
+        "settled": 7.785
+      },
+      "polls": 34
+    },
+    {
+      "id": "0xd74dfffa9502e78c9cd1e09e8933ec3e94806587d7a53056c13b146f09b3e3b3",
+      "sent": "2026-10-19T11:51:32.931Z",
+      "levels": {
+        "accepted": 1.911,
+        "settled": 7.972
+      },
+      "polls": 34
+    },
+    {
+      "id": "0xe512f78be6d2f550bcc26bfcf0f92ba27a08bfad6600a44fa0613996924d19c4",
+      "sent": "2026-10-19T11:51:41.270Z",
+      "levels": {
+        "accepted": 1.461,
+        "settled": 7.675
+      },
+      "polls": 34
+    },
+    {
+      "id": "0xe7d69521ffbf2f54fc0a95a69667c1b1e78edbbfc40c51f7416464f570ad0829",
+      "sent": "2026-10-19T11:51:49.312Z",
+      "levels": {
+        "accepted": 1.376,
+        "settled": 8.022
+      },
+      "polls": 36
+    },
+    {
+      "id": "0x8bf63d90a6821fd9db85d35d2b8f2210ee5ecf2d1298b34486d798810ee9428e",
+      "sent": "2026-10-19T11:51:57.687Z",
+      "levels": {
+        "accepted": 1.301,
+        "settled": 6.772
+      },
+      "polls": 30
+    },
+    {
+      "id": "0xe8e67b0ebcfef91e6010bb2dbb604940e5e46be09238bac3606653130c62889f",
+      "sent": "2026-10-19T11:52:04.848Z",
+      "levels": {
+        "accepted": 1.545,
+        "settled": 7.795
+      },
+      "polls": 34
+    },
+    {
+      "id": "0x881250b212743c7e2753de0636dfc5bd4f6a76a295495085e61d6e26a4946048",
+      "sent": "2026-10-19T11:52:13.067Z",
+      "levels": {
+        "accepted": 1.531,
+        "settled": 7.769
+      },
+      "polls": 34
+    },
+    {
+      "id": "0x10bcd7cafa2e2b90acd5758f708c1fe857874ab77ffc18d89d533943e327cce5",
+      "sent": "2026-10-19T11:52:21.200Z",
+      "levels": {
+        "accepted": 4.884,
+        "settled": 10.912
+      },
+      "polls": 42
+    },
+    {
+      "id": "0x6c468a0fdfdbfac6102cfb4414fd3dcdb2402156d48be53dbbb13eab3de0e0f6",
+      "sent": "2026-10-19T11:52:32.474Z",
+      "levels": {
+        "accepted": 1.969,
+        "settled": 7.853
+      },
+      "polls": 34
+    },
+    {
+      "id": "0xad731c786b00bac754d9cd4462744fb11104fdc3e375cf652e55e7a7a6483054",
+      "sent": "2026-10-19T11:52:40.696Z",
+      "levels": {
+        "accepted": 1.817,
+        "settled": 7.859
+      },
+      "polls": 33
+    },
+    {
+      "id": "0xbff82674bbd2f701fc5fa5e30cc504b365304eb42098ce3830382ff16eee8e49",
+      "sent": "2026-10-19T11:52:48.918Z",
+      "levels": {
+        "accepted": 1.601,
+        "settled": 10.958
+      },
+      "polls": 49
+    },
+    {
+      "id": "0x62719998eb1c604a0741ed8edd0ca30f71b66bbc4c1105c5f74f47ba31f8c982",
+      "sent": "2026-10-19T11:53:00.278Z",
+      "levels": {
+        "accepted": 2.214,
+        "settled": 7.635
+      },
+      "polls": 31
+    },
+    {
+      "id": "0x56abc5f5758b7f47d12a6698742b96c3f1efa4c3540c16f8b929559e5627660f",
+      "sent": "2026-10-19T11:53:08.275Z",
+      "levels": {
+        "accepted": 1.647,
+        "settled": 6.844
+      },
+      "polls": 29
+    },
+    {
+      "id": "0xcee007d019a3af2fe0fe5e45b939a8a21f50e5e5a4280a70db87fd2044b834bb",
+      "sent": "2026-10-19T11:53:15.507Z",
+      "levels": {
+        "accepted": 2.516,
+        "settled": 8.758
+      },
+      "polls": 35
+    },
+    {
+      "id": "0xcbaf47e5092a367f13d389e6f10f4b6e9aa27b992f13fbb42679805b4428e96c",
+      "sent": "2026-10-19T11:53:24.630Z",
+      "levels": {
+        "accepted": 1.973,
+        "settled": 8.013
+      },
+      "polls": 32
+    },
+    {
+      "id": "0xe92c4b637623f27a211b1e75bd0ef078b07d32cda2d2428897f08542c5d09f4a",
+      "sent": "2026-10-19T11:53:33.007Z",
+      "levels": {
+        "accepted": 1.653,
+        "settled": 7.913
+      },
+      "polls": 36
+    },
+    {
+      "id": "0x41bcef748a8cfc1721112d1afb9c87ca0502bbc859c064f51c41c72399bbc09c",
+      "sent": "2026-10-19T11:53:41.292Z",
+      "levels": {
+        "accepted": 1.416,
+        "settled": 8.709
+      },
+      "polls": 38
+    },
+    {
+      "id": "0xcc5b8ac18de9bc65e1fd4a32d68798139d9ca767af48ab9ad83530086b451536",
+      "sent": "2026-10-19T11:53:50.376Z",
+      "levels": {
+        "accepted": 1.448,
+        "settled": 6.859
+      },
+      "polls": 30
+    },
+    {
+      "id": "0xf3e10c0a619a6f46c3715ef56b47ea1129634e9d97dfb2d7a767dcfd584e5e52",
+      "sent": "2026-10-19T11:53:57.608Z",
+      "levels": {
+        "accepted": 1.794,
+        "settled": 7.709
+      },
+      "polls": 33
+    }
+  ],
+  "slowest": {
+    "done": 4.884,
+    "final": 10.958
+  },
+  "notReached": []
+}

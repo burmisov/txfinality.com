@@ -34,3 +34,11 @@ first BNB Chain run ran its sender out of gas because the library's fee estimate
 chain's price, so fees now start from the price the node suggests. The BNB run's return of funds failed
 inside the run (two nodes behind the endpoint quoted prices twenty times apart within a minute) and was
 done by hand afterwards; the run file records the failure.
+
+## 2026-10-19 — Avalanche
+
+`runs/avalanche/2026-10-19T1151Z.json`: twenty transfers of 0.1 USDC through Infura; slowest *accepted*
+4.884 s, slowest *settled* (the RPC's finalized tag) 10.958 s, the twenty settling between 6.772 s and
+10.958 s. Two runs before it did not complete and are not kept: one node behind the endpoint handed back a
+used nonce (the runner now counts nonces itself), and the sender ran out of AVAX at the nineteenth transfer
+(a run needs about 0.015 AVAX at the node's fee ceiling, which is what is now sent).
