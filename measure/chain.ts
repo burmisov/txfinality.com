@@ -18,7 +18,8 @@ export type Chain = {
   status: "measured" | "by-design" | "candidate" | "dropped";
   /** EVM chains: the chain id the transaction is signed for */
   chainId?: number;
-  asset: { symbol: string; contract: string; amount: string };
+  /** `gas: true` when the asset is also the chain's gas token (Arc): the return is a sweep */
+  asset: { symbol: string; contract: string; amount: string; gas?: boolean };
   rpc: { env: string; provider: string };
   /** only the sender's key; the recipient is the driver's own, derived from it */
   wallets: { from_env: string };

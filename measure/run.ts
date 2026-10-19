@@ -45,6 +45,8 @@ export type Run = {
   /** transactions outside the clock: what setup created and what teardown undid */
   setup: string[];
   teardown: string[];
+  /** set when the return of funds failed: the measurements stand, `txfinality return` finishes the job */
+  teardownError?: string;
   runs: number;
   pollMs: number;
   /** the poll interval once only slow levels remain, and which levels those are (none: never slowed) */
@@ -170,6 +172,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
   const transfers: Transfer[] = [];
   say(opts.log, `${opts.runs} transfers of ${chain.asset.amount} ${chain.asset.symbol}, one at a time, each to final before the next`);
   let teardown: { lines: string[]; txs: string[] } = { lines: [], txs: [] };
+  let teardownError: string | undefined;
   try {
     for (let i = 0; i < opts.runs; i++) {
       const signed = await driver.prepare(i, opts.runs, `${tag} ${i + 1}/${opts.runs}`);
@@ -183,9 +186,15 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     }
   } finally {
     // Whatever happened above, what setup created is undone and the asset goes back to the
-    // sender. If this itself fails, `txfinality return` does the same thing by hand.
-    teardown = await driver.teardown();
-    for (const line of teardown.lines) say(opts.log, line);
+    // sender. If this itself fails, the measurements are still written and `txfinality return`
+    // does the same thing by hand.
+    try {
+      teardown = await driver.teardown();
+      for (const line of teardown.lines) say(opts.log, line);
+    } catch (e) {
+      teardownError = e instanceof Error ? e.message : String(e);
+      say(opts.log, `the return of funds failed (run \`txfinality return --chain ${chain.id}\`): ${teardownError}`);
+    }
   }
 
   return {
@@ -200,6 +209,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     wallets: driver.wallets,
     setup: setup.txs,
     teardown: teardown.txs,
+    ...(teardownError !== undefined ? { teardownError } : {}),
     runs: opts.runs,
     pollMs: opts.pollMs,
     slowPollMs: slow.ms,

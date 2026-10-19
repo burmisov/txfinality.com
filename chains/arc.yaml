@@ -9,6 +9,7 @@ asset:
   symbol: USDC
   contract: "0x3600000000000000000000000000000000000000"
   amount: "0.1"
+  gas: true                  # USDC is Arc's gas: the recipient's return is a sweep of its balance
 rpc:
   env: ARC_RPC_URL
   provider: ""

@@ -169,3 +169,17 @@ test("pollFor slows only while the next unreached level is a slow one", async ()
   assert.equal(pollFor(levels, t, 5000, slow), 5000);
   assert.equal(pollFor(levels, t, 100, undefined), 100);
 });
+
+test("a failing teardown is recorded and the measurements are kept", async () => {
+  const driver = {
+    ...fakeDriver(),
+    teardown: async () => {
+      throw new Error("sweep reverted");
+    },
+  };
+  const run = await measure(chain, driver, { runs: 2, pollMs: 0, capMinutes: 1, rpc: "r", log: () => {} });
+  assert.equal(run.transfers.length, 2);
+  assert.equal(run.teardownError, "sweep reverted");
+  assert.deepEqual(run.teardown, []);
+  assert.ok(run.slowest.final !== null);
+});

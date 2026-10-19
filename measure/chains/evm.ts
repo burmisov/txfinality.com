@@ -63,6 +63,9 @@ export function evm(chain: Chain): Driver {
   };
   const client: PublicClient = createPublicClient({ chain: viemChain, transport: http(url) });
   const token = chain.asset.contract as Address;
+  // On a chain whose gas IS the asset (Arc: USDC), the recipient's token balance is also what pays
+  // its fees, so the return is a sweep of the native balance rather than a token transfer.
+  const assetIsGas = chain.asset.gas === true;
   const detects = chain.levels.map((l) => parseDetect(l.detect));
   if (detects[0]?.kind !== "receipt") throw new Error(`chains/${chain.id}.yaml: the first evm level must be "receipt"`);
 
@@ -94,14 +97,15 @@ export function evm(chain: Chain): Driver {
       client.getTransactionCount({ address: from.address, blockTag: "pending" }),
       client.estimateFeesPerGas(),
     ]);
-    const gas = tx.gas ?? (await client.estimateGas({ account: from.address, to: tx.to, data: tx.data, value: tx.value }));
+    // an estimate gets headroom; a gas figure the caller states (a plain value transfer) is exact
+    const gas = tx.gas ?? ((await client.estimateGas({ account: from.address, to: tx.to, data: tx.data, value: tx.value })) * 12n) / 10n;
     const raw = await from.signTransaction({
       chainId,
       nonce,
       to: tx.to,
       data: tx.data,
       value: tx.value ?? 0n,
-      gas: (gas * 12n) / 10n,
+      gas,
       maxFeePerGas: fees.maxFeePerGas,
       maxPriorityFeePerGas: fees.maxPriorityFeePerGas,
       type: "eip1559",
@@ -211,7 +215,7 @@ export function evm(chain: Chain): Driver {
       await units();
       const lines: string[] = [];
       const txs: string[] = [];
-      const held = await balanceOf(recipient.address);
+      const held = assetIsGas ? 0n : await balanceOf(recipient.address);
       if (held > 0n) {
         const signed = await sign(recipient, { to: token, data: transferData(sender.address, held) });
         txs.push(await sendAndWait(signed));
@@ -227,6 +231,7 @@ export function evm(chain: Chain): Driver {
       } else if (held === 0n) {
         lines.push("the recipient holds nothing to return");
       }
+      if (assetIsGas && gasLeft > cost * 2n) lines[lines.length - 1] = `returned ${formatEther(gasLeft - cost)} ${chain.asset.symbol} (the asset is the gas): ${txs[txs.length - 1]}`;
       return { lines, txs };
     },
 

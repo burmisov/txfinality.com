@@ -76,7 +76,7 @@ async function main(argv: string[]): Promise<number> {
     for (const line of summary(run, chain)) console.log(line);
     const file = writeRun(run);
     console.log(`saved ${file.slice(root.length + 1)}`);
-    return run.slowest.final === null ? 1 : 0;
+    return run.slowest.final === null || run.teardownError !== undefined ? 1 : 0;
   }
 
   if (command === "return") {
@@ -150,11 +150,20 @@ function wallet(family: string, fromEnv: string): number {
   return 0;
 }
 
+/** Errors from an RPC library quote the URL they called, key and all. Only the host survives here. */
+function redacted(e: unknown): string {
+  let text = e instanceof Error ? `${e.stack ?? e.message}${"cause" in e && e.cause ? `\n  cause: ${String((e.cause as Error).message ?? e.cause)}` : ""}` : String(e);
+  for (const [name, value] of Object.entries(process.env)) {
+    if (name.endsWith("_URL") && value && value.length > 12) text = text.split(value).join(`${hostOf(value)}/…`);
+  }
+  return text;
+}
+
 main(process.argv.slice(2)).then(
   (code) => process.exit(code),
   (e: unknown) => {
     if (e instanceof MissingVariable) console.error(e.message);
-    else console.error(e);
+    else console.error(redacted(e));
     process.exit(1);
   },
 );
