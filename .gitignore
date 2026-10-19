@@ -3,3 +3,5 @@
 !.env.example
 node_modules/
 dist/
+# a run in progress; the run file replaces it
+runs/*/*.partial.json

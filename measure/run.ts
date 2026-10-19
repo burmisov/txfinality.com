@@ -11,7 +11,7 @@
 // minute. Once the only levels left are ones documented at a minute or more — a rollup's batch on
 // L1, say — the poll slows to `slowPollMs` (2 s by default): a figure of twenty minutes carries two
 // seconds of slack, which is a tenth of a percent, and the RPC is spared a hundred thousand calls.
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { hostname } from "node:os";
 import { join } from "node:path";
 import { performance } from "node:perf_hooks";
@@ -67,6 +67,10 @@ export type Options = {
   slow?: readonly string[];
   slowPollMs?: number;
   resendMs?: number;
+  /** called after each transfer with the run so far, so a long run leaves a trace if the process dies */
+  progress?: (transfers: readonly Transfer[]) => void;
+  /** keep `runs/<chain>/<stamp>.partial.json` up to date while the run goes (the CLI does) */
+  partial?: boolean;
   /** per transfer: a transfer still short of final after this long is left where it is */
   capMinutes: number;
   machine?: string;
@@ -198,6 +202,8 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
       say(opts.log, `${i + 1}/${opts.runs} ${signed.id}`);
       transfers.push(t);
       await watchOne(driver, t, from, opts.capMinutes * 60_000, opts.pollMs, opts.log, slow, { signed, everyMs: opts.resendMs ?? RESEND_MS });
+      opts.progress?.(transfers);
+      if (opts.partial) writePartial(chain.id, stamp, transfers);
     }
   } finally {
     // Whatever happened above, what setup created is undone and the asset goes back to the
@@ -245,7 +251,20 @@ export function writeRun(run: Run): string {
   const file = join(dir, `${run.stamp}.json`);
   // Runs are append-only: a second run of the same chain in the same minute must not replace the first.
   writeFileSync(file, `${JSON.stringify(run, null, 2)}\n`, { flag: "wx" });
+  rmSync(partialPath(run.chain, run.stamp), { force: true });
   return file;
+}
+
+/** Where a run in progress keeps its transfers so far: `runs/<chain>/<stamp>.partial.json`, never
+ *  committed, deleted when the run file is written. A process that dies hours in leaves this. */
+export function partialPath(chain: string, stamp: string): string {
+  return join(root, "runs", chain, `${stamp}.partial.json`);
+}
+
+export function writePartial(chain: string, stamp: string, transfers: readonly Transfer[]): void {
+  const dir = join(root, "runs", chain);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(partialPath(chain, stamp), `${JSON.stringify({ chain, stamp, partial: true, transfers }, null, 2)}\n`);
 }
 
 export function summary(run: Run, chain: Chain): string[] {

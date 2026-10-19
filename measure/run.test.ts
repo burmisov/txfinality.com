@@ -204,3 +204,9 @@ test("a transfer no level has seen is sent again, unchanged, and the resend is r
   assert.equal(run.transfers[0]?.resent, sends - 1);
   assert.ok(run.transfers[0]?.levels.finalized !== undefined);
 });
+
+test("progress is reported after each transfer", async () => {
+  const seen: number[] = [];
+  await measure(chain, fakeDriver(), { runs: 3, pollMs: 0, capMinutes: 1, rpc: "r", log: () => {}, progress: (t) => seen.push(t.length) });
+  assert.deepEqual(seen, [1, 2, 3]);
+});

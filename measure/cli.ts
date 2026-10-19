@@ -72,7 +72,7 @@ async function main(argv: string[]): Promise<number> {
     console.log(
       `$ txfinality measure --chain ${chain.id} --runs ${runs}   (rpc: ${rpc}, poll ${pollMs} ms, cap ${capMinutes} min per transfer)`,
     );
-    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc, slow: slowLevels(chain) });
+    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc, slow: slowLevels(chain), partial: true });
     for (const line of summary(run, chain)) console.log(line);
     const file = writeRun(run);
     console.log(`saved ${file.slice(root.length + 1)}`);
