@@ -10,11 +10,13 @@ import { parseArgs } from "node:util";
 
 import { Keypair } from "@solana/web3.js";
 import bs58 from "bs58";
+import { Account, Ed25519PrivateKey } from "@aptos-labs/ts-sdk";
 import { keyPairFromSeed } from "@ton/crypto";
 import { WalletContractV4 } from "@ton/ton";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 
 import { loadChain, roleLevel, slowLevels } from "./chain.ts";
+import { aptos } from "./chains/aptos.ts";
 import { evm } from "./chains/evm.ts";
 import { solana } from "./chains/solana.ts";
 import { ton } from "./chains/ton.ts";
@@ -23,7 +25,7 @@ import { hostOf, loadEnv, maybe, MissingVariable, need, redacted } from "./env.t
 import { root } from "./root.ts";
 import { measure, summary, type Transfer, watchOne, writeRun } from "./run.ts";
 
-const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm, ton };
+const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm, ton, aptos };
 
 const usage = `usage:
   txfinality measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--slow "level,level"] [--slow-poll-ms 2000] [--machine "runner-1"]
@@ -153,6 +155,11 @@ function wallet(family: string, fromEnv: string): number {
     secret = seed.toString("hex");
     address = WalletContractV4.create({ workchain: 0, publicKey: keyPairFromSeed(seed).publicKey }).address.toString({ bounceable: false });
     fund = "a little TON for fees (a transfer attaches 0.05 TON and gets most of it back), and the USDT to send; the wallet is a v4 contract, deployed by its first outgoing message";
+  } else if (family === "aptos") {
+    const key = randomBytes(32);
+    secret = key.toString("hex");
+    address = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey(key) }).accountAddress.toString();
+    fund = "a little APT for fees (a run needs about 0.05 APT), and the USDC to send; the account is created by its first deposit";
   } else {
     console.error(`wallet: no key generator for family "${family}"`);
     return 2;
