@@ -33,10 +33,12 @@ export function recipientOf(senderSeed: string): Wallet {
   return Wallet.fromEntropy(Array.from(entropy));
 }
 
-/** `USDC.rIssuer…` → the amount object a Payment wants. */
+/** `USDC.rIssuer…` → the amount object a Payment wants. A code of other than three letters is
+ *  carried in the ledger's 160-bit hex form (USDC is `55534443` padded with zeros). */
 export function issued(contract: string, value: string): { currency: string; issuer: string; value: string } {
-  const [currency, issuer] = contract.split(".");
-  if (!currency || !issuer) throw new Error(`asset.contract must be CURRENCY.issuer, not ${contract}`);
+  const [code, issuer] = contract.split(".");
+  if (!code || !issuer) throw new Error(`asset.contract must be CURRENCY.issuer, not ${contract}`);
+  const currency = code.length === 3 || /^[0-9A-F]{40}$/i.test(code) ? code : Buffer.from(code, "ascii").toString("hex").toUpperCase().padEnd(40, "0");
   return { currency, issuer, value };
 }
 

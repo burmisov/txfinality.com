@@ -14,6 +14,7 @@ test("the XRPL recipient is derived from the sender's seed and differs from it",
 });
 
 test("an issued currency is read from CURRENCY.issuer", () => {
-  assert.deepEqual(issued("USDC.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE", "0.1"), { currency: "USDC", issuer: "rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE", value: "0.1" });
+  assert.deepEqual(issued("USDC.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE", "0.1"), { currency: "5553444300000000000000000000000000000000", issuer: "rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE", value: "0.1" });
+  assert.equal(issued("USD.rIssuer", "1").currency, "USD");
   assert.throws(() => issued("USDC", "1"), /CURRENCY\.issuer/);
 });

@@ -81,11 +81,33 @@ export function ton(chain: Chain): Driver {
     const to = WalletContractV4.create({ workchain: 0, publicKey: recipient.publicKey });
     return { sender, recipient, from, to };
   };
-  const v3 = async <T>(path: string): Promise<T> => {
-    const r = await fetch(`${base}/api/v3/${path}`, { headers: { accept: "application/json", ...(apiKey ? { "X-API-Key": apiKey } : {}) } });
-    if (!r.ok) throw new Error(`TON API v3 ${path.split("?")[0]}: HTTP ${r.status} ${(await r.text()).slice(0, 120)}`);
-    return (await r.json()) as T;
+  /** A JSON call to the API that tries again on an empty or non-JSON body or a 429 (TON Center does
+   *  both under load, 2026-10-19), up to four times with a short wait. */
+  const fetchJson = async <T>(what: string, input: string, init?: RequestInit): Promise<T> => {
+    let last = "";
+    for (const wait of [0, 500, 1500, 3000]) {
+      if (wait) await new Promise((res) => setTimeout(res, wait));
+      const r = await fetch(input, init).catch((e: unknown) => {
+        last = e instanceof Error ? e.message : String(e);
+        return null;
+      });
+      if (!r) continue;
+      const text = await r.text();
+      if (r.status === 429 || (r.ok && text.trim() === "")) {
+        last = `HTTP ${r.status} ${text.slice(0, 80)}`;
+        continue;
+      }
+      if (!r.ok) throw new Error(`${what}: HTTP ${r.status} ${text.slice(0, 120)}`);
+      try {
+        return JSON.parse(text) as T;
+      } catch {
+        last = `not JSON: ${text.slice(0, 80)}`;
+      }
+    }
+    throw new Error(`${what}: no usable answer after four tries (${last})`);
   };
+  const v3 = <T>(path: string): Promise<T> =>
+    fetchJson<T>(`TON API v3 ${path.split("?")[0]}`, `${base}/api/v3/${path}`, { headers: { accept: "application/json", ...(apiKey ? { "X-API-Key": apiKey } : {}) } });
   const jettonWalletOf = async (owner: Address): Promise<Address> => {
     const r = await client.runMethod(master, "get_wallet_address", [{ type: "slice", cell: beginCell().storeAddress(owner).endCell() }]);
     return r.stack.readAddress();
@@ -121,13 +143,12 @@ export function ton(chain: Chain): Driver {
       .storeBit(0)
       .endCell();
   const sendBoc = async (boc: Buffer): Promise<string> => {
-    const r = await fetch(`${base}/api/v2/sendBocReturnHash`, {
+    const d = await fetchJson<{ ok: boolean; result?: { hash: string }; error?: string }>("sendBoc", `${base}/api/v2/sendBocReturnHash`, {
       method: "POST",
       headers: { "content-type": "application/json", accept: "application/json", ...(apiKey ? { "X-API-Key": apiKey } : {}) },
       body: JSON.stringify({ boc: boc.toString("base64") }),
     });
-    const d = (await r.json()) as { ok: boolean; result?: { hash: string }; error?: string };
-    if (!d.ok || !d.result) throw new Error(`sendBoc: ${d.error ?? `HTTP ${r.status}`}`);
+    if (!d.ok || !d.result) throw new Error(`sendBoc: ${d.error ?? "no result"}`);
     return Buffer.from(d.result.hash, "base64").toString("hex");
   };
   /** Sends from a wallet and waits for its seqno to move on (setup and teardown only). */
