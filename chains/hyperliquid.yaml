@@ -23,5 +23,4 @@ claim:
   next_read: 2026-11-18
 note: |
   The EVM of an exchange chain: blocks every second, committed by HyperBFT, and no later level named.
-  One level, and it is fast: the slowest of twenty took 2.8 s to be in a block when measured from
-  , the quickest 1.6 s.
+  One level, and it is fast: the slowest of twenty took 2.8 s to be in a block when measured, the quickest 1.6 s.

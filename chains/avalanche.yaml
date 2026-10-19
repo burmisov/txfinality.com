@@ -24,6 +24,6 @@ claim:
   next_read: 2026-11-18
 note: |
   Accepted is final, the docs say, in about a second; the RPC's finalized tag points one step later,
-  at the block whose execution results are themselves accepted. Measured from  through
+  at the block whose execution results are themselves accepted. Measured through
   Infura: the slowest of twenty was accepted in 4.9 s and settled in 11 s (the quickest settled in
   6.8 s) — several seconds more than the docs' clock, which starts at the validator, not here.
