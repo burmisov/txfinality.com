@@ -49,3 +49,16 @@ export function hostOf(url: string): string {
     return "(not a URL)";
   }
 }
+
+/**
+ * An RPC library's error quotes the URL it called, key and all, and so does the message of a failed
+ * return that a run file records. Only the host of any `*_URL` variable survives here; use it on
+ * every error that reaches a log, a run file or the terminal.
+ */
+export function redacted(e: unknown, env: NodeJS.ProcessEnv = process.env): string {
+  let text = e instanceof Error ? `${e.stack ?? e.message}${"cause" in e && e.cause ? `\n  cause: ${String((e.cause as Error).message ?? e.cause)}` : ""}` : String(e);
+  for (const [name, value] of Object.entries(env)) {
+    if (name.endsWith("_URL") && value && value.length > 12) text = text.split(value).join(`${hostOf(value)}/…`);
+  }
+  return text;
+}

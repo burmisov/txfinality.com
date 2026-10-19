@@ -15,7 +15,7 @@ import { loadChain, roleLevel, slowLevels } from "./chain.ts";
 import { evm } from "./chains/evm.ts";
 import { solana } from "./chains/solana.ts";
 import type { Driver } from "./driver.ts";
-import { hostOf, loadEnv, maybe, MissingVariable, need } from "./env.ts";
+import { hostOf, loadEnv, maybe, MissingVariable, need, redacted } from "./env.ts";
 import { root } from "./root.ts";
 import { measure, summary, type Transfer, watchOne, writeRun } from "./run.ts";
 
@@ -148,15 +148,6 @@ function wallet(family: string, fromEnv: string): number {
   console.log(`wrote ${fromEnv} to .env (the key stays there; never commit it)`);
   console.log(`sender ${address}   fund: ${fund}`);
   return 0;
-}
-
-/** Errors from an RPC library quote the URL they called, key and all. Only the host survives here. */
-function redacted(e: unknown): string {
-  let text = e instanceof Error ? `${e.stack ?? e.message}${"cause" in e && e.cause ? `\n  cause: ${String((e.cause as Error).message ?? e.cause)}` : ""}` : String(e);
-  for (const [name, value] of Object.entries(process.env)) {
-    if (name.endsWith("_URL") && value && value.length > 12) text = text.split(value).join(`${hostOf(value)}/…`);
-  }
-  return text;
 }
 
 main(process.argv.slice(2)).then(

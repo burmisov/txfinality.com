@@ -3,7 +3,7 @@ import { test } from "node:test";
 
 import { privateKeyToAccount } from "viem/accounts";
 
-import { parseDetect, recipientKeyOf } from "./evm.ts";
+import { caughtUp, parseDetect, recipientKeyOf } from "./evm.ts";
 
 test("detect strings parse, and unknown ones are refused with the list", () => {
   assert.deepEqual(parseDetect("receipt"), { kind: "receipt" });
@@ -30,4 +30,12 @@ test("feeCaps: the suggested gas price is the floor and the tip never exceeds it
   assert.deepEqual(feeCaps(50_000_000n, 0n, 1_000_000_000n), { maxFeePerGas: 50_000_000n, maxPriorityFeePerGas: 50_000_000n });
   // a rollup: base 10, tip 1, suggested 11 → room for the base fee to double
   assert.deepEqual(feeCaps(11n, 10n, 1n), { maxFeePerGas: 21n, maxPriorityFeePerGas: 1n });
+});
+
+test("caughtUp() waits for a lagging node to show our transactions, and gives up loudly", async () => {
+  const answers = [1, 1, 2];
+  let asked = 0;
+  await caughtUp(async () => answers[Math.min(asked++, answers.length - 1)] ?? 0, 2, 5_000, 1);
+  assert.equal(asked, 3);
+  await assert.rejects(caughtUp(async () => 1, 2, 20, 1), /fewer than 2 transactions/);
 });

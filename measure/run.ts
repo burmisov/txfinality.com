@@ -18,6 +18,7 @@ import { performance } from "node:perf_hooks";
 
 import { type Chain, roleLevel } from "./chain.ts";
 import type { Driver, Signed } from "./driver.ts";
+import { redacted } from "./env.ts";
 import { root } from "./root.ts";
 
 export const METHOD = "v0";
@@ -213,7 +214,8 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
       teardown = await driver.teardown();
       for (const line of teardown.lines) say(opts.log, line);
     } catch (e) {
-      teardownError = e instanceof Error ? e.message : String(e);
+      // the message is what the run file keeps, and a library quotes its URL in it: host only
+      teardownError = redacted(e instanceof Error ? e.message : e);
       say(opts.log, `the return of funds failed (run \`txfinality return --chain ${chain.id}\`): ${teardownError}`);
     }
   }

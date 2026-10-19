@@ -13,7 +13,7 @@
   },
   "setup": [],
   "teardown": [],
-  "teardownError": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nURL: https://bsc-mainnet.infura.io/v3/redacted\nRequest body: {\"method\":\"eth_sendRawTransaction\",\"params\":[\"0x02f8af3805843b9aca00843b9aca0082a1bc9455d398326f99059ff775485246999027b319795580b844a9059cbb000000000000000000000000047ad213f05ccdc9c30bbed96e2eae624905b9de0000000000000000000000000000000000000000000000001bc16d674ec80000c080a0dbc9be86c6da04df990b557b5e4d8fc16321ee55744043dc95256a75ff3e964ba024fd88b2f352ae3c8674a2753ad09d6f636b3588287d883772de96fb239dac0a\"]}\n\nDetails: gas required exceeds allowance (18464)\nVersion: viem@2.57.7",
+  "teardownError": "Missing or invalid parameters.\nDouble check you have provided the correct parameters.\n\nURL: https://bsc-mainnet.infura.io/\u2026\nRequest body: {\"method\":\"eth_sendRawTransaction\",\"params\":[\"0x02f8af3805843b9aca00843b9aca0082a1bc9455d398326f99059ff775485246999027b319795580b844a9059cbb000000000000000000000000047ad213f05ccdc9c30bbed96e2eae624905b9de0000000000000000000000000000000000000000000000001bc16d674ec80000c080a0dbc9be86c6da04df990b557b5e4d8fc16321ee55744043dc95256a75ff3e964ba024fd88b2f352ae3c8674a2753ad09d6f636b3588287d883772de96fb239dac0a\"]}\n\nDetails: gas required exceeds allowance (18464)\nVersion: viem@2.57.7",
   "runs": 20,
   "pollMs": 100,
   "slowPollMs": 2000,

@@ -61,6 +61,21 @@ export function feeCaps(gasPrice: bigint, baseFee: bigint, priority: bigint): { 
   return { maxFeePerGas: byBase > gasPrice ? byBase : gasPrice, maxPriorityFeePerGas };
 }
 
+/**
+ * Waits until a node's account state includes every transaction we sent from an address: its
+ * confirmed transaction count has reached `expected`, the next nonce we would use. Nodes behind one
+ * endpoint lag each other; one answered a balance that still held the gas a return had just paid
+ * (Polygon, 2026-10-19), and the sweep priced on it overshot by exactly that fee.
+ */
+export async function caughtUp(count: () => Promise<number>, expected: number, deadlineMs = 30_000, stepMs = 500): Promise<void> {
+  const until = Date.now() + deadlineMs;
+  for (;;) {
+    if ((await count()) >= expected) return;
+    if (Date.now() > until) throw new Error(`the node still shows fewer than ${expected} transactions after ${deadlineMs / 1000} s`);
+    await new Promise((res) => setTimeout(res, stepMs));
+  }
+}
+
 export function evm(chain: Chain): Driver {
   const url = need(chain.rpc.env);
   const chainId = Number(chain.chainId ?? 0);
@@ -151,6 +166,11 @@ export function evm(chain: Chain): Driver {
   // The receipt is polled for directly: the library's own wait gave up on transactions that had
   // landed (Base, HyperEVM through Infura, 2026-10-19), because the nodes behind one endpoint do
   // not all see a transaction at the same moment.
+  /** the balance of one of our accounts, from a node that has applied everything we sent */
+  const settledBalance = async (address: Address): Promise<bigint> => {
+    await caughtUp(() => client.getTransactionCount({ address, blockTag: "latest" }), nextNonce.get(address) ?? 0);
+    return client.getBalance({ address });
+  };
   const sendAndWait = async (signed: Signed): Promise<Hex> => {
     const hash = await client.sendRawTransaction({ serializedTransaction: `0x${Buffer.from(signed.raw).toString("hex")}` });
     const until = Date.now() + 10 * 60_000;
@@ -260,13 +280,14 @@ export function evm(chain: Chain): Driver {
       await units();
       const lines: string[] = [];
       const txs: string[] = [];
+      await caughtUp(() => client.getTransactionCount({ address: recipient.address, blockTag: "latest" }), nextNonce.get(recipient.address) ?? 0);
       const held = assetIsGas ? 0n : await balanceOf(recipient.address);
       if (held > 0n) {
         // The price may have risen since setup funded the recipient (Arbitrum: tenfold within an
         // hour). If what it holds cannot pay for the return and the sweep, the sender tops it up.
         const data = transferData(sender.address, held);
         const [have, caps, est] = await Promise.all([
-          client.getBalance({ address: recipient.address }),
+          settledBalance(recipient.address),
           fees(),
           client.estimateGas({ account: recipient.address, to: token, data }),
         ]);
@@ -276,14 +297,14 @@ export function evm(chain: Chain): Driver {
           txs.push(await sendAndWait(topUp));
           lines.push(`gave the recipient gas for the return, the price having risen: ${txs[txs.length - 1]}`);
         }
-        const signed = await sign(recipient, { to: token, data }, await client.getBalance({ address: recipient.address }));
+        const signed = await sign(recipient, { to: token, data }, await settledBalance(recipient.address));
         txs.push(await sendAndWait(signed));
         lines.push(`returned ${formatUnits(held, decimals)} ${chain.asset.symbol}: ${txs[txs.length - 1]}`);
       }
       // The sweep: a plain transfer is not 21,000 gas everywhere (Arbitrum adds the L1 share to the
       // limit), and a rollup charges an L1 data fee on top of gas × price (Base), so the estimate is
       // asked for and twice the cost is left behind. The dust is far below a cent.
-      const gasLeft = await client.getBalance({ address: recipient.address });
+      const gasLeft = await settledBalance(recipient.address);
       const sweepGas = gasLeft > 0n ? ((await client.estimateGas({ account: recipient.address, to: sender.address, value: 1n })) * 12n) / 10n : 21_000n;
       const cost = (await fees()).maxFeePerGas * sweepGas;
       if (gasLeft > cost * 3n) {
