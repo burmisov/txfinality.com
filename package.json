@@ -12,11 +12,14 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test measure/run.test.ts measure/env.test.ts select/select.test.ts measure/chains/evm.test.ts"
+    "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test measure/run.test.ts measure/env.test.ts select/select.test.ts measure/chains/evm.test.ts measure/chains/ton.test.ts"
   },
   "dependencies": {
     "@solana/spl-token": "^0.4.15",
     "@solana/web3.js": "^1.99.0",
+    "@ton/core": "^0.63.1",
+    "@ton/crypto": "^3.3.0",
+    "@ton/ton": "^16.3.0",
     "bs58": "^6.0.0",
     "viem": "^2.57.7",
     "yaml": "^2.9.1"

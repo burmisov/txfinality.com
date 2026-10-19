@@ -3,23 +3,27 @@
 //   watch   --chain <id> [--limit 10] [--poll-ms 500]    time other people's transfers; sends nothing
 //   wallet  --chain <id>                                 make a sender; writes its key to .env
 //   return  --chain <id>                                 undo a run's setup by hand: funds back, accounts closed
+import { randomBytes } from "node:crypto";
 import { appendFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 
 import { Keypair } from "@solana/web3.js";
 import bs58 from "bs58";
+import { keyPairFromSeed } from "@ton/crypto";
+import { WalletContractV4 } from "@ton/ton";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 
 import { loadChain, roleLevel, slowLevels } from "./chain.ts";
 import { evm } from "./chains/evm.ts";
 import { solana } from "./chains/solana.ts";
+import { ton } from "./chains/ton.ts";
 import type { Driver } from "./driver.ts";
 import { hostOf, loadEnv, maybe, MissingVariable, need, redacted } from "./env.ts";
 import { root } from "./root.ts";
 import { measure, summary, type Transfer, watchOne, writeRun } from "./run.ts";
 
-const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm };
+const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm, ton };
 
 const usage = `usage:
   txfinality measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--slow "level,level"] [--slow-poll-ms 2000] [--machine "runner-1"]
@@ -144,6 +148,11 @@ function wallet(family: string, fromEnv: string): number {
     secret = key;
     address = privateKeyToAccount(key).address;
     fund = "a little gas on each EVM chain you will run, and the USDC to send there; the same address on every EVM chain";
+  } else if (family === "ton") {
+    const seed = randomBytes(32);
+    secret = seed.toString("hex");
+    address = WalletContractV4.create({ workchain: 0, publicKey: keyPairFromSeed(seed).publicKey }).address.toString({ bounceable: false });
+    fund = "a little TON for fees (a transfer attaches 0.05 TON and gets most of it back), and the USDT to send; the wallet is a v4 contract, deployed by its first outgoing message";
   } else {
     console.error(`wallet: no key generator for family "${family}"`);
     return 2;
