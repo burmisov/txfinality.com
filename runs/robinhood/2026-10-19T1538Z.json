@@ -4,6 +4,7 @@
   "stamp": "2026-10-19T1538Z",
   "machine": "runner-1",
   "rpc": "lb.drpc.org",
+  "sendRpc": "rpc.mainnet.chain.robinhood.com",
   "asset": "USDG",
   "amount": "0.1",
   "chainFile": "ed6e7caaa9d8853ceec4d06b59e3591b049f633a685bc2a3f9b64dab8a0a791c",

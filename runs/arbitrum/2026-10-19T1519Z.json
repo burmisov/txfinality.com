@@ -4,6 +4,7 @@
   "stamp": "2026-10-19T1519Z",
   "machine": "runner-1",
   "rpc": "lb.drpc.org",
+  "sendRpc": "arb1.arbitrum.io",
   "asset": "USDC",
   "amount": "0.1",
   "chainFile": "c1c23dcaf1cd21f61928ea21f804cd8fc0e9f07f3ec049d0b1e789d089c26980",

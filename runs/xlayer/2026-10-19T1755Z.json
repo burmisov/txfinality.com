@@ -4,6 +4,7 @@
   "stamp": "2026-10-19T1755Z",
   "machine": "runner-1",
   "rpc": "lb.drpc.org",
+  "sendRpc": "rpc.xlayer.tech",
   "asset": "USDC",
   "amount": "0.1",
   "chainFile": "2962b8fe91bf1de5a0213404ca279c9a11bed6a7d4e9f45b2f0c98a7a479bcad",

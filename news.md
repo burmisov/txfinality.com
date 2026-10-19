@@ -2,7 +2,7 @@
 
 ## 2026-10-18 — the project starts
 
-The premise, the page design (six mocks), the structure and the method draft are in `docs/`. Nothing
+The premise and the method draft are written down (the method in `docs/METHOD.md`; the page design lives with the site). Nothing
 is measured yet.
 
 ## 2026-10-18 — mocks 7 and 8
@@ -90,7 +90,7 @@ twenty finalizing between 1112.424 s and 1128.202 s. A one-transfer smoke earlie
 1.295 s, slowest *posted to L1* (the RPC's safe tag) 46.58 s, slowest *L1 finalized* 1279.094 s, the twenty
 finalizing between 1264.285 s and 1279.094 s. Reads for this run came from Infura: a free third-party
 node refused the polling rate at the thirteenth transfer twice (the run file records the host it used).
-Eleven of the fifteen are measured now; the four left are Ethereum and Tron (by design), TON, XRPL and
+Eleven are measured now (ten of the fifteen, plus Arc); of the fifteen, Ethereum and Tron are by design, and TON, XRPL and
 Aptos (drivers to write).
 
 ## 2026-10-19 — TON, the first non-EVM chain after Solana
@@ -108,8 +108,8 @@ empty body; the driver retries such answers now. The TON and the USDT were retur
 `runs/xrpl/2026-10-19T1701Z.json`: twenty Payments of 0.1 USDC (Circle's issued currency), one at a time,
 polled every 200 ms through xrplcluster.com; slowest *validated* 13.291 s, median 5.38 s, quickest 3.436 s.
 The recipient's trust line and reserve XRP were set up before the clock and stay for the next run; the
-USDC came back. Thirteen of the fifteen are measured; Aptos waits for funds, Ethereum and Tron are by
-design.
+USDC came back. Thirteen are measured (twelve of the fifteen, plus Arc); Aptos waits for funds, Ethereum and Tron are
+by design.
 
 ## 2026-10-19 — Aptos parked
 

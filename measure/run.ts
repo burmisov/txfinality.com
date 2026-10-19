@@ -44,6 +44,8 @@ export type Run = {
   stamp: string;
   machine: string;
   rpc: string;
+  /** host of the endpoint that took the sends and answered the receipts, where the chain has one (rule m) */
+  sendRpc?: string;
   asset: string;
   amount: string;
   chainFile: string;
@@ -82,6 +84,7 @@ export type Options = {
   machine?: string;
   /** host of the RPC endpoint, for the record; never the URL */
   rpc: string;
+  sendRpc?: string;
   log?: (line: string) => void;
 };
 
@@ -307,6 +310,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     stamp,
     machine: opts.machine ?? "runner", // a label, never a host name or a place: the run file is public
     rpc: chain.rpc.provider || opts.rpc,
+    ...(opts.sendRpc ? { sendRpc: opts.sendRpc } : {}),
     asset: chain.asset.symbol,
     amount: chain.asset.amount,
     chainFile: chain.hash,

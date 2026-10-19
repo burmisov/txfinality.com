@@ -28,7 +28,7 @@ cd txfinality.com
 npm install
 cp .env.example .env               # your RPC URL for the chain; never committed
 npx txfinality wallet --chain solana        # or put your own sender key in .env
-#   → prints the sender to fund: a little SOL for fees and rent, and 20 USDC for 20 transfers of 1
+#   → prints the sender to fund: a little SOL for fees and rent, and about 2 USDC for 20 transfers of 0.1
 npx txfinality measure --chain solana --runs 20     # → runs/solana/<stamp>.json, with the hashes
 ```
 
@@ -46,8 +46,7 @@ figure is wrong, open an issue with your run file.
 
 ## Status
 
-18 October 2026: the first run is in `runs/solana/`: twenty transfers of 1 USDC from runner-1 through Infura, one at a time. Slowest confirmed 1.105 s, slowest finalized 8.075 s. The page is not
-built yet. 19 October 2026: the amount per transfer is 0.1 USDC from here on, so a run needs about 2 USDC
+18 October 2026: the first run is in `runs/solana/`: twenty transfers of 1 USDC from runner-1 through Infura, one at a time. Slowest confirmed 1.105 s, slowest finalized 8.075 s. The page is live at https://txfinality.com/. 19 October 2026: the amount per transfer is 0.1 USDC from here on, so a run needs about 2 USDC
 and a little gas on the chain.
 
 ## Made by

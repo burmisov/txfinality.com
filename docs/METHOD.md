@@ -10,7 +10,7 @@ b. The clock starts the instant before the signed transaction leaves our machine
    after 20 s, the same signed bytes are sent again (an RPC can accept a transaction and lose it; seen
    on BNB Chain through Infura on 2026-10-19), as a wallet would; the clock is not touched, so the
    figure includes the wait, and the run file says how many times each transfer was resent.
-c. The transaction is polled on the chain's own RPC until it reaches each level the chain defines: first
+c. The transaction is polled on an RPC of the chain — named in the run file — until it reaches each level the chain defines: first
    in a block, the earliest level the chain calls safe (*done* on the page), the level it calls final
    (*final*). The chain's own names for its levels are kept and printed. A level's time is the moment
    the poll that first showed it came back, so a figure carries up to one poll interval (100 ms by
@@ -39,9 +39,6 @@ i. Until a chain is measured, the page shows the seconds its own docs give, mark
 j. A chain may be listed outside the cut by decision, when it is new and built for stablecoins (Arc), or
    because everyone asks (Bitcoin); the landscape file says so.
 
-Open: whether the first level ("first in a block") is shown on the page or only kept in the run file;
-the cap per chain run (30 min in the code); what to do with a transfer that fails to land (recorded as
-`failed`, excluded from nothing: the page shows *?* when any of the twenty lacks a level).
 k. Where the final level is documented at a minute or more (a rollup's L1 finality), the next transfer is
    sent as soon as the previous one has reached its *done* level, and the long waits overlap: each
    transfer's quick phase still happens alone, each transfer keeps its own clock, and a run takes one
@@ -52,3 +49,13 @@ l. A chain in the cut may be parked by decision when it cannot be run yet — Ap
    driver exists, but nothing the runner can reach delivers the gas token, so a run waits for a deposit.
    A parked chain is off the page and out of the "of N" count; its chain file says `dropped` and why,
    the landscape marks it unlisted, and it comes back the day it runs. Added 2026-10-19.
+m. Where the chain's own endpoint takes the sends (a rollup's sequencer), the receipt is read there too and
+   the run file names it (`sendRpc`) beside the reader (`rpc`); the block tags come from the reader. A run
+   may use a per-transfer cap other than the default 30 minutes (`--cap-minutes`); the run file records it.
+   Runs of different chains may overlap on the machine (each chain's own twenty are serial as rule d and
+   rule k say); on 2026-10-19 the Arc and Hyperliquid runs ran side by side, and some rollup runs began
+   during another's wait for Ethereum. Added 2026-10-19.
+
+Open: whether the first level ("first in a block") is shown on the page or only kept in the run file;
+the default cap per transfer (30 min; `--cap-minutes` for a run); what to do with a transfer that fails to land (recorded as
+`failed`, excluded from nothing: the page shows *?* when any of the twenty lacks a level).

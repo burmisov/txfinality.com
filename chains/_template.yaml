@@ -1,10 +1,10 @@
 # One file per chain. Copy, rename to <id>.yaml, fill. The page is built from these files.
 id: example
 name: Example Chain
-family: evm-final-tag        # solana | evm-final-tag | rollup | own-final-flag | …  (which driver measures it)
+family: evm                  # solana | evm | ton | xrpl | aptos  (which driver measures it)
 status: candidate            # measured | by-design | candidate | dropped
 since: 2026-10-18
-icon: example.jpg            # site/icons/<icon>
+icon: example.jpg            # the site keeps the marks; this names the asset there (null if none)
 asset:
   symbol: USDC
   contract: "0x…"

@@ -27,4 +27,4 @@ Read 2026-10-18. Quotes are verbatim from the page named; nothing here is paraph
 
 - Chain id 5042; RPC https://rpc.mainnet.arc.io; USDC is the native gas token with 18 decimals; the USDC address on Circle's list is 0x3600000000000000000000000000000000000000 (a system contract; verify it answers the ERC-20 interface before a run).
 - No block interval is stated; finality is "in under one second".
-- Listed by his decision (2026-10-18) although below the cut: rank 18, $0.67 bn that day.
+- Listed by decision (2026-10-18) although below the cut: rank 18, $0.67 bn that day.

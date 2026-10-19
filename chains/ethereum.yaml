@@ -20,7 +20,7 @@ levels:                      # seconds: what the docs say, until measured; role 
   - { name: "finalized", detect: "block tag finalized", role: final, seconds: 768 }   # DERIVED: two epoch checkpoints = 64 × 12 s; the docs give the mechanism, not the minutes
 claim:
   text: "Time in proof-of-stake Ethereum is divided into slots (12 seconds) and epochs (32 slots)."
-  url: "https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/"
+  url: "https://ethereum.org/developers/docs/consensus-mechanisms/pos/"
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |

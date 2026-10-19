@@ -1,5 +1,5 @@
 // `npx txfinality <command>`:
-//   measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--machine "name, place"]
+//   measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--slow "level,level"] [--slow-poll-ms 2000] [--machine "a label"]
 //   watch   --chain <id> [--limit 10] [--poll-ms 500]    time other people's transfers; sends nothing
 //   wallet  --chain <id>                                 make a sender; writes its key to .env
 //   return  --chain <id>                                 undo a run's setup by hand: funds back, accounts closed
@@ -87,7 +87,7 @@ async function main(argv: string[]): Promise<number> {
     console.log(
       `$ txfinality measure --chain ${chain.id} --runs ${runs}   (rpc: ${rpc}, poll ${pollMs} ms, cap ${capMinutes} min per transfer)`,
     );
-    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc, slow, slowPollMs, partial: true });
+    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc, sendRpc: chain.rpc.send_env ? hostOf(need(chain.rpc.send_env)) : undefined, slow, slowPollMs, partial: true });
     for (const line of summary(run, chain)) console.log(line);
     const file = writeRun(run);
     console.log(`saved ${file.slice(root.length + 1)}`);

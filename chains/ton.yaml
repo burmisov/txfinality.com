@@ -18,7 +18,7 @@ levels:                      # seconds: what the docs say, until measured; role 
   - { name: "in a masterchain block", detect: "referenced by a masterchain block", role: done-final, seconds: 1 }   # "typically within 1 second"
 claim:
   text: "TON achieves transaction finality after a single masterchain block confirmation, typically within 1 second."
-  url: "https://docs.ton.org/v3/guidelines/dapps/asset-processing/payments-processing"
+  url: "https://docs.ton.org/applications/payments/overview"
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |

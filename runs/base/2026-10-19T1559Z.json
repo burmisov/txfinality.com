@@ -4,6 +4,7 @@
   "stamp": "2026-10-19T1559Z",
   "machine": "runner-1",
   "rpc": "base-mainnet.infura.io",
+  "sendRpc": "mainnet.base.org",
   "asset": "USDC",
   "amount": "0.1",
   "chainFile": "ac151d9f0d124ebed12596cd566852a7d96fba654671b6908e611f165c93447b",

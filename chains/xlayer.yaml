@@ -21,7 +21,7 @@ levels:                      # seconds: what the docs say, until measured; role 
   - { name: "L1 finalized", detect: "block tag finalized", role: final }   # the docs do not define the tags and give no number
 claim:
   text: "Fast execution happens on L2 with 1-second block times."
-  url: "https://web3.okx.com/xlayer/docs/developer/build-on-xlayer/quickstart"
+  url: "https://web3.okx.com/onchainos/dev-docs/xlayer/developer/build-on-xlayer/about-xlayer"
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |

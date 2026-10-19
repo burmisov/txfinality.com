@@ -21,7 +21,7 @@ levels:                      # seconds: what the docs say, until measured; role 
   - { name: "L1 finalized", detect: "block tag finalized", role: final, seconds: 780 }   # "~13 minutes after posting"; no total given
 claim:
   text: "Full finality — your transaction inherits Ethereum's security and is irreversible."
-  url: "https://docs.robinhood.com/chain/transaction-finality"
+  url: "https://docs.robinhood.com/chain/transaction-finality/"
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |
