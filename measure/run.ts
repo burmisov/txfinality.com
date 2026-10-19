@@ -16,7 +16,6 @@
 // L1, say — the poll slows to `slowPollMs` (2 s by default): a figure of twenty minutes carries two
 // seconds of slack, which is a tenth of a percent, and the RPC is spared a hundred thousand calls.
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
-import { hostname } from "node:os";
 import { join } from "node:path";
 import { performance } from "node:perf_hooks";
 
@@ -306,7 +305,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     chain: chain.id,
     method: METHOD,
     stamp,
-    machine: opts.machine ?? hostname(),
+    machine: opts.machine ?? "runner", // a label, never a host name or a place: the run file is public
     rpc: chain.rpc.provider || opts.rpc,
     asset: chain.asset.symbol,
     amount: chain.asset.amount,
