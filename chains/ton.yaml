@@ -1,7 +1,7 @@
 id: ton
 name: TON
 family: ton
-status: candidate
+status: measured
 since: 2026-10-18
 icon: ton.jpg
 asset:
@@ -23,5 +23,7 @@ claim:
   next_read: 2026-11-18
 note: |
   A shard block is quick, and the masterchain block that seals it is what the docs call final: about a
-  second, they say. One level counts, and it is fast. Not measured yet: the driver is to be written;
-  the figure is the docs' own.
+  second, they say. Measured from  through TON Center, timing the credit on the recipient's
+  jetton wallet (three hops from the sender's message): the slowest of twenty was in a shard block and
+  in a masterchain block at 2.3 s, the quickest at 1.1 s and 1.3 s; in sixteen of twenty the two were
+  seen in the same poll, so the masterchain seal is at most a few hundred milliseconds behind the shard.

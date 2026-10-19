@@ -1,0 +1,214 @@
+{
+  "chain": "ton",
+  "method": "v0",
+  "stamp": "2026-10-19T1658Z",
+  "machine": "runner-1",
+  "rpc": "toncenter.com",
+  "asset": "USDT",
+  "amount": "0.1",
+  "chainFile": "23d1316257871d67cc543b4690f4fb8cf351100caa2cfee6dd0fd24eb6d50304",
+  "wallets": {
+    "from": "UQBNWzhnXle4YjSvyDY9T0Rd7NACkNrk8kbZt_pXpPtaDrgL",
+    "to": "UQCSXO9eBiC7xfeVioqJLb86CiluMGUJBDJ7kV75Bw64DX7Q"
+  },
+  "setup": [
+    "f050651e07cefab223dcaba412637e8d6d1d0ee303393ef72796d72b9bfc7fb3"
+  ],
+  "teardown": [
+    "ab65c6bd1aa1f9e54c1d0f765a990e8f984a24ad78b74ea33698599e5c83228d",
+    "445b1e106f9f6e342a30b92b532e8500a92ac08ee95451778bc34ee49a3bf893"
+  ],
+  "runs": 20,
+  "pollMs": 200,
+  "slowPollMs": 2000,
+  "slowLevels": [],
+  "overlapAfter": null,
+  "capMinutes": 30,
+  "transfers": [
+    {
+      "id": "feb97553b8013916563aa643aae6fb143bfade2a688154a1ada6c56978305fa7",
+      "sent": "2026-10-19T16:58:44.625Z",
+      "levels": {
+        "in a shardchain block": 1.298,
+        "in a masterchain block": 1.298
+      },
+      "polls": 5
+    },
+    {
+      "id": "d26778f81ef9f68ccd0e479a8563a001e0498974cc9e786785a7fc0dcfd150bf",
+      "sent": "2026-10-19T16:58:46.037Z",
+      "levels": {
+        "in a shardchain block": 2.032,
+        "in a masterchain block": 2.032
+      },
+      "polls": 8
+    },
+    {
+      "id": "eb76d9a4496f173c8dcb176e5d78c81ad259334a1e15bdc2f097ceba9b9a857b",
+      "sent": "2026-10-19T16:58:48.188Z",
+      "levels": {
+        "in a shardchain block": 1.998,
+        "in a masterchain block": 1.998
+      },
+      "polls": 8
+    },
+    {
+      "id": "2695088c505f68b41992af7151962bc0f3dd1a2185f12bb3d32041d8f4f18313",
+      "sent": "2026-10-19T16:58:50.349Z",
+      "levels": {
+        "in a shardchain block": 2.296,
+        "in a masterchain block": 2.296
+      },
+      "polls": 9
+    },
+    {
+      "id": "5ad60db495154e8c860e7b98bcbc2f7bf775f85b81f1f4a0f12a099e8875e967",
+      "sent": "2026-10-19T16:58:52.761Z",
+      "levels": {
+        "in a shardchain block": 2.272,
+        "in a masterchain block": 2.272
+      },
+      "polls": 9
+    },
+    {
+      "id": "f70b0ec6b6bdf34688bc38e9c653e4b36d91aa918a135b71f2ba17fe24e5940a",
+      "sent": "2026-10-19T16:58:55.157Z",
+      "levels": {
+        "in a shardchain block": 2.066,
+        "in a masterchain block": 2.066
+      },
+      "polls": 8
+    },
+    {
+      "id": "e916fef6c2452c784cdf692ec9dbc1cb45ef8c34baac1a2b0c2a138b678e9071",
+      "sent": "2026-10-19T16:58:57.350Z",
+      "levels": {
+        "in a shardchain block": 2,
+        "in a masterchain block": 2
+      },
+      "polls": 8
+    },
+    {
+      "id": "8d87debfe227297f90d37f142e4e31a0a080e2ff081e54e9529a1d2f8abf1871",
+      "sent": "2026-10-19T16:58:59.513Z",
+      "levels": {
+        "in a shardchain block": 2.108,
+        "in a masterchain block": 2.108
+      },
+      "polls": 8
+    },
+    {
+      "id": "53ee00cdc5f58c4aeeaa9d2b092fdf79671a61668d5645a06a39357196e8ac0a",
+      "sent": "2026-10-19T16:59:01.775Z",
+      "levels": {
+        "in a shardchain block": 1.051,
+        "in a masterchain block": 1.361
+      },
+      "polls": 5
+    },
+    {
+      "id": "d3b9437b1950a56e299d9476230b2d482ce122fb29b854166096a663e9d15e05",
+      "sent": "2026-10-19T16:59:03.254Z",
+      "levels": {
+        "in a shardchain block": 1.893,
+        "in a masterchain block": 1.893
+      },
+      "polls": 7
+    },
+    {
+      "id": "e9c7ab72a2233ce458210a7876b9ff5d30473a5e1f9ef5cbfefaf85951ca4a14",
+      "sent": "2026-10-19T16:59:05.278Z",
+      "levels": {
+        "in a shardchain block": 1.32,
+        "in a masterchain block": 1.32
+      },
+      "polls": 4
+    },
+    {
+      "id": "37fee235839eca33e0d27948c36e4d65a8b351c031531761da39a05665ff736a",
+      "sent": "2026-10-19T16:59:06.725Z",
+      "levels": {
+        "in a shardchain block": 2.026,
+        "in a masterchain block": 2.026
+      },
+      "polls": 7
+    },
+    {
+      "id": "2305c803ca2a3b48882fbccaedde81198cbbb852b64730494725d9d5635fe00d",
+      "sent": "2026-10-19T16:59:08.882Z",
+      "levels": {
+        "in a shardchain block": 1.115,
+        "in a masterchain block": 1.488
+      },
+      "polls": 5
+    },
+    {
+      "id": "1f3ae956e6fc218b327d0f233cfe45d766ac60698ec49d502bf2457e79038104",
+      "sent": "2026-10-19T16:59:10.532Z",
+      "levels": {
+        "in a shardchain block": 1.716,
+        "in a masterchain block": 1.716
+      },
+      "polls": 6
+    },
+    {
+      "id": "34315c2828beb6c6155458a8c7b542662882b7291ddaeb97e8b04c7379a5bb46",
+      "sent": "2026-10-19T16:59:12.371Z",
+      "levels": {
+        "in a shardchain block": 2.335,
+        "in a masterchain block": 2.335
+      },
+      "polls": 8
+    },
+    {
+      "id": "b345a026638ac11e38815ae8e7997dcc8a7799292e5b16a25ee7481076a2e04a",
+      "sent": "2026-10-19T16:59:14.853Z",
+      "levels": {
+        "in a shardchain block": 2.076,
+        "in a masterchain block": 2.076
+      },
+      "polls": 7
+    },
+    {
+      "id": "833e5373e8c4b052b579278f6935e545acaa45461a517ff8877b5959b8b31aab",
+      "sent": "2026-10-19T16:59:17.095Z",
+      "levels": {
+        "in a shardchain block": 2.066,
+        "in a masterchain block": 2.066
+      },
+      "polls": 7
+    },
+    {
+      "id": "5f49ae43f0671e2d9f9d63919c448d12c91842d16e8b5aa4162d11721036462b",
+      "sent": "2026-10-19T16:59:19.280Z",
+      "levels": {
+        "in a shardchain block": 1.062,
+        "in a masterchain block": 1.341
+      },
+      "polls": 5
+    },
+    {
+      "id": "262d8cf7107c8b6bc9ba84604a6714414ef5012763fb1a5b01692aa1a3bc0df7",
+      "sent": "2026-10-19T16:59:20.748Z",
+      "levels": {
+        "in a shardchain block": 1.949,
+        "in a masterchain block": 1.949
+      },
+      "polls": 7
+    },
+    {
+      "id": "861e174d4f7902c9de3419c6f4fd4db7ecc8e56cc41fe75017de5350cb4906b8",
+      "sent": "2026-10-19T16:59:22.809Z",
+      "levels": {
+        "in a shardchain block": 1.108,
+        "in a masterchain block": 1.384
+      },
+      "polls": 5
+    }
+  ],
+  "slowest": {
+    "done": 2.335,
+    "final": 2.335
+  },
+  "notReached": []
+}

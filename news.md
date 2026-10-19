@@ -92,3 +92,13 @@ finalizing between 1264.285 s and 1279.094 s. Reads for this run came from Infur
 node refused the polling rate at the thirteenth transfer twice (the run file records the host it used).
 Eleven of the fifteen are measured now; the four left are Ethereum and Tron (by design), TON, XRPL and
 Aptos (drivers to write).
+
+## 2026-10-19 — TON, the first non-EVM chain after Solana
+
+`runs/ton/2026-10-19T1658Z.json`: twenty transfers of 0.1 USDT (the jetton), one at a time, polled every
+200 ms through TON Center with a key; slowest *in a shardchain block* 2.335 s, slowest *in a masterchain
+block* 2.335 s, the twenty between 1.051 s and 2.335 s. What is timed is the credit: the transaction on
+the recipient's jetton wallet, three hops after the sender's external message (sender wallet, sender
+jetton wallet, recipient jetton wallet). In sixteen of the twenty the shard and masterchain levels were
+first seen in the same poll. A first attempt died at its first transfer when the API answered with an
+empty body; the driver retries such answers now. The TON and the USDT were returned to the sender.

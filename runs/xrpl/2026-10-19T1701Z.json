@@ -1,0 +1,42 @@
+{
+  "chain": "xrpl",
+  "method": "v0",
+  "stamp": "2026-10-19T1701Z",
+  "machine": "runner-1",
+  "rpc": "xrplcluster.com",
+  "asset": "USDC",
+  "amount": "0.1",
+  "chainFile": "69172a490dbcc4a53b0c420652dc8c69621d946cfa58475ff66787c3fba00923",
+  "wallets": {
+    "from": "r36ePfjVVNZbYnYtb7RqLixC1mU68JDayi",
+    "to": "raXJpitCC4e4AFwUrzpB7AnbYSVyjePK6G"
+  },
+  "setup": [
+    "102AC03D9FDA6F166A440C9655862DC2B0F72CBD17C9FDE4B92DBD4229561279",
+    "87FD60BA8696FCE69D3C3EC5FE96DF127115BDEA0E6AF2E5EBA30A73438F0938"
+  ],
+  "teardown": [
+    "9C66E98C835DF7F4827C8CA64C08597B5A69A272D7003D719E96EA765D285BC6"
+  ],
+  "runs": 1,
+  "pollMs": 200,
+  "slowPollMs": 2000,
+  "slowLevels": [],
+  "overlapAfter": null,
+  "capMinutes": 30,
+  "transfers": [
+    {
+      "id": "0FD9AC9402E92E7BD5E7FB706D76A547C83E66F54494FD1D00607F6998EA95AD",
+      "sent": "2026-10-19T17:01:18.009Z",
+      "levels": {
+        "validated": 7.079
+      },
+      "polls": 22
+    }
+  ],
+  "slowest": {
+    "done": 7.079,
+    "final": 7.079
+  },
+  "notReached": []
+}
