@@ -87,6 +87,10 @@ export function evm(chain: Chain): Driver {
     rpcUrls: { default: { http: [url] } },
   };
   const client: PublicClient = createPublicClient({ chain: viemChain, transport: http(url) });
+  // Sends and the pending nonce go to the sequencer's own endpoint where the read endpoint does
+  // not forward them: dRPC's X Layer node kept our transaction in its mempool for ever (2026-10-19).
+  const sendUrl = chain.rpc.send_env ? need(chain.rpc.send_env) : url;
+  const sender_: PublicClient = sendUrl === url ? client : createPublicClient({ chain: viemChain, transport: http(sendUrl) });
   const token = chain.asset.contract as Address;
   // On a chain whose gas IS the asset (Arc: USDC), the recipient's token balance is also what pays
   // its fees, so the return is a sweep of the native balance rather than a token transfer.
@@ -136,7 +140,7 @@ export function evm(chain: Chain): Driver {
     within?: bigint,
   ): Promise<Signed> => {
     const [remote, caps] = await Promise.all([
-      client.getTransactionCount({ address: from.address, blockTag: "pending" }),
+      sender_.getTransactionCount({ address: from.address, blockTag: "pending" }),
       fees(),
     ]);
     const nonce = Math.max(remote, nextNonce.get(from.address) ?? 0);
@@ -172,7 +176,7 @@ export function evm(chain: Chain): Driver {
     return client.getBalance({ address });
   };
   const sendAndWait = async (signed: Signed): Promise<Hex> => {
-    const hash = await client.sendRawTransaction({ serializedTransaction: `0x${Buffer.from(signed.raw).toString("hex")}` });
+    const hash = await sender_.sendRawTransaction({ serializedTransaction: `0x${Buffer.from(signed.raw).toString("hex")}` });
     const until = Date.now() + 10 * 60_000;
     for (;;) {
       const r = await client.getTransactionReceipt({ hash }).catch(() => null);
@@ -229,7 +233,7 @@ export function evm(chain: Chain): Driver {
     },
 
     async send(signed) {
-      await client.sendRawTransaction({ serializedTransaction: `0x${Buffer.from(signed.raw).toString("hex")}` });
+      await sender_.sendRawTransaction({ serializedTransaction: `0x${Buffer.from(signed.raw).toString("hex")}` });
     },
 
     async status(ids) {

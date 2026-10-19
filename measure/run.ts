@@ -1,6 +1,10 @@
-// The runner. Sends n transfers one at a time: each is sent alone, watched until it reaches the
-// chain's final level (or fails, or its cap passes), and only then is the next one built and sent.
-// Nothing else happens while a transfer is in flight. It writes `runs/<chain>/<stamp>.json`.
+// The runner. Sends n transfers one at a time: each is sent alone and watched. On a chain whose
+// final level is quick, the next transfer is built only once the previous one is final (or failed,
+// or capped). On a chain whose final level is documented at a minute or more — a rollup's L1
+// finality — the next goes out once the previous has reached its *done* level, so the quick phase
+// of each transfer still happens alone while the long waits overlap; a run then takes one L1
+// finality plus twenty done-times rather than twenty L1 finalities. It writes
+// `runs/<chain>/<stamp>.json`.
 //
 // The clock for a transfer starts the instant before its bytes leave this machine. A level's time
 // is the instant the poll that first showed it came back, so every figure includes up to one poll
@@ -55,6 +59,8 @@ export type Run = {
   /** the poll interval once only slow levels remain, and which levels those are (none: never slowed) */
   slowPollMs: number;
   slowLevels: string[];
+  /** the level after which the next transfer was sent while this one went on (method rule k); null = each to final */
+  overlapAfter: string | null;
   capMinutes: number;
   transfers: Transfer[];
   slowest: { done: number | null; final: number | null };
@@ -128,6 +134,13 @@ export const SLOW_POLL_MS = 2000;
  *  is not touched, so a resend shows up in the figure, and `resent` says it happened. */
 export const RESEND_MS = 20_000;
 
+/** Rule k: on a chain whose final level is slow, the next transfer goes out once the previous one has
+ *  reached `done`; otherwise only once it is over. Returns the gate level, or null for strictly serial. */
+export function overlapAfter(levels: readonly string[], done: string, slow: readonly string[]): string | null {
+  const final = levels[levels.length - 1];
+  return final !== undefined && final !== done && slow.includes(final) ? done : null;
+}
+
 /** The poll interval for the next unreached level: `slow.ms` if that level is one of `slow.levels`. */
 export function pollFor(levels: readonly string[], t: Transfer, fast: number, slow?: { ms: number; levels: readonly string[] }): number {
   if (!slow) return fast;
@@ -178,6 +191,82 @@ export async function watchOne(
   }
 }
 
+type InFlight = { t: Transfer; from: number; signed: Signed; lastSent: number };
+
+/** Sends the run's transfers and watches them until each is over (final, failed, or capped). With a
+ *  `gate` level, the next transfer is sent as soon as the previous one has reached it; without one,
+ *  only once the previous one is over. Every poll asks the driver about all transfers in flight at
+ *  once; a transfer's clock is its own, so what else is in flight does not move its figures. */
+async function sendAndWatch(
+  driver: Driver,
+  transfers: Transfer[],
+  opts: Options,
+  run: { tag: string; gate: string | null; slow: { ms: number; levels: readonly string[] }; stamp: string; chainId: string },
+): Promise<void> {
+  const final = driver.levels[driver.levels.length - 1];
+  if (final === undefined) throw new Error("driver has no levels");
+  const capMs = opts.capMinutes * 60_000;
+  const everyMs = opts.resendMs ?? RESEND_MS;
+  const over = (a: InFlight): boolean => a.t.failed !== undefined || a.t.levels[final] !== undefined || performance.now() - a.from > capMs;
+  const inFlight: InFlight[] = [];
+  let i = 0;
+  while (i < opts.runs || inFlight.length > 0) {
+    const last = inFlight[inFlight.length - 1];
+    if (i < opts.runs && (last === undefined || over(last) || (run.gate !== null && last.t.levels[run.gate] !== undefined))) {
+      const signed = await driver.prepare(i, opts.runs, `${run.tag} ${i + 1}/${opts.runs}`);
+      const t: Transfer = { id: signed.id, sent: "", levels: {}, polls: 0 };
+      const from = performance.now();
+      t.sent = new Date().toISOString();
+      await driver.send(signed);
+      say(opts.log, `${i + 1}/${opts.runs} ${signed.id}`);
+      transfers.push(t);
+      inFlight.push({ t, from, signed, lastSent: from });
+      i++;
+      continue;
+    }
+    for (const a of inFlight) {
+      if (Object.keys(a.t.levels).length === 0 && performance.now() - a.lastSent > everyMs) {
+        await driver.send(a.signed);
+        a.lastSent = performance.now();
+        a.t.resent = (a.t.resent ?? 0) + 1;
+        say(opts.log, `  ${a.t.id.slice(0, 10)}… not seen yet; sent again (${a.t.resent})`);
+      }
+    }
+    const statuses = await driver.status(inFlight.map((a) => a.t.id));
+    const now = performance.now();
+    for (const a of inFlight) {
+      a.t.polls++;
+      const s = statuses.get(a.t.id);
+      if (!s) continue;
+      for (const level of reached(driver.levels, s.level)) {
+        if (a.t.levels[level] === undefined) {
+          a.t.levels[level] = Math.round(now - a.from) / 1000;
+          say(opts.log, `  ${inFlight.length > 1 ? `${a.t.id.slice(0, 10)}… ` : ""}${level.padEnd(12)} ${a.t.levels[level]}s`);
+        }
+      }
+      if (s.failed !== undefined) {
+        a.t.failed = s.failed;
+        say(opts.log, `  failed on chain: ${s.failed}`);
+      }
+    }
+    let retired = false;
+    for (let k = inFlight.length - 1; k >= 0; k--) {
+      const a = inFlight[k];
+      if (a && over(a)) {
+        inFlight.splice(k, 1);
+        retired = true;
+      }
+    }
+    if (retired) {
+      opts.progress?.(transfers);
+      if (opts.partial) writePartial(run.chainId, run.stamp, transfers);
+    }
+    if (inFlight.length > 0 && !(i < opts.runs && run.gate !== null && inFlight[inFlight.length - 1]?.t.levels[run.gate] !== undefined)) {
+      await sleep(Math.min(...inFlight.map((a) => pollFor(driver.levels, a.t, opts.pollMs, run.slow))));
+    }
+  }
+}
+
 export async function measure(chain: Chain, driver: Driver, opts: Options): Promise<Run> {
   if (driver.levels.join() !== chain.levels.map((l) => l.name).join()) {
     throw new Error(`driver levels [${driver.levels}] differ from chains/${chain.id}.yaml`);
@@ -190,22 +279,15 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
   for (const line of setup.lines) say(opts.log, line);
 
   const transfers: Transfer[] = [];
-  say(opts.log, `${opts.runs} transfers of ${chain.asset.amount} ${chain.asset.symbol}, one at a time, each to final before the next`);
+  const gate = overlapAfter(driver.levels, roleLevel(chain, "done"), slow.levels);
+  say(
+    opts.log,
+    `${opts.runs} transfers of ${chain.asset.amount} ${chain.asset.symbol}, one at a time, ${gate === null ? "each to final before the next" : `the next once the previous is ${gate}`}`,
+  );
   let teardown: { lines: string[]; txs: string[] } = { lines: [], txs: [] };
   let teardownError: string | undefined;
   try {
-    for (let i = 0; i < opts.runs; i++) {
-      const signed = await driver.prepare(i, opts.runs, `${tag} ${i + 1}/${opts.runs}`);
-      const t: Transfer = { id: signed.id, sent: "", levels: {}, polls: 0 };
-      const from = performance.now();
-      t.sent = new Date().toISOString();
-      await driver.send(signed);
-      say(opts.log, `${i + 1}/${opts.runs} ${signed.id}`);
-      transfers.push(t);
-      await watchOne(driver, t, from, opts.capMinutes * 60_000, opts.pollMs, opts.log, slow, { signed, everyMs: opts.resendMs ?? RESEND_MS });
-      opts.progress?.(transfers);
-      if (opts.partial) writePartial(chain.id, stamp, transfers);
-    }
+    await sendAndWatch(driver, transfers, opts, { tag, gate, slow, stamp, chainId: chain.id });
   } finally {
     // Whatever happened above, what setup created is undone and the asset goes back to the
     // sender. If this itself fails, the measurements are still written and `txfinality return`
@@ -237,6 +319,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
     pollMs: opts.pollMs,
     slowPollMs: slow.ms,
     slowLevels: [...slow.levels],
+    overlapAfter: gate,
     capMinutes: opts.capMinutes,
     transfers,
     slowest: {

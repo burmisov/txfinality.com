@@ -17,7 +17,7 @@ wallets:
 levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
   - { name: "in a block", detect: "receipt", role: done, seconds: 1 }   # "Soft confirmation": "Sub-second"
   - { name: "posted to L1", detect: "block tag safe" }   # "Posted to Ethereum": "Minutes"
-  - { name: "L1 finalized", detect: "block tag finalized", role: final }   # "~13 minutes after posting"; no total given
+  - { name: "L1 finalized", detect: "block tag finalized", role: final, seconds: 780 }   # "~13 minutes after posting"; no total given
 claim:
   text: "Full finality — your transaction inherits Ethereum's security and is irreversible."
   url: "https://docs.robinhood.com/chain/transaction-finality"

@@ -34,7 +34,8 @@ npx txfinality measure --chain solana --runs 20     # → runs/solana/<stamp>.js
 
 The runner makes its own recipient from the sender's key, creates its token account before the first
 transfer, sends the USDC back and closes the account after the last. Transfers go one at a time, each
-watched to final before the next. If a run is interrupted, `npx txfinality return --chain solana` does
+watched to final before the next — except that where final is a rollup's L1 finality, the next goes out
+once the previous is *done* and the long waits overlap (method rule k). If a run is interrupted, `npx txfinality return --chain solana` does
 the cleanup by hand.
 
 Without a wallet, `npx txfinality watch --chain solana` times other people's transfers from first sight,

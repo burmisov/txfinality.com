@@ -210,3 +210,22 @@ test("progress is reported after each transfer", async () => {
   await measure(chain, fakeDriver(), { runs: 3, pollMs: 0, capMinutes: 1, rpc: "r", log: () => {}, progress: (t) => seen.push(t.length) });
   assert.deepEqual(seen, [1, 2, 3]);
 });
+
+test("rule k: with a slow final level the next transfer goes out once the previous is done, and the waits overlap", async () => {
+  const { overlapAfter } = await import("./run.ts");
+  assert.equal(overlapAfter(levels, "confirmed", ["finalized"]), "confirmed");
+  assert.equal(overlapAfter(levels, "confirmed", []), null);
+  assert.equal(overlapAfter(levels, "finalized", ["finalized"]), null); // done is final: nothing to overlap
+  const driver = fakeDriver();
+  const run = await measure(chain, driver, { runs: 3, pollMs: 1, capMinutes: 1, rpc: "rpc", slow: ["finalized"], log: () => {} });
+  assert.equal(run.overlapAfter, "confirmed");
+  const log = driver.log;
+  // t1 is sent after t0's second poll (confirmed) and before its third (finalized): t0 is still polled after "send t1"
+  const sendT1 = log.indexOf("send t1");
+  assert.equal(log.slice(0, sendT1).filter((l) => l === "poll t0").length, 2);
+  assert.ok(log.slice(sendT1).includes("poll t0"));
+  assert.equal(run.transfers.length, 3);
+  assert.equal(run.notReached.length, 0);
+  assert.ok(run.transfers.every((t) => t.levels.finalized !== undefined));
+  assert.deepEqual(log[log.length - 1], "teardown");
+});

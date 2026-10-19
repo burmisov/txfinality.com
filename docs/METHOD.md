@@ -19,8 +19,9 @@ c. The transaction is polled on the chain's own RPC until it reaches each level 
    rollup's batch reaching Ethereum, say), the poll slows to 2 s by default: those figures carry up to
    2 s of slack instead, which the run file records (`slowPollMs`, `slowLevels`).
 d. Twenty transfers per chain per run, one at a time: a transfer is sent alone and watched until it is
-   final (or fails, or its cap passes) before the next one is built. Nothing else runs meanwhile. One run
-   a week. The page shows the slowest of the twenty; the run file has all of them, with hashes.
+   final (or fails, or its cap passes) before the next one is built, except as rule k says. Nothing else
+   runs meanwhile. One run a week. The page shows the slowest of the twenty; the run file has all of
+   them, with hashes.
 e. Each chain's own claim is quoted from its documentation beside the link, with the date it was read and
    the date it will be read again.
 f. The method is versioned. A run records the version it was made under; the page shows the latest
@@ -41,3 +42,9 @@ j. A chain may be listed outside the cut by decision, when it is new and built f
 Open: whether the first level ("first in a block") is shown on the page or only kept in the run file;
 the cap per chain run (30 min in the code); what to do with a transfer that fails to land (recorded as
 `failed`, excluded from nothing: the page shows *?* when any of the twenty lacks a level).
+k. Where the final level is documented at a minute or more (a rollup's L1 finality), the next transfer is
+   sent as soon as the previous one has reached its *done* level, and the long waits overlap: each
+   transfer's quick phase still happens alone, each transfer keeps its own clock, and a run takes one
+   L1 finality plus twenty done-times rather than twenty L1 finalities. The run file names the gate
+   level (`overlapAfter`); null means strictly serial. Levels the docs give no number for can be
+   declared slow for a run (`--slow`); the run file lists them (`slowLevels`). Added 2026-10-19.

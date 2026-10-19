@@ -22,7 +22,7 @@ import { measure, summary, type Transfer, watchOne, writeRun } from "./run.ts";
 const drivers: Record<string, (chain: ReturnType<typeof loadChain>) => Driver> = { solana, evm };
 
 const usage = `usage:
-  txfinality measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--machine "runner-1"]
+  txfinality measure --chain <id> [--runs 20] [--poll-ms 100] [--cap-minutes 30] [--slow "level,level"] [--machine "runner-1"]
   txfinality watch   --chain <id> [--limit 10] [--poll-ms 500]
   txfinality wallet  --chain <id>
   txfinality return  --chain <id>
@@ -37,6 +37,7 @@ async function main(argv: string[]): Promise<number> {
       runs: { type: "string", default: "20" },
       "poll-ms": { type: "string" },
       "cap-minutes": { type: "string", default: "30" },
+      slow: { type: "string" },
       machine: { type: "string" },
       limit: { type: "string", default: "10" },
     },
@@ -69,10 +70,14 @@ async function main(argv: string[]): Promise<number> {
     const runs = Number(values.runs);
     const pollMs = Number(values["poll-ms"] ?? 100);
     const capMinutes = Number(values["cap-minutes"]);
+    // levels to treat as slow (polled at 2 s; the final one overlapping, rule k): the chain file's
+    // documented minute-or-more levels, or named here when the docs give no number
+    const slow = values.slow ? values.slow.split(",").map((x) => x.trim()) : slowLevels(chain);
+    for (const l of slow) if (!chain.levels.some((x) => x.name === l)) throw new Error(`--slow: "${l}" is not a level of ${chain.id}`);
     console.log(
       `$ txfinality measure --chain ${chain.id} --runs ${runs}   (rpc: ${rpc}, poll ${pollMs} ms, cap ${capMinutes} min per transfer)`,
     );
-    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc, slow: slowLevels(chain), partial: true });
+    const run = await measure(chain, driver, { runs, pollMs, capMinutes, machine: values.machine, rpc, slow, partial: true });
     for (const line of summary(run, chain)) console.log(line);
     const file = writeRun(run);
     console.log(`saved ${file.slice(root.length + 1)}`);

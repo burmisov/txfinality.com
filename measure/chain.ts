@@ -20,7 +20,9 @@ export type Chain = {
   chainId?: number;
   /** `gas: true` when the asset is also the chain's gas token (Arc): the return is a sweep */
   asset: { symbol: string; contract: string; amount: string; gas?: boolean };
-  rpc: { env: string; provider: string };
+  /** `send_env`: a second endpoint that transactions are sent to and nonces read from, where the
+   *  read endpoint does not forward to the sequencer (X Layer through dRPC, 2026-10-19) */
+  rpc: { env: string; provider: string; send_env?: string };
   /** only the sender's key; the recipient is the driver's own, derived from it */
   wallets: { from_env: string };
   levels: Level[];
