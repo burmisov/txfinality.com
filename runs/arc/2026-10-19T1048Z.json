@@ -1,0 +1,192 @@
+{
+  "chain": "arc",
+  "method": "v0",
+  "stamp": "2026-10-19T1048Z",
+  "machine": "runner-1",
+  "rpc": "arc-mainnet.infura.io",
+  "asset": "USDC",
+  "amount": "0.1",
+  "chainFile": "f15bfb34c659a1ca70a5ff408631903f28a7c7f58d93a18ea51699688a918ad8",
+  "wallets": {
+    "from": "0x047aD213F05cCdC9C30bBEd96e2eAE624905b9dE",
+    "to": "0xd7194364f4Fe80784216149C9Da7157726163B1b"
+  },
+  "setup": [
+    "0x39ae74b625cf8c74287dc78c5f56a404105e0dd6c283607109cb8c90f2883e09"
+  ],
+  "teardown": [
+    "0x125061624b879b1cc241f36cf34c56fa569dbd1d724227277e254c21a8aa6572"
+  ],
+  "runs": 20,
+  "pollMs": 100,
+  "slowPollMs": 2000,
+  "slowLevels": [],
+  "capMinutes": 30,
+  "transfers": [
+    {
+      "id": "0x5eee0cb3b001814fa2e123ba816e36396217da6eb944a8a4a8227890356847d8",
+      "sent": "2026-10-19T10:48:49.175Z",
+      "levels": {
+        "final": 0.875
+      },
+      "polls": 4
+    },
+    {
+      "id": "0x5ac865ab9604e17a8466013ca85e9625daae4d282a52eebcb7f1efca944dadf3",
+      "sent": "2026-10-19T10:48:50.521Z",
+      "levels": {
+        "final": 0.683
+      },
+      "polls": 3
+    },
+    {
+      "id": "0xdb83cf4f34427db9a71b5a110abfb89f2ccde226513771982aba112eee25af2a",
+      "sent": "2026-10-19T10:48:51.696Z",
+      "levels": {
+        "final": 0.91
+      },
+      "polls": 4
+    },
+    {
+      "id": "0xae9fbe9b0bcf60802f37a457c55de6a3d7ebcde8f234efd04ab78a574aa85e25",
+      "sent": "2026-10-19T10:48:53.085Z",
+      "levels": {
+        "final": 0.723
+      },
+      "polls": 3
+    },
+    {
+      "id": "0x18d5f621b55ae85330f29bfb9c5f70f7afcb1789c126f7ea8fe0fb4406a64598",
+      "sent": "2026-10-19T10:48:54.296Z",
+      "levels": {
+        "final": 0.892
+      },
+      "polls": 4
+    },
+    {
+      "id": "0xb171a81857a0d2fdeaef7efd53c6c4e2872a4c7b5ef310f433d00f7c954aca3e",
+      "sent": "2026-10-19T10:48:55.641Z",
+      "levels": {
+        "final": 0.689
+      },
+      "polls": 3
+    },
+    {
+      "id": "0xbc3d8522bb924b3d21bcecfce09cca227aae5c8baf2e75d9fa69ed00907c8e77",
+      "sent": "2026-10-19T10:48:56.790Z",
+      "levels": {
+        "final": 0.887
+      },
+      "polls": 4
+    },
+    {
+      "id": "0x99f5d79097f022cf5c6f61ae9c61e35afe0502a0a8e0ebd28c336f1608d4f385",
+      "sent": "2026-10-19T10:48:58.137Z",
+      "levels": {
+        "final": 0.663
+      },
+      "polls": 3
+    },
+    {
+      "id": "0x9d7473c190c67c48eb907305b56ae9f195a3ef5e87af299aa64d0bb9dc14fc6f",
+      "sent": "2026-10-19T10:48:59.250Z",
+      "levels": {
+        "final": 1.346
+      },
+      "polls": 6
+    },
+    {
+      "id": "0xcfbd776b0c4d8823f54ecd7dba25017d90140a95365c57170ef8cdf5b4d7ca52",
+      "sent": "2026-10-19T10:49:01.057Z",
+      "levels": {
+        "final": 0.872
+      },
+      "polls": 4
+    },
+    {
+      "id": "0x4ff075d3c287681cfab85bc4899e9737d548e6e804500c6c83be3c42cc6edc10",
+      "sent": "2026-10-19T10:49:02.390Z",
+      "levels": {
+        "final": 0.885
+      },
+      "polls": 4
+    },
+    {
+      "id": "0x7ff73ac18230441e50fe22be3c7cae45c677587dbeaa6b3eaeff4bd13293c8bb",
+      "sent": "2026-10-19T10:49:03.728Z",
+      "levels": {
+        "final": 0.661
+      },
+      "polls": 3
+    },
+    {
+      "id": "0x46cd2760b49f7b013379bd81be0c14a57954b6a0815c4a263e7954db6c839d8b",
+      "sent": "2026-10-19T10:49:04.840Z",
+      "levels": {
+        "final": 1.084
+      },
+      "polls": 5
+    },
+    {
+      "id": "0x0852b3715ba26636847d3cf4cb228ae3e5ef6f11c6b032b3492bfd4a34daaadc",
+      "sent": "2026-10-19T10:49:06.368Z",
+      "levels": {
+        "final": 0.464
+      },
+      "polls": 2
+    },
+    {
+      "id": "0x79139a4a74d0b477182dac6283eb45870cc890c37b01981c0c61404d9a68789a",
+      "sent": "2026-10-19T10:49:07.290Z",
+      "levels": {
+        "final": 0.666
+      },
+      "polls": 3
+    },
+    {
+      "id": "0x5df83a223ffcd051d708b972d8efbe3f257a2ef53d6b15384cbe2e3431434194",
+      "sent": "2026-10-19T10:49:08.406Z",
+      "levels": {
+        "final": 0.881
+      },
+      "polls": 4
+    },
+    {
+      "id": "0xbccd66ad8138a549efa3beb34efb36a13ce89c15ece04f1931df7a7b4e04f1c0",
+      "sent": "2026-10-19T10:49:09.737Z",
+      "levels": {
+        "final": 0.667
+      },
+      "polls": 3
+    },
+    {
+      "id": "0x34c711b1f5d52b1bb9e202565ec969f2b5756f59dcce337e57a2132522a36f67",
+      "sent": "2026-10-19T10:49:10.850Z",
+      "levels": {
+        "final": 0.664
+      },
+      "polls": 3
+    },
+    {
+      "id": "0xd0cae1692ec156574fe6663a4459ff3bb28b6fd452238f4993dbf5a4623804d3",
+      "sent": "2026-10-19T10:49:11.967Z",
+      "levels": {
+        "final": 0.871
+      },
+      "polls": 4
+    },
+    {
+      "id": "0x910a39e0f737576c2be02137e8011f4c24921fb01ba54027b401cc09a93cf75b",
+      "sent": "2026-10-19T10:49:13.300Z",
+      "levels": {
+        "final": 0.651
+      },
+      "polls": 3
+    }
+  ],
+  "slowest": {
+    "done": 1.346,
+    "final": 1.346
+  },
+  "notReached": []
+}
