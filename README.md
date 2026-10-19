@@ -52,3 +52,8 @@ and a little gas on the chain.
 ## Made by
 
 [burmisov.com](https://burmisov.com/) ✱
+
+## Licence
+
+The code is MIT; the data and the text are CC BY 4.0 (see `LICENSE`). Use the figures with a credit to
+txfinality.com.
