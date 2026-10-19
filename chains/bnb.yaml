@@ -1,7 +1,7 @@
 id: bnb
 name: BNB Chain
 family: evm
-status: candidate
+status: measured
 since: 2026-10-18
 icon: binance.jpg
 chainId: 56
@@ -25,4 +25,5 @@ claim:
 note: |
   Sub-half-second blocks and a finality vote two blocks later. The number to trust is the second one.
   The dollar here is USDT as Binance issues it on its chain (BSC-USD), which is what everyone on BNB
-  Chain uses. Not measured yet.
+  Chain uses. Measured from : the slowest of twenty was in a block in 1.9 s and finalized
+  in 2.7 s; the docs' 1.125 s is the chain's own clock, without the trip to it.
