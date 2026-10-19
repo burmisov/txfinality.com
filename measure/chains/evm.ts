@@ -110,13 +110,25 @@ export function evm(chain: Chain): Driver {
     return feeCaps(gasPrice, block.baseFeePerGas ?? 0n, priority);
   };
   /** Signs a transaction from `from` with everything fetched now, so sending is one call. */
-  const sign = async (from: ReturnType<typeof privateKeyToAccount>, tx: { to: Address; data?: Hex; value?: bigint; gas?: bigint }): Promise<Signed> => {
+  const sign = async (
+    from: ReturnType<typeof privateKeyToAccount>,
+    tx: { to: Address; data?: Hex; value?: bigint; gas?: bigint },
+    /** the balance the fee must fit in: a return from the recipient, whose gas is what setup gave it */
+    within?: bigint,
+  ): Promise<Signed> => {
     const [nonce, caps] = await Promise.all([
       client.getTransactionCount({ address: from.address, blockTag: "pending" }),
       fees(),
     ]);
     // an estimate gets headroom; a gas figure the caller states (a plain value transfer) is exact
     const gas = tx.gas ?? ((await client.estimateGas({ account: from.address, to: tx.to, data: tx.data, value: tx.value })) * 12n) / 10n;
+    // Nodes behind one endpoint can quote different prices (BNB Chain through Infura: 0.05 gwei
+    // and 1 gwei within a minute). The recipient was funded at one quote and may be asked to pay
+    // at another; a return that cannot be afforded at the quote goes out at what it can afford.
+    if (within !== undefined && caps.maxFeePerGas * gas > within - (tx.value ?? 0n)) {
+      caps.maxFeePerGas = (within - (tx.value ?? 0n)) / gas;
+      if (caps.maxPriorityFeePerGas > caps.maxFeePerGas) caps.maxPriorityFeePerGas = caps.maxFeePerGas;
+    }
     const raw = await from.signTransaction({
       chainId,
       nonce,
@@ -234,7 +246,7 @@ export function evm(chain: Chain): Driver {
       const txs: string[] = [];
       const held = assetIsGas ? 0n : await balanceOf(recipient.address);
       if (held > 0n) {
-        const signed = await sign(recipient, { to: token, data: transferData(sender.address, held) });
+        const signed = await sign(recipient, { to: token, data: transferData(sender.address, held) }, await client.getBalance({ address: recipient.address }));
         txs.push(await sendAndWait(signed));
         lines.push(`returned ${formatUnits(held, decimals)} ${chain.asset.symbol}: ${txs[txs.length - 1]}`);
       }
