@@ -51,6 +51,16 @@ export function recipientKeyOf(senderKey: Hex): Hex {
 
 const asKey = (s: string): Hex => (s.startsWith("0x") ? s : `0x${s}`) as Hex;
 
+/** The fee caps for a transaction: what the node suggests as a gas price is the floor and the
+ *  priority fee is never above it. On a chain with no base fee (BNB Chain), the library's
+ *  estimate is the node's legacy default tip (1 gwei) while the suggested price is 0.05 gwei:
+ *  twenty times what lands, which emptied a sender on 2026-10-19. */
+export function feeCaps(gasPrice: bigint, baseFee: bigint, priority: bigint): { maxFeePerGas: bigint; maxPriorityFeePerGas: bigint } {
+  const maxPriorityFeePerGas = priority < gasPrice ? priority : gasPrice;
+  const byBase = baseFee * 2n + maxPriorityFeePerGas;
+  return { maxFeePerGas: byBase > gasPrice ? byBase : gasPrice, maxPriorityFeePerGas };
+}
+
 export function evm(chain: Chain): Driver {
   const url = need(chain.rpc.env);
   const chainId = Number(chain.chainId ?? 0);
@@ -91,11 +101,19 @@ export function evm(chain: Chain): Driver {
   const balanceOf = (who: Address): Promise<bigint> =>
     client.readContract({ address: token, abi: erc20Abi, functionName: "balanceOf", args: [who] });
 
+  const fees = async (): Promise<{ maxFeePerGas: bigint; maxPriorityFeePerGas: bigint }> => {
+    const [gasPrice, block, priority] = await Promise.all([
+      client.getGasPrice(),
+      client.getBlock({ blockTag: "latest" }),
+      client.estimateMaxPriorityFeePerGas().catch(() => 0n),
+    ]);
+    return feeCaps(gasPrice, block.baseFeePerGas ?? 0n, priority);
+  };
   /** Signs a transaction from `from` with everything fetched now, so sending is one call. */
   const sign = async (from: ReturnType<typeof privateKeyToAccount>, tx: { to: Address; data?: Hex; value?: bigint; gas?: bigint }): Promise<Signed> => {
-    const [nonce, fees] = await Promise.all([
+    const [nonce, caps] = await Promise.all([
       client.getTransactionCount({ address: from.address, blockTag: "pending" }),
-      client.estimateFeesPerGas(),
+      fees(),
     ]);
     // an estimate gets headroom; a gas figure the caller states (a plain value transfer) is exact
     const gas = tx.gas ?? ((await client.estimateGas({ account: from.address, to: tx.to, data: tx.data, value: tx.value })) * 12n) / 10n;
@@ -106,8 +124,8 @@ export function evm(chain: Chain): Driver {
       data: tx.data,
       value: tx.value ?? 0n,
       gas,
-      maxFeePerGas: fees.maxFeePerGas,
-      maxPriorityFeePerGas: fees.maxPriorityFeePerGas,
+      maxFeePerGas: caps.maxFeePerGas,
+      maxPriorityFeePerGas: caps.maxPriorityFeePerGas,
       type: "eip1559",
     });
     return { id: keccak256(raw), raw: Buffer.from(raw.slice(2), "hex") };
@@ -147,8 +165,7 @@ export function evm(chain: Chain): Driver {
       if (have < amount) throw new Error(`the sender holds ${formatUnits(have, decimals)} ${chain.asset.symbol}; fund it first`);
       // The recipient needs gas to send the asset back in teardown: a token transfer plus the sweep,
       // with headroom. Topped up once, before the clock; whatever is left comes back after.
-      const fees = await client.estimateFeesPerGas();
-      const needGas = fees.maxFeePerGas * 200_000n;
+      const needGas = (await fees()).maxFeePerGas * 200_000n;
       if (rGas < needGas) {
         const signed = await sign(sender, { to: recipient.address, value: needGas * 2n - rGas, gas: 21_000n });
         txs.push(await sendAndWait(signed));
@@ -222,8 +239,7 @@ export function evm(chain: Chain): Driver {
         lines.push(`returned ${formatUnits(held, decimals)} ${chain.asset.symbol}: ${txs[txs.length - 1]}`);
       }
       const gasLeft = await client.getBalance({ address: recipient.address });
-      const fees = await client.estimateFeesPerGas();
-      const cost = fees.maxFeePerGas * 21_000n;
+      const cost = (await fees()).maxFeePerGas * 21_000n;
       if (gasLeft > cost * 2n) {
         const signed = await sign(recipient, { to: sender.address, value: gasLeft - cost, gas: 21_000n });
         txs.push(await sendAndWait(signed));

@@ -23,3 +23,11 @@ test("the recipient is derived from the sender's key: same key, same recipient; 
   assert.match(ra, /^0x[0-9a-f]{64}$/);
   assert.ok(privateKeyToAccount(ra).address.startsWith("0x"), "a usable key");
 });
+
+test("feeCaps: the suggested gas price is the floor and the tip never exceeds it", async () => {
+  const { feeCaps } = await import("./evm.ts");
+  // BNB Chain: no base fee, node tip 1 gwei, suggested price 0.05 gwei
+  assert.deepEqual(feeCaps(50_000_000n, 0n, 1_000_000_000n), { maxFeePerGas: 50_000_000n, maxPriorityFeePerGas: 50_000_000n });
+  // a rollup: base 10, tip 1, suggested 11 → room for the base fee to double
+  assert.deepEqual(feeCaps(11n, 10n, 1n), { maxFeePerGas: 21n, maxPriorityFeePerGas: 1n });
+});
