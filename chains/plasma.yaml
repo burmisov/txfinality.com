@@ -24,6 +24,6 @@ claim:
   next_read: 2026-11-18
 note: |
   A new chain made for stablecoins, with native USDC. Its docs promise finality in seconds and say the
-  consensus design is still subject to change. Measured from  through a Chainstack node,
+  consensus design is still subject to change. Measured through a Chainstack node,
   polled every 200 ms to respect its 25-requests-a-second cap: the slowest of twenty was in a block in
   1.1 s and finalized in 2.9 s, the twenty finalizing between 2.7 s and 2.9 s — seconds, as promised.

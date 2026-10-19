@@ -27,6 +27,6 @@ claim:
 note: |
   A rollup: the sequencer answers in a second or two (and in 200 ms if you read its flashblocks),
   Ethereum makes it final about twenty minutes later. Which one you need depends on whom you are
-  trusting. Measured from  through Infura, sends through the chain's own endpoint: the
+  trusting. Measured through Infura, sends through the chain's own endpoint: the
   slowest of twenty was in a block in 1.3 s, posted to Ethereum in 47 s and finalized there in
   21.3 min (the twenty between 21.1 and 21.3 min). The long waits overlapped (method rule k).

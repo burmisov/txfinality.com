@@ -24,5 +24,5 @@ claim:
   next_read: 2026-11-18
 note: |
   Circle's own chain, with USDC as the gas. Two states and nothing between: pending, then final, in
-  under a second by its docs and in 1.3 s at the slowest of twenty when measured from .
+  under a second by its docs and in 1.3 s at the slowest of twenty when measured.
   Below the cut by stablecoins held today; listed because it is new and built for exactly this.

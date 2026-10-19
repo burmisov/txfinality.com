@@ -26,7 +26,7 @@ claim:
   next_read: 2026-11-18
 note: |
   An Arbitrum chain run by Robinhood. Its docs list no USDC or USDT, only Paxos's USDG, so that is the
-  dollar this row moves. Final means Ethereum, minutes after posting. Measured from , reads
+  dollar this row moves. Final means Ethereum, minutes after posting. Measured reads
   through dRPC and sends through the chain's own endpoint: the slowest of twenty was in a block in
   0.8 s, posted to Ethereum in 12.5 min and finalized there in 18.8 min (the twenty between 18.5 and
   18.8 min). The long waits overlapped (method rule k).
