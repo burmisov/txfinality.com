@@ -251,7 +251,9 @@ export function evm(chain: Chain): Driver {
         let r = receipts.get(id);
         if (!r) {
           try {
-            const got = await client.getTransactionReceipt({ hash: id as Hex });
+            // the endpoint that took the send sees the receipt first: a third-party reader lags it by
+            // its replication (X Layer through dRPC: seconds, 2026-10-19), and that lag is not the chain's
+            const got = await sender_.getTransactionReceipt({ hash: id as Hex });
             r = { block: got.blockNumber, ok: got.status === "success" };
             receipts.set(id, r);
           } catch {
