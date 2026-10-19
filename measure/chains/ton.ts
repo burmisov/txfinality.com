@@ -13,7 +13,7 @@
 // base that carries the key in its path); `TON_API_KEY` is TON Center's own header, when there is one.
 import { createHash } from "node:crypto";
 
-import { Address, beginCell, type Cell, internal, SendMode, toNano } from "@ton/core";
+import { Address, beginCell, type Cell, external, internal, SendMode, storeMessage, toNano } from "@ton/core";
 import { keyPairFromSeed, type KeyPair } from "@ton/crypto";
 import { TonClient, WalletContractV4 } from "@ton/ton";
 
@@ -135,17 +135,9 @@ export function ton(chain: Chain): Driver {
     const opened = client.open(wallet);
     const seqno = await opened.getSeqno();
     const transfer = wallet.createTransfer({ seqno, secretKey: key.secretKey, messages, sendMode: mode });
-    const init = seqno === 0 ? { code: wallet.init.code, data: wallet.init.data } : undefined;
-    const ext = beginCell()
-      .storeUint(0b10, 2)
-      .storeUint(0, 2)
-      .storeAddress(wallet.address)
-      .storeCoins(0n)
-      .storeBit(init !== undefined)
-      .storeBit(init !== undefined ? 1 : 0);
-    if (init) ext.storeRef(beginCell().storeUint(0, 2).storeBit(1).storeRef(init.code).storeBit(1).storeRef(init.data).storeUint(0, 1).endCell());
-    ext.storeBit(1).storeRef(transfer);
-    const hash = await sendBoc(ext.endCell().toBoc());
+    // the first message from a wallet carries its state init, which deploys the contract
+    const ext = beginCell().store(storeMessage(external({ to: wallet.address, init: seqno === 0 ? wallet.init : undefined, body: transfer }))).endCell();
+    const hash = await sendBoc(ext.toBoc());
     const until = Date.now() + 3 * 60_000;
     for (;;) {
       await new Promise((res) => setTimeout(res, 1500));
@@ -192,7 +184,7 @@ export function ton(chain: Chain): Driver {
         messages: [internal({ to: senderJetton as Address, value: TRANSFER_GAS, bounce: true, body })],
         sendMode: SendMode.PAY_GAS_SEPARATELY,
       });
-      const ext = beginCell().storeUint(0b10, 2).storeUint(0, 2).storeAddress(from.address).storeCoins(0n).storeBit(0).storeBit(1).storeRef(transfer).endCell();
+      const ext = beginCell().store(storeMessage(external({ to: from.address, init: seqno === 0 ? from.init : undefined, body: transfer }))).endCell();
       const id = ext.hash().toString("hex");
       queries.set(id, queryId);
       return { id, raw: ext.toBoc() };
