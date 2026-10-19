@@ -42,3 +42,12 @@ done by hand afterwards; the run file records the failure.
 10.958 s. Two runs before it did not complete and are not kept: one node behind the endpoint handed back a
 used nonce (the runner now counts nonces itself), and the sender ran out of AVAX at the nineteenth transfer
 (a run needs about 0.015 AVAX at the node's fee ceiling, which is what is now sent).
+
+## 2026-10-19 — Polygon PoS
+
+`runs/polygon/2026-10-19T1434Z.json`: twenty transfers of 0.1 USDC through Infura; slowest *in a block*
+2.216 s, slowest *milestone* (the RPC's finalized tag; the node refuses `safe`) 6.913 s, the twenty
+reaching a milestone between 3.691 s and 6.913 s. The smoke run before it measured the same but could not
+return its gas: a node behind the endpoint reported the recipient's balance before the return it had just
+paid for, and the sweep overshot by exactly that fee — balances are now read only from a node whose
+transaction count has caught up with ours.

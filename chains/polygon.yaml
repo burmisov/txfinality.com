@@ -1,7 +1,7 @@
 id: polygon
 name: Polygon PoS
 family: evm
-status: candidate
+status: measured
 since: 2026-10-18
 icon: polygon.jpg
 chainId: 137
@@ -23,5 +23,8 @@ claim:
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |
-  Blocks come quickly, but a milestone is what makes them final, and the docs now put that at two to
-  five seconds. The checkpoint to Ethereum comes later and is a separate matter. Not measured yet.
+  Blocks come quickly, but a milestone is what makes them final, and the docs put that at two to five
+  seconds. The checkpoint to Ethereum comes later and is a separate matter. Measured from 
+  through Infura: the slowest of twenty was in a block in 2.2 s and at a milestone in 6.9 s (the
+  quickest milestone 3.7 s) — a couple of seconds over the docs' range, whose clock starts at the chain
+  rather than here.
