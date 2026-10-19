@@ -116,3 +116,12 @@ design.
 Aptos leaves the page for now (method rule l). Its driver is written and unit-tested, but no bridge the
 runner can reach delivers APT, and an Aptos account without APT cannot pay for anything, so the first
 run waits for a deposit. The chain file says `dropped` with the reason; the row comes back the day it runs.
+
+## 2026-10-19 — X Layer again: the receipt is read where the send went
+
+`runs/xlayer/2026-10-19T1755Z.json`: twenty transfers under rule k; slowest *in a block* 1.505 s, *posted to
+L1* 72.405 s, *L1 finalized* 1007.629 s. The run of 15:26 had shown 3.941 s for *in a block*: its sends went
+to the chain's own endpoint while its receipts were read from a third-party node, so the figure carried
+that node's replication lag. The runner now asks for the receipt at the endpoint that took the send;
+block tags still come from the reader. The same change touches Base, Arbitrum and Robinhood, whose
+figures through dRPC were already under a second.

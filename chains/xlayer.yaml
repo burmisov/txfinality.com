@@ -27,6 +27,8 @@ claim:
 note: |
   OKX's chain, now on the OP Stack with the AggLayer. One-second blocks; what final means on Ethereum,
   the docs do not say in numbers, so the RPC's safe and finalized tags were taken as posted and final.
-  Measured from , reads through dRPC and sends through the chain's own endpoint: the slowest
-  of twenty was in a block in 3.9 s, posted to Ethereum in 3.3 min and finalized there in 19 min (the
-  twenty between 18.3 and 19 min). The long waits overlapped (method rule k).
+  Measured from , receipts and sends through the chain's own endpoint, tags through dRPC: the
+  slowest of twenty was in a block in 1.5 s, posted to Ethereum in 72 s and finalized there in 16.8 min
+  (the twenty between 16.4 and 16.8 min). An earlier run the same day read receipts from a third-party
+  node and showed 3.9 s for in a block — the node's lag, not the chain's; the method now reads the
+  receipt where the send went.
