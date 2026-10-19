@@ -1,0 +1,237 @@
+{
+  "chain": "arbitrum",
+  "method": "v0",
+  "stamp": "2026-10-19T1519Z",
+  "machine": "runner-1",
+  "rpc": "lb.drpc.org",
+  "asset": "USDC",
+  "amount": "0.1",
+  "chainFile": "c1c23dcaf1cd21f61928ea21f804cd8fc0e9f07f3ec049d0b1e789d089c26980",
+  "wallets": {
+    "from": "0x047aD213F05cCdC9C30bBEd96e2eAE624905b9dE",
+    "to": "0xd7194364f4Fe80784216149C9Da7157726163B1b"
+  },
+  "setup": [
+    "0x0d5452d615b186bb0a90b358d98c64853c99e60e7c556c7b1abf1de0efae6052"
+  ],
+  "teardown": [
+    "0xfd4231e61578a638111271b2a76492a8e668e57d68dc7007e12355030b56fad5",
+    "0xead39d77dc11291162a5134959b4143bb9fb6411f1e50a713625810decd3871d"
+  ],
+  "runs": 20,
+  "pollMs": 100,
+  "slowPollMs": 10000,
+  "slowLevels": [
+    "posted to L1",
+    "L1 finalized"
+  ],
+  "overlapAfter": "in a block",
+  "capMinutes": 30,
+  "transfers": [
+    {
+      "id": "0x75814d6cb879c57f883c307d1c1164571aac897fff8073804bf5904b3575daaf",
+      "sent": "2026-10-19T15:19:50.331Z",
+      "levels": {
+        "in a block": 0.569,
+        "posted to L1": 337.63,
+        "L1 finalized": 1100.443
+      },
+      "polls": 133
+    },
+    {
+      "id": "0xa09c8d765a13bee035bcbeb0db53b5e8f9bbc53485a89703853a3d3c4488f189",
+      "sent": "2026-10-19T15:19:51.079Z",
+      "levels": {
+        "in a block": 0.743,
+        "posted to L1": 336.881,
+        "L1 finalized": 1099.694
+      },
+      "polls": 132
+    },
+    {
+      "id": "0x32f2ad2b2fc19ffed540a02693e06b2a37240f3fa3618a19d1d645870afcc0c5",
+      "sent": "2026-10-19T15:19:52.049Z",
+      "levels": {
+        "in a block": 0.43,
+        "posted to L1": 335.911,
+        "L1 finalized": 1098.724
+      },
+      "polls": 130
+    },
+    {
+      "id": "0x7e59b8525bc5deff561fe9458cb168a1363edc299ee14d9d4d659e3b98a65f0c",
+      "sent": "2026-10-19T15:19:52.651Z",
+      "levels": {
+        "in a block": 0.356,
+        "posted to L1": 335.31,
+        "L1 finalized": 1098.123
+      },
+      "polls": 129
+    },
+    {
+      "id": "0x35568d20315a7751b7486c89296d9efd95261276e4f319fa768f3e703e8c11e9",
+      "sent": "2026-10-19T15:19:53.172Z",
+      "levels": {
+        "in a block": 0.676,
+        "posted to L1": 334.789,
+        "L1 finalized": 1097.602
+      },
+      "polls": 128
+    },
+    {
+      "id": "0x74a3c10cd4eb0111096d18869cab451d1b61049e2010215395de9487bb573b0e",
+      "sent": "2026-10-19T15:19:54.037Z",
+      "levels": {
+        "in a block": 0.451,
+        "posted to L1": 333.924,
+        "L1 finalized": 1096.737
+      },
+      "polls": 126
+    },
+    {
+      "id": "0x952b407c88cbded2751bac125dea7c1ba3194dfc55b9f624e04651417d7731f6",
+      "sent": "2026-10-19T15:19:54.657Z",
+      "levels": {
+        "in a block": 0.325,
+        "posted to L1": 333.304,
+        "L1 finalized": 1096.117
+      },
+      "polls": 125
+    },
+    {
+      "id": "0x14fd289080db8d834ca995fde5ab2b6fe6b37948dcf20dc684b9345a843c47df",
+      "sent": "2026-10-19T15:19:55.144Z",
+      "levels": {
+        "in a block": 0.341,
+        "posted to L1": 332.817,
+        "L1 finalized": 1095.63
+      },
+      "polls": 124
+    },
+    {
+      "id": "0x4713e7d89c027bc40d5967b4fc075712e95991063a859c5812260d58ae597049",
+      "sent": "2026-10-19T15:19:55.659Z",
+      "levels": {
+        "in a block": 0.325,
+        "posted to L1": 332.301,
+        "L1 finalized": 1095.114
+      },
+      "polls": 123
+    },
+    {
+      "id": "0xc47993cb96eb9f6f652e036c3ea24abac7e5764db46281429321a29e057329d5",
+      "sent": "2026-10-19T15:19:56.159Z",
+      "levels": {
+        "in a block": 0.359,
+        "posted to L1": 331.801,
+        "L1 finalized": 1094.614
+      },
+      "polls": 122
+    },
+    {
+      "id": "0xa91225ac58ad479ebc176ee10320814dc74e4bc4baf8f4c2e929209cbb0083bd",
+      "sent": "2026-10-19T15:19:56.739Z",
+      "levels": {
+        "in a block": 0.498,
+        "posted to L1": 331.222,
+        "L1 finalized": 1094.035
+      },
+      "polls": 121
+    },
+    {
+      "id": "0xe698e19a99cdce6466d3b38d81c08f2f4027c8d78fbd3ed9a972448786993a82",
+      "sent": "2026-10-19T15:19:57.451Z",
+      "levels": {
+        "in a block": 0.309,
+        "posted to L1": 330.51,
+        "L1 finalized": 1093.323
+      },
+      "polls": 120
+    },
+    {
+      "id": "0x90751e4bcaefba4b0c978986e41b104212a2be77931678f3bfef288a5c1127d2",
+      "sent": "2026-10-19T15:19:57.928Z",
+      "levels": {
+        "in a block": 0.335,
+        "posted to L1": 330.032,
+        "L1 finalized": 1092.845
+      },
+      "polls": 119
+    },
+    {
+      "id": "0x12c8ad5e4dca3f85fe568fd39854a046f3538d9ac5c7e290500c70913d62fbf0",
+      "sent": "2026-10-19T15:19:58.488Z",
+      "levels": {
+        "in a block": 0.737,
+        "posted to L1": 329.473,
+        "L1 finalized": 1092.286
+      },
+      "polls": 118
+    },
+    {
+      "id": "0x45a13d22fdbed7f34596819fa0fcc8cf840f5d2b55355f39033c4b984a4d071b",
+      "sent": "2026-10-19T15:19:59.408Z",
+      "levels": {
+        "in a block": 0.523,
+        "posted to L1": 328.552,
+        "L1 finalized": 1091.365
+      },
+      "polls": 116
+    },
+    {
+      "id": "0xae33964170b5e41fa705a7acdf02855ca1119de15df94a9f15bb4f99fb43890c",
+      "sent": "2026-10-19T15:20:00.128Z",
+      "levels": {
+        "in a block": 0.619,
+        "posted to L1": 327.833,
+        "L1 finalized": 1090.646
+      },
+      "polls": 115
+    },
+    {
+      "id": "0xb1b90f98adc26f7c8b6d25fa2dd86cd571776496ff863f0d4ea0ba25dd45ba2a",
+      "sent": "2026-10-19T15:20:00.918Z",
+      "levels": {
+        "in a block": 0.406,
+        "posted to L1": 327.043,
+        "L1 finalized": 1089.856
+      },
+      "polls": 113
+    },
+    {
+      "id": "0x7b480ef87904291833c61d9091c15be456524cf4f24624afe683863e171fdbbe",
+      "sent": "2026-10-19T15:20:01.504Z",
+      "levels": {
+        "in a block": 0.36,
+        "posted to L1": 326.457,
+        "L1 finalized": 1089.27
+      },
+      "polls": 112
+    },
+    {
+      "id": "0x024dbbac9543841931380832f581aad38d14028212a8377e3ef206060bddf6de",
+      "sent": "2026-10-19T15:20:02.221Z",
+      "levels": {
+        "in a block": 0.524,
+        "posted to L1": 325.739,
+        "L1 finalized": 1088.552
+      },
+      "polls": 111
+    },
+    {
+      "id": "0x6819e41d8daf512450c6222719ced85f6a402a7d933c0a3ec06c2de204cd0bf2",
+      "sent": "2026-10-19T15:20:02.935Z",
+      "levels": {
+        "in a block": 0.519,
+        "posted to L1": 325.025,
+        "L1 finalized": 1087.838
+      },
+      "polls": 109
+    }
+  ],
+  "slowest": {
+    "done": 0.743,
+    "final": 1100.443
+  },
+  "notReached": []
+}

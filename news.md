@@ -58,3 +58,13 @@ transaction count has caught up with ours.
 plan allows 25 requests a second, so this run polled every 200 ms rather than 100: `pollMs` says so);
 slowest *in a block* 1.066 s, slowest *finalized* (the RPC's finalized tag, two blocks behind the head)
 2.93 s, the twenty finalizing between 2.657 s and 2.93 s.
+
+## 2026-10-19 — Arbitrum, and method rule k
+
+`runs/arbitrum/2026-10-19T1519Z.json`: twenty transfers of 0.1 USDC; slowest *in a block* 0.743 s, slowest
+*posted to L1* (the RPC's safe tag) 337.63 s, slowest *L1 finalized* 1100.443 s, the twenty finalizing
+between 1087.838 s and 1100.443 s. This is the first run under rule k: the next transfer went out once the
+previous one was in a block, so all twenty were sent within thirteen seconds and the run took nineteen
+minutes rather than six hours; the slow levels were polled every 10 s (`slowPollMs`). Reads came from
+dRPC and sends went to Arbitrum's own endpoint (`rpc.send_env`). Two earlier serial runs of the day were
+stopped by decision at transfer eleven and are not kept.

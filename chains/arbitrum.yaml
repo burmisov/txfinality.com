@@ -1,7 +1,7 @@
 id: arbitrum
 name: Arbitrum One
 family: evm
-status: candidate
+status: measured
 since: 2026-10-18
 icon: arbitrum.jpg
 chainId: 42161
@@ -25,5 +25,7 @@ claim:
   read_on: 2026-10-18
   next_read: 2026-11-18
 note: |
-  Same shape as Base: instant from the sequencer, final on Ethereum's clock, a quarter of an hour. Not
-  measured yet; the figures are the docs' own.
+  Same shape as Base: instant from the sequencer, final on Ethereum's clock. Measured from 
+  through dRPC, sends through the chain's own endpoint: the slowest of twenty was in a block in 0.7 s,
+  posted to Ethereum in 5.6 min and finalized there in 18.3 min (the twenty between 18.1 and 18.3 min).
+  The long waits overlapped (method rule k); each transfer's quick phase happened alone.
