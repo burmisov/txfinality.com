@@ -1,7 +1,7 @@
 id: avalanche
 name: Avalanche
 family: evm
-status: candidate
+status: measured
 since: 2026-10-18
 icon: avalanche.jpg
 chainId: 43114
