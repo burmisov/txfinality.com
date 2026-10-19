@@ -76,3 +76,10 @@ stopped by decision at transfer eleven and are not kept.
 finalizing between 1098.619 s and 1140.447 s. The chain file gained the *posted to L1* level today (the
 RPC serves the OP Stack tags). A first attempt through a third-party node alone never got its transaction
 to the sequencer; sends now go to the chain's own endpoint (`rpc.send_env`) while reads stay on dRPC.
+
+## 2026-10-19 — Robinhood Chain
+
+`runs/robinhood/2026-10-19T1538Z.json`: twenty transfers of 0.1 USDG under rule k; slowest *in a block*
+0.843 s, slowest *posted to L1* (the RPC's safe tag) 747.856 s, slowest *L1 finalized* 1128.202 s, the
+twenty finalizing between 1112.424 s and 1128.202 s. A one-transfer smoke earlier in the day posted in
+541 s and finalized in 929 s; the batch to Ethereum comes when it comes.
