@@ -110,16 +110,22 @@ export function evm(chain: Chain): Driver {
     return feeCaps(gasPrice, block.baseFeePerGas ?? 0n, priority);
   };
   /** Signs a transaction from `from` with everything fetched now, so sending is one call. */
+  // The next nonce of each of our two accounts is kept here as well as asked for: nodes behind one
+  // endpoint lag each other, and one answered "pending: 2" right after another had mined nonce 2
+  // (Avalanche, 2026-10-19: "nonce too low: next nonce 3, tx nonce 2"). The higher figure wins.
+  const nextNonce = new Map<Address, number>();
   const sign = async (
     from: ReturnType<typeof privateKeyToAccount>,
     tx: { to: Address; data?: Hex; value?: bigint; gas?: bigint },
     /** the balance the fee must fit in: a return from the recipient, whose gas is what setup gave it */
     within?: bigint,
   ): Promise<Signed> => {
-    const [nonce, caps] = await Promise.all([
+    const [remote, caps] = await Promise.all([
       client.getTransactionCount({ address: from.address, blockTag: "pending" }),
       fees(),
     ]);
+    const nonce = Math.max(remote, nextNonce.get(from.address) ?? 0);
+    nextNonce.set(from.address, nonce + 1);
     // an estimate gets headroom; a gas figure the caller states (a plain value transfer) is exact
     const gas = tx.gas ?? ((await client.estimateGas({ account: from.address, to: tx.to, data: tx.data, value: tx.value })) * 12n) / 10n;
     // Nodes behind one endpoint can quote different prices (BNB Chain through Infura: 0.05 gwei
