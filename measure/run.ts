@@ -17,7 +17,7 @@ import { join } from "node:path";
 import { performance } from "node:perf_hooks";
 
 import { type Chain, roleLevel } from "./chain.ts";
-import type { Driver } from "./driver.ts";
+import type { Driver, Signed } from "./driver.ts";
 import { root } from "./root.ts";
 
 export const METHOD = "v0";
@@ -30,6 +30,8 @@ export type Transfer = {
   failed?: string;
   /** how many status polls it took; with pollMs, the slack this transfer's figures carry */
   polls: number;
+  /** how many times the same signed bytes were sent again because no level had seen them yet */
+  resent?: number;
 };
 
 export type Run = {
@@ -64,6 +66,7 @@ export type Options = {
   /** levels documented at a minute or more; polled at `slowPollMs` once every faster level is seen */
   slow?: readonly string[];
   slowPollMs?: number;
+  resendMs?: number;
   /** per transfer: a transfer still short of final after this long is left where it is */
   capMinutes: number;
   machine?: string;
@@ -115,6 +118,10 @@ export function stampOf(d: Date): string {
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
 
 export const SLOW_POLL_MS = 2000;
+/** A transfer no level has seen after this long is sent again, unchanged: an RPC can accept bytes
+ *  and lose them (seen on BNB Chain, 2026-10-19: accepted, never pending, never mined). The clock
+ *  is not touched, so a resend shows up in the figure, and `resent` says it happened. */
+export const RESEND_MS = 20_000;
 
 /** The poll interval for the next unreached level: `slow.ms` if that level is one of `slow.levels`. */
 export function pollFor(levels: readonly string[], t: Transfer, fast: number, slow?: { ms: number; levels: readonly string[] }): number {
@@ -133,11 +140,19 @@ export async function watchOne(
   pollMs: number,
   log?: Options["log"],
   slow?: { ms: number; levels: readonly string[] },
+  resend?: { signed: Signed; everyMs: number },
 ): Promise<void> {
   const final = driver.levels[driver.levels.length - 1];
   if (final === undefined) throw new Error("driver has no levels");
+  let lastSent = from;
   while (t.failed === undefined && t.levels[final] === undefined) {
     if (performance.now() - from > capMs) return;
+    if (resend && Object.keys(t.levels).length === 0 && performance.now() - lastSent > resend.everyMs) {
+      await driver.send(resend.signed);
+      lastSent = performance.now();
+      t.resent = (t.resent ?? 0) + 1;
+      say(log, `  not seen yet; sent again (${t.resent})`);
+    }
     const statuses = await driver.status([t.id]);
     const now = performance.now();
     t.polls++;
@@ -182,7 +197,7 @@ export async function measure(chain: Chain, driver: Driver, opts: Options): Prom
       await driver.send(signed);
       say(opts.log, `${i + 1}/${opts.runs} ${signed.id}`);
       transfers.push(t);
-      await watchOne(driver, t, from, opts.capMinutes * 60_000, opts.pollMs, opts.log, slow);
+      await watchOne(driver, t, from, opts.capMinutes * 60_000, opts.pollMs, opts.log, slow, { signed, everyMs: opts.resendMs ?? RESEND_MS });
     }
   } finally {
     // Whatever happened above, what setup created is undone and the asset goes back to the

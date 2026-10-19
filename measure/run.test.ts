@@ -183,3 +183,24 @@ test("a failing teardown is recorded and the measurements are kept", async () =>
   assert.deepEqual(run.teardown, []);
   assert.ok(run.slowest.final !== null);
 });
+
+test("a transfer no level has seen is sent again, unchanged, and the resend is recorded", async () => {
+  const base = fakeDriver();
+  let sends = 0;
+  let unseenPolls = 3;
+  const driver: Driver & { log: string[] } = {
+    ...base,
+    send: async (s) => {
+      sends++;
+      await base.send(s);
+    },
+    status: async (ids) => {
+      if (unseenPolls-- > 0) return new Map(ids.map((id) => [id, { level: null }]));
+      return base.status(ids);
+    },
+  };
+  const run = await measure(chain, driver, { runs: 1, pollMs: 5, capMinutes: 1, rpc: "r", log: () => {}, resendMs: 1 });
+  assert.ok(sends >= 2, `sent ${sends} times`);
+  assert.equal(run.transfers[0]?.resent, sends - 1);
+  assert.ok(run.transfers[0]?.levels.finalized !== undefined);
+});

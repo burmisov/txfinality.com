@@ -6,7 +6,10 @@ a. A wallet of ours sends 0.1 USDC (USDT where the chain has only USDT; the firs
    memo naming the run and a small priority fee.
 b. The clock starts the instant before the signed transaction leaves our machine. The machine and the
    RPC provider are named in every run: both are part of the number. No simulation or preflight is run
-   before sending; a transfer that cannot land is recorded as failed.
+   before sending; a transfer that cannot land is recorded as failed. If no level has seen the transfer
+   after 20 s, the same signed bytes are sent again (an RPC can accept a transaction and lose it; seen
+   on BNB Chain through Infura on 2026-10-19), as a wallet would; the clock is not touched, so the
+   figure includes the wait, and the run file says how many times each transfer was resent.
 c. The transaction is polled on the chain's own RPC until it reaches each level the chain defines: first
    in a block, the earliest level the chain calls safe (*done* on the page), the level it calls final
    (*final*). The chain's own names for its levels are kept and printed. A level's time is the moment
