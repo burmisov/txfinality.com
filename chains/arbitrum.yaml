@@ -11,6 +11,7 @@ asset:
   amount: "0.1"
 rpc:
   env: ARBITRUM_RPC_URL
+  send_env: ARBITRUM_SEND_RPC_URL   # the chain's own endpoint for sends and nonces; reads may come from a third-party node
   provider: ""
 wallets:
   from_env: EVM_FROM_KEY
