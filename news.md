@@ -83,3 +83,12 @@ to the sequencer; sends now go to the chain's own endpoint (`rpc.send_env`) whil
 0.843 s, slowest *posted to L1* (the RPC's safe tag) 747.856 s, slowest *L1 finalized* 1128.202 s, the
 twenty finalizing between 1112.424 s and 1128.202 s. A one-transfer smoke earlier in the day posted in
 541 s and finalized in 929 s; the batch to Ethereum comes when it comes.
+
+## 2026-10-19 — Base; eleven measured
+
+`runs/base/2026-10-19T1559Z.json`: twenty transfers of 0.1 USDC under rule k; slowest *in a block*
+1.295 s, slowest *posted to L1* (the RPC's safe tag) 46.58 s, slowest *L1 finalized* 1279.094 s, the twenty
+finalizing between 1264.285 s and 1279.094 s. Reads for this run came from Infura: a free third-party
+node refused the polling rate at the thirteenth transfer twice (the run file records the host it used).
+Eleven of the fifteen are measured now; the four left are Ethereum and Tron (by design), TON, XRPL and
+Aptos (drivers to write).
