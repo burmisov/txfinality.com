@@ -51,3 +51,10 @@ reaching a milestone between 3.691 s and 6.913 s. The smoke run before it measur
 return its gas: a node behind the endpoint reported the recipient's balance before the return it had just
 paid for, and the sweep overshot by exactly that fee — balances are now read only from a node whose
 transaction count has caught up with ours.
+
+## 2026-10-19 — Plasma
+
+`runs/plasma/2026-10-19T1456Z.json`: twenty transfers of 0.1 USDC through a Chainstack node (its free
+plan allows 25 requests a second, so this run polled every 200 ms rather than 100: `pollMs` says so);
+slowest *in a block* 1.066 s, slowest *finalized* (the RPC's finalized tag, two blocks behind the head)
+2.93 s, the twenty finalizing between 2.657 s and 2.93 s.

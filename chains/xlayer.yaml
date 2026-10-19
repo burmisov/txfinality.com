@@ -16,7 +16,8 @@ wallets:
   from_env: EVM_FROM_KEY
 levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
   - { name: "in a block", detect: "receipt", role: done, seconds: 1 }   # "1-second block times"
-  - { name: "L1 finalized", detect: "block tag finalized", role: final }   # OP Stack semantics assumed; the docs do not define the tags and give no number
+  - { name: "posted to L1", detect: "block tag safe" }   # the RPC serves the OP Stack tags: safe about two minutes behind, finalized about fifteen (read 2026-10-19)
+  - { name: "L1 finalized", detect: "block tag finalized", role: final }   # the docs do not define the tags and give no number
 claim:
   text: "Fast execution happens on L2 with 1-second block times."
   url: "https://web3.okx.com/xlayer/docs/developer/build-on-xlayer/quickstart"
