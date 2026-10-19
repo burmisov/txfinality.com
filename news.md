@@ -68,3 +68,11 @@ previous one was in a block, so all twenty were sent within thirteen seconds and
 minutes rather than six hours; the slow levels were polled every 10 s (`slowPollMs`). Reads came from
 dRPC and sends went to Arbitrum's own endpoint (`rpc.send_env`). Two earlier serial runs of the day were
 stopped by decision at transfer eleven and are not kept.
+
+## 2026-10-19 — X Layer
+
+`runs/xlayer/2026-10-19T1526Z.json`: twenty transfers of 0.1 USDC under rule k; slowest *in a block*
+3.941 s, slowest *posted to L1* (the RPC's safe tag) 195.232 s, slowest *L1 finalized* 1140.447 s, the twenty
+finalizing between 1098.619 s and 1140.447 s. The chain file gained the *posted to L1* level today (the
+RPC serves the OP Stack tags). A first attempt through a third-party node alone never got its transaction
+to the sequencer; sends now go to the chain's own endpoint (`rpc.send_env`) while reads stay on dRPC.

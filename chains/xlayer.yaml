@@ -1,7 +1,7 @@
 id: xlayer
 name: X Layer
 family: evm
-status: candidate
+status: measured
 since: 2026-10-18
 icon: xlayer.jpg
 chainId: 196
@@ -26,4 +26,7 @@ claim:
   next_read: 2026-11-18
 note: |
   OKX's chain, now on the OP Stack with the AggLayer. One-second blocks; what final means on Ethereum,
-  the docs do not yet say in numbers. Not measured yet.
+  the docs do not say in numbers, so the RPC's safe and finalized tags were taken as posted and final.
+  Measured from , reads through dRPC and sends through the chain's own endpoint: the slowest
+  of twenty was in a block in 3.9 s, posted to Ethereum in 3.3 min and finalized there in 19 min (the
+  twenty between 18.3 and 19 min). The long waits overlapped (method rule k).
