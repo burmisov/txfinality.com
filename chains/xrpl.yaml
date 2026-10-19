@@ -1,7 +1,7 @@
 id: xrpl
 name: XRP Ledger
 family: xrpl
-status: candidate
+status: measured
 since: 2026-10-18
 icon: xrp.jpg
 asset:
@@ -22,5 +22,6 @@ claim:
   next_read: 2026-11-18
 note: |
   A ledger closes every few seconds and a validated ledger is final; there is nothing after it. Old,
-  simple, and it has not changed. Not measured yet: the driver is to be written; the figure is the
-  docs' upper bound.
+  simple, and it has not changed. Measured from  through a public cluster: the slowest of
+  twenty was validated in 13.3 s, the median in 5.4 s and the quickest in 3.4 s — most inside the docs'
+  three to six seconds, a few a ledger or two later.

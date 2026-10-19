@@ -12,13 +12,12 @@
     "to": "raXJpitCC4e4AFwUrzpB7AnbYSVyjePK6G"
   },
   "setup": [
-    "102AC03D9FDA6F166A440C9655862DC2B0F72CBD17C9FDE4B92DBD4229561279",
-    "87FD60BA8696FCE69D3C3EC5FE96DF127115BDEA0E6AF2E5EBA30A73438F0938"
+    "D1F9BC07BDF8801BB902207B09748910617E7DE517AC8416747E6E56589C5166"
   ],
   "teardown": [
-    "9C66E98C835DF7F4827C8CA64C08597B5A69A272D7003D719E96EA765D285BC6"
+    "B9D51956AECB48DC88ECF4BC62FCF9A8B5E241BCFFB95AD5BBA93B0B9D579547"
   ],
-  "runs": 1,
+  "runs": 20,
   "pollMs": 200,
   "slowPollMs": 2000,
   "slowLevels": [],
@@ -26,17 +25,169 @@
   "capMinutes": 30,
   "transfers": [
     {
-      "id": "0FD9AC9402E92E7BD5E7FB706D76A547C83E66F54494FD1D00607F6998EA95AD",
-      "sent": "2026-10-19T17:01:18.009Z",
+      "id": "03E81D71D27395C2DCD6983DC6440DB2CC08AC99C117E5110E810D4674CF54AC",
+      "sent": "2026-10-19T17:02:05.423Z",
       "levels": {
-        "validated": 7.079
+        "validated": 13.291
       },
-      "polls": 22
+      "polls": 21
+    },
+    {
+      "id": "98F1243A50F3889E4069031EED00749DBAD5792FA2F4E29F3A216790124E9CAA",
+      "sent": "2026-10-19T17:02:18.903Z",
+      "levels": {
+        "validated": 11.822
+      },
+      "polls": 20
+    },
+    {
+      "id": "4B9DBEFD591BC3715AC89FF007047FCDDB4B2BC9B21847804A6DD72A240102A7",
+      "sent": "2026-10-19T17:02:30.918Z",
+      "levels": {
+        "validated": 8.382
+      },
+      "polls": 18
+    },
+    {
+      "id": "3EE52D2763BBC2F10D503B7237001AE28F5825C408659CBD55D6A22BE4D270D5",
+      "sent": "2026-10-19T17:02:39.518Z",
+      "levels": {
+        "validated": 9.876
+      },
+      "polls": 9
+    },
+    {
+      "id": "5C4B0549BB78ADA1BFA6C2492D4235E4DC11B07CA76200561D9A085CB087B1AD",
+      "sent": "2026-10-19T17:02:49.585Z",
+      "levels": {
+        "validated": 11.091
+      },
+      "polls": 16
+    },
+    {
+      "id": "80787B50CAF0BA35342873C111AF1A1B3EB500E3719ECF76FB2CE5EBAC6703BD",
+      "sent": "2026-10-19T17:03:00.819Z",
+      "levels": {
+        "validated": 5.38
+      },
+      "polls": 14
+    },
+    {
+      "id": "3DF55A065A911F16866B239F17DDA5899DBC42B4A67371A6437E713C73204137",
+      "sent": "2026-10-19T17:03:06.403Z",
+      "levels": {
+        "validated": 7.342
+      },
+      "polls": 18
+    },
+    {
+      "id": "4C1EF96F0B95FDDE2F6BCD55600AF4729C6CE77796683D01EE6EC8832044A2E3",
+      "sent": "2026-10-19T17:03:13.864Z",
+      "levels": {
+        "validated": 4.309
+      },
+      "polls": 10
+    },
+    {
+      "id": "32259FEE2109AF19565D3614969BDB2D056CCEAA61CFA99D125CF4F47A1C27A0",
+      "sent": "2026-10-19T17:03:18.345Z",
+      "levels": {
+        "validated": 7.622
+      },
+      "polls": 23
+    },
+    {
+      "id": "F05465E38E33BE3DBEBBC461690EB8846B52E27D0F2B22D054A5C3B16C8D6AE3",
+      "sent": "2026-10-19T17:03:26.081Z",
+      "levels": {
+        "validated": 4.328
+      },
+      "polls": 13
+    },
+    {
+      "id": "CC0C6A25209D257F01476E4E6161734ABD50A1BF82468F4D6112DF71D92C6C94",
+      "sent": "2026-10-19T17:03:30.539Z",
+      "levels": {
+        "validated": 7.536
+      },
+      "polls": 21
+    },
+    {
+      "id": "C4D9508FF2C280B55445FBB8980D35BBA1211B0E2037C91A48818F0D2C4AA6F2",
+      "sent": "2026-10-19T17:03:38.182Z",
+      "levels": {
+        "validated": 3.916
+      },
+      "polls": 12
+    },
+    {
+      "id": "26833206B437EDF33BF672F933A1136FFDFC3B06079724BF8152E82C01E52AD1",
+      "sent": "2026-10-19T17:03:42.164Z",
+      "levels": {
+        "validated": 3.828
+      },
+      "polls": 12
+    },
+    {
+      "id": "880243063CE555D4AE226AFF85BBC1FFEBE2DB51749CEC685A0D9B1D093CA9FC",
+      "sent": "2026-10-19T17:03:46.051Z",
+      "levels": {
+        "validated": 3.436
+      },
+      "polls": 11
+    },
+    {
+      "id": "18DFC901F05B949817355B12F18595E8FF1DA65C4F6FA9B44521194A2EE5A819",
+      "sent": "2026-10-19T17:03:49.550Z",
+      "levels": {
+        "validated": 3.844
+      },
+      "polls": 12
+    },
+    {
+      "id": "6B259323DA921C7171231156C55A60C895A436534386DA01530D4519198C00C3",
+      "sent": "2026-10-19T17:03:53.481Z",
+      "levels": {
+        "validated": 3.757
+      },
+      "polls": 11
+    },
+    {
+      "id": "106D05A0B47ECF14BD5266118BE9C82DA44DDB07C167541494662F60F834DB59",
+      "sent": "2026-10-19T17:03:57.305Z",
+      "levels": {
+        "validated": 4.601
+      },
+      "polls": 10
+    },
+    {
+      "id": "6E92D9216B335C0212184AD78B956F942127E9DF9991FEFD51F1DDC62DE0C55B",
+      "sent": "2026-10-19T17:04:02.018Z",
+      "levels": {
+        "validated": 7.006
+      },
+      "polls": 21
+    },
+    {
+      "id": "E08358895DA3D0536AAF0105C2AFA33462ECCE0B26E08B6AF8A7256BEF4C5406",
+      "sent": "2026-10-19T17:04:09.121Z",
+      "levels": {
+        "validated": 3.513
+      },
+      "polls": 11
+    },
+    {
+      "id": "041759964EFFDA1BA764B09E83B7A3AC2233AE11E6FC94294AF264A869CDC6AC",
+      "sent": "2026-10-19T17:04:12.732Z",
+      "levels": {
+        "validated": 3.797
+      },
+      "polls": 12
     }
   ],
   "slowest": {
-    "done": 7.079,
-    "final": 7.079
+    "done": 13.291,
+    "final": 13.291
   },
   "notReached": []
 }

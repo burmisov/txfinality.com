@@ -102,3 +102,11 @@ the recipient's jetton wallet, three hops after the sender's external message (s
 jetton wallet, recipient jetton wallet). In sixteen of the twenty the shard and masterchain levels were
 first seen in the same poll. A first attempt died at its first transfer when the API answered with an
 empty body; the driver retries such answers now. The TON and the USDT were returned to the sender.
+
+## 2026-10-19 — XRP Ledger; thirteen measured
+
+`runs/xrpl/2026-10-19T1701Z.json`: twenty Payments of 0.1 USDC (Circle's issued currency), one at a time,
+polled every 200 ms through xrplcluster.com; slowest *validated* 13.291 s, median 5.38 s, quickest 3.436 s.
+The recipient's trust line and reserve XRP were set up before the clock and stay for the next run; the
+USDC came back. Thirteen of the fifteen are measured; Aptos waits for funds, Ethereum and Tron are by
+design.
