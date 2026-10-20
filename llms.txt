@@ -60,5 +60,5 @@ Bitcoin | 10 min | 60 min | by design, from the docs, not measured
 
 - [Report a correction](https://github.com/burmisov/txfinality.com/issues)
 - [Sergey Burmisov](https://burmisov.com/): who made this
-- The dollar figures beside each chain (stablecoin supply, the coin's market cap) are estimates rounded to the nearest hundred million; market caps powered by CoinGecko
+- The stablecoin supply named for each chain is an estimate rounded to the nearest hundred million dollars
 - Licence: the code is MIT, the data and the text CC BY 4.0 — https://github.com/burmisov/txfinality.com/blob/main/LICENSE
