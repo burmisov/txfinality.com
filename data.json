@@ -1,0 +1,653 @@
+{
+  "built": "2026-10-20T08:57:31.433Z",
+  "method": "v0",
+  "landscape": "2026-10-18",
+  "source": "https://github.com/burmisov/txfinality.com",
+  "chains": [
+    {
+      "id": "arc",
+      "name": "Arc",
+      "status": "measured",
+      "rank": 18,
+      "done": 1.346,
+      "final": 1.346,
+      "levels": {
+        "final": 1.346
+      },
+      "run": {
+        "stamp": "2026-10-19T1048Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/arc/2026-10-19T1048Z.json",
+        "rpc": "arc-mainnet.infura.io",
+        "hashes": [
+          "0x5eee0cb3b001814fa2e123ba816e36396217da6eb944a8a4a8227890356847d8",
+          "0x5ac865ab9604e17a8466013ca85e9625daae4d282a52eebcb7f1efca944dadf3",
+          "0xdb83cf4f34427db9a71b5a110abfb89f2ccde226513771982aba112eee25af2a",
+          "0xae9fbe9b0bcf60802f37a457c55de6a3d7ebcde8f234efd04ab78a574aa85e25",
+          "0x18d5f621b55ae85330f29bfb9c5f70f7afcb1789c126f7ea8fe0fb4406a64598",
+          "0xb171a81857a0d2fdeaef7efd53c6c4e2872a4c7b5ef310f433d00f7c954aca3e",
+          "0xbc3d8522bb924b3d21bcecfce09cca227aae5c8baf2e75d9fa69ed00907c8e77",
+          "0x99f5d79097f022cf5c6f61ae9c61e35afe0502a0a8e0ebd28c336f1608d4f385",
+          "0x9d7473c190c67c48eb907305b56ae9f195a3ef5e87af299aa64d0bb9dc14fc6f",
+          "0xcfbd776b0c4d8823f54ecd7dba25017d90140a95365c57170ef8cdf5b4d7ca52",
+          "0x4ff075d3c287681cfab85bc4899e9737d548e6e804500c6c83be3c42cc6edc10",
+          "0x7ff73ac18230441e50fe22be3c7cae45c677587dbeaa6b3eaeff4bd13293c8bb",
+          "0x46cd2760b49f7b013379bd81be0c14a57954b6a0815c4a263e7954db6c839d8b",
+          "0x0852b3715ba26636847d3cf4cb228ae3e5ef6f11c6b032b3492bfd4a34daaadc",
+          "0x79139a4a74d0b477182dac6283eb45870cc890c37b01981c0c61404d9a68789a",
+          "0x5df83a223ffcd051d708b972d8efbe3f257a2ef53d6b15384cbe2e3431434194",
+          "0xbccd66ad8138a549efa3beb34efb36a13ce89c15ece04f1931df7a7b4e04f1c0",
+          "0x34c711b1f5d52b1bb9e202565ec969f2b5756f59dcce337e57a2132522a36f67",
+          "0xd0cae1692ec156574fe6663a4459ff3bb28b6fd452238f4993dbf5a4623804d3",
+          "0x910a39e0f737576c2be02137e8011f4c24921fb01ba54027b401cc09a93cf75b"
+        ]
+      },
+      "claim": {
+        "text": "Arc uses a two-state transaction model. A transaction is either pending (in the mempool) or final (included in a committed block). There is no intermediate \"confirming\" state and no concept of accumulating confirmations.",
+        "url": "https://docs.arc.io/integrate/wallets/transaction-lifecycle",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "ton",
+      "name": "TON",
+      "status": "measured",
+      "rank": 15,
+      "done": 2.335,
+      "final": 2.335,
+      "levels": {
+        "in a shardchain block": 2.335,
+        "in a masterchain block": 2.335
+      },
+      "run": {
+        "stamp": "2026-10-19T1658Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/ton/2026-10-19T1658Z.json",
+        "rpc": "toncenter.com",
+        "hashes": [
+          "feb97553b8013916563aa643aae6fb143bfade2a688154a1ada6c56978305fa7",
+          "d26778f81ef9f68ccd0e479a8563a001e0498974cc9e786785a7fc0dcfd150bf",
+          "eb76d9a4496f173c8dcb176e5d78c81ad259334a1e15bdc2f097ceba9b9a857b",
+          "2695088c505f68b41992af7151962bc0f3dd1a2185f12bb3d32041d8f4f18313",
+          "5ad60db495154e8c860e7b98bcbc2f7bf775f85b81f1f4a0f12a099e8875e967",
+          "f70b0ec6b6bdf34688bc38e9c653e4b36d91aa918a135b71f2ba17fe24e5940a",
+          "e916fef6c2452c784cdf692ec9dbc1cb45ef8c34baac1a2b0c2a138b678e9071",
+          "8d87debfe227297f90d37f142e4e31a0a080e2ff081e54e9529a1d2f8abf1871",
+          "53ee00cdc5f58c4aeeaa9d2b092fdf79671a61668d5645a06a39357196e8ac0a",
+          "d3b9437b1950a56e299d9476230b2d482ce122fb29b854166096a663e9d15e05",
+          "e9c7ab72a2233ce458210a7876b9ff5d30473a5e1f9ef5cbfefaf85951ca4a14",
+          "37fee235839eca33e0d27948c36e4d65a8b351c031531761da39a05665ff736a",
+          "2305c803ca2a3b48882fbccaedde81198cbbb852b64730494725d9d5635fe00d",
+          "1f3ae956e6fc218b327d0f233cfe45d766ac60698ec49d502bf2457e79038104",
+          "34315c2828beb6c6155458a8c7b542662882b7291ddaeb97e8b04c7379a5bb46",
+          "b345a026638ac11e38815ae8e7997dcc8a7799292e5b16a25ee7481076a2e04a",
+          "833e5373e8c4b052b579278f6935e545acaa45461a517ff8877b5959b8b31aab",
+          "5f49ae43f0671e2d9f9d63919c448d12c91842d16e8b5aa4162d11721036462b",
+          "262d8cf7107c8b6bc9ba84604a6714414ef5012763fb1a5b01692aa1a3bc0df7",
+          "861e174d4f7902c9de3419c6f4fd4db7ecc8e56cc41fe75017de5350cb4906b8"
+        ]
+      },
+      "claim": {
+        "text": "TON achieves transaction finality after a single masterchain block confirmation, typically within 1 second.",
+        "url": "https://docs.ton.org/applications/payments/overview",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "bnb",
+      "name": "BNB Chain",
+      "status": "measured",
+      "rank": 4,
+      "done": 1.939,
+      "final": 2.742,
+      "levels": {
+        "in a block": 1.939,
+        "fast finality": 2.742
+      },
+      "run": {
+        "stamp": "2026-10-19T1055Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/bnb/2026-10-19T1055Z.json",
+        "rpc": "bsc-mainnet.infura.io",
+        "hashes": [
+          "0xd7062047c36dda447913b5957467f1bc0df2cd590d26b7bf0351c8c65c401c72",
+          "0x075019df5c5656b15aa2be0dee5061290de84a4615164c1338473f0c725b0f20",
+          "0xed555c8edf0fa64d0c8ced55f890c004937acfb30562be2fda79471469def096",
+          "0xc3abc99465b9df9ededc2a24ca682e004c91baaf690fd29d4a1fa1ae9f887046",
+          "0x71f40114b504063c3367b37da41a5e2be22ca4784a630f276d41db82fb04c1c5",
+          "0x0b7c4fc6c8136be27c6f7cd7cd0389e669bac492f59a4110a01ea0feb2956753",
+          "0xcd7a58c28d9d6594254462c02b1a51e64570ba6a862e8823123db4aa9027bb24",
+          "0xfef8a48aff99646eb289ad2604def9da14d3e1c144c1239c3d9db82ace068412",
+          "0x643c01da68142afed78cd0ab861875aa98b7317f6b80691411194cc93e316fe4",
+          "0xa125601345b65dabb4962db35490e02a47e635c42b79d1b62521c0616fc88b52",
+          "0x23b807bb7aac7a7b8fc41b3d29167cdb42eeae56db8362e79b73ec6290035a38",
+          "0x04fbeef2bd1b21cfc87513fad8181e4805575f9da0cf0d92309f81a45b739c25",
+          "0x732d1ff86c7835c745b7a0a71c533602bfcf529565881ef94dc665736315fe05",
+          "0x7a2c1f00ffbd034979549f46d7c3f24405837f3ba1459ca45b51bda441148594",
+          "0x1933202a99de964b4ae03e61e628ef0fac426d58c5c535aac66d848b97eb310b",
+          "0x4e1b24fa7ab6506c21e3ea82e7bdeaff00510e3441ff83708e536f995d925e9e",
+          "0xb6573957b7fd69ceb23d89c93f8445ef9f9f3e4e81fd110f32e708ccd40cea50",
+          "0x2bfaa8f64ea89792b3f7273dcb813625eee0a38ea02aeeda3b36df336f33f7d2",
+          "0xd2aeccbfcec57ce51a37978f9e1122b659a91fe7697a454574b82193917b147b",
+          "0x5ebbf8aa2c5731fe6cd352d68834e033eb814466d9f525f9af49fe7c6c2597ba"
+        ]
+      },
+      "claim": {
+        "text": "With Fast Finality enabled (since the Plato upgrade), the chain is finalized within two blocks if ⅔*N or more validators vote normally. At the current block time of 0.45 seconds, this means finality is achieved in approximately 1.125 seconds.",
+        "url": "https://docs.bnbchain.org/bnb-smart-chain/introduction/",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "hyperliquid",
+      "name": "Hyperliquid",
+      "status": "measured",
+      "rank": 5,
+      "done": 2.773,
+      "final": 2.773,
+      "levels": {
+        "in a block": 2.773
+      },
+      "run": {
+        "stamp": "2026-10-19T1048Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/hyperliquid/2026-10-19T1048Z.json",
+        "rpc": "hyperevm-mainnet.infura.io",
+        "hashes": [
+          "0x267d3dd88fd92e6d5ac746f11e224591f13490c7feb284fb2b2a3b54199594fc",
+          "0x97ac9d193c44650539539fcb3909835918d8fd3b22b49b40bc57d726d982a790",
+          "0x3803c901648cef62bdd1b9ba97ce52a8dc29431c955ac9eaf64ac3205148a8db",
+          "0x56206888dee57e57b64ed016513edce582d13acce55399f876a42c1794dee839",
+          "0x474d22d9999708db49536717e2587d4273e8de81afdce53db3daa081c8f02001",
+          "0x002df9054962dd83051d0992dac9e7bdf87001de9f1ec6c54024dff7f842fdb0",
+          "0xad5d141879d61c602a0ac391bb10e703e3a9f8b40615b8940cf2473381772c26",
+          "0x6cf6c73f9ac058106a2c3d68f567f48c6bd1fce4b84320bcbca2192fb7e36b74",
+          "0x517fb6bba165fe584c050673c08fc3a61f544aa59d0a4205b57c7474cfc8f561",
+          "0xee9ebefb793ff31420be18bc0cee6fc73277e90e126523e135a9f73f0369df97",
+          "0xdfb05eafa8f0a1b96f2acb1b52a94d118021567237739440d1c2ed533f99c646",
+          "0x820942938a945ad97b175c2d740cf7298e04385e13501385d70827f1bbf01a48",
+          "0x4cba4a339cbcf035e55d197aa6b02859e17f9d0775fd5f99b39b40dc5fd4cf28",
+          "0x946e042f1c8e1a833b33033793659d11f4da5b7c8ade9273dbc21a3a231257c9",
+          "0x8a645f91897753fc1fac99838086b458cc95f952d2014e7965efb29edbaf197b",
+          "0xe6c459206a5f5bad39c26131ef602408107ccd87c5083229fedc00a1ce6351d7",
+          "0x5c80e8fe8a2630ca852ff6cdac6279c0a4247ab54724e4934cce0a9741e89ea1",
+          "0x4271bc71c63e219dd63a4c4f6d186ac64d3417fcad2a17e13b5872f79182452f",
+          "0xa9a15b5d5a79fc3af5b3a44c55430b252247fa7c4edb3dbdba8715e0bfa9890e",
+          "0x2190a185e45d79505f40044ab163a2207602ab210c23932c19082f5acb2398d7"
+        ]
+      },
+      "claim": {
+        "text": "The HyperEVM consists of EVM blocks built as part of Hyperliquid's execution, inheriting all security from HyperBFT consensus.",
+        "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "plasma",
+      "name": "Plasma",
+      "status": "measured",
+      "rank": 11,
+      "done": 1.066,
+      "final": 2.93,
+      "levels": {
+        "in a block": 1.066,
+        "finalized": 2.93
+      },
+      "run": {
+        "stamp": "2026-10-19T1456Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/plasma/2026-10-19T1456Z.json",
+        "rpc": "plasma-mainnet.core.chainstack.com",
+        "hashes": [
+          "0x719cd096d36a6e22f673138dbe7ad10851cd99c766714c877fd7270757be20b9",
+          "0xd26a2232a241dce821efdd5f7eb394f5a33eb5b2e208c7fc19464928482e66b8",
+          "0x69ade063882bf1d76713282b7da7b712bf9608155ec1533fb7f05b94fecf7b92",
+          "0xecc7b0056f54f87ead912bea223ffc1f11c92018483589834cd642e5fee6b3ce",
+          "0xee0bf8249366f6a07870ec4fbde83d70b0508e05365abf816ffd69d4856f0256",
+          "0xb0c521c629a8ca8f0ee043ac6be92335ee708d74f8158fbc3c678ac22f478d15",
+          "0xda1c55986077db23483b8f4c1fec60580a3d4b9a106fb62176650445bee87c55",
+          "0xb790bfea7b0f2360539973563ee06558121bc96ca8666c071512f298f1dd21e3",
+          "0xd7e4369206a822f6bc0b202b80a02fa39cc7c44f08f61791ed2b62540baa6628",
+          "0xa8bd64aa03b864e031cb69be992651cab27cc074388f68e6411c8d665927fbba",
+          "0x1b8c49c946a8b039632a849d8db74eaba2ff77a4dcc1f99a39f4ef5c767647a3",
+          "0xa378b30800e1a773f98b8eac09765753284be92840ce50681b2d874ffc979f39",
+          "0x39bd7648ac08199c4de90e164ba75e3aa871284e9b5cebe54531be8e089cf648",
+          "0xfd8c3a2fa572d66b54b0be0140dffe11aa6a76ac11d9502f773e549de0d3e388",
+          "0x660d13efd8b545322059b85c7b4367c832fac4fa980645ba0392440d37178dd8",
+          "0x691e340da76ee6d1ebc06cd7b0cfca2be2eba9882502506f031e31cf36e7d440",
+          "0x7536eaf7a7585ccc39257be794b957ea287559b1cda1e8b1cbe78163addfc024",
+          "0xe78452da4accd7339d737020c224f1561ed46b6ccefaeb8c1fe0dcc807d10bb5",
+          "0xc002f810e3dba38db5ececb498dead85284a41332a7a712038f0a60950be1ffb",
+          "0xb058edfd82f66058b6f0d1a4961643613474100e613e07c6a847ec9bada96970"
+        ]
+      },
+      "claim": {
+        "text": "Block finality is achieved in seconds with minimal communication overhead, and validator selection is driven by a simplified Proof of Stake system optimized for performance and predictable behavior.",
+        "url": "https://www.plasma.org/docs/plasma-chain/architecture/consensus",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "polygon",
+      "name": "Polygon PoS",
+      "status": "measured",
+      "rank": 8,
+      "done": 2.216,
+      "final": 6.913,
+      "levels": {
+        "in a block": 2.216,
+        "milestone": 6.913
+      },
+      "run": {
+        "stamp": "2026-10-19T1434Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/polygon/2026-10-19T1434Z.json",
+        "rpc": "polygon-mainnet.infura.io",
+        "hashes": [
+          "0x8f76776056097064184ae979f852397827fa1b4de6414ad1d6b276e26df152f1",
+          "0x299969826248cac180e0bc195d8918084085ff84d489228df7117baa84b2a6af",
+          "0x522afe7d982b8d10a4089da03d6ad46d9fd40ba94e94484e24b366284dd0c3e3",
+          "0x7872ecaef9a075a40e853d5d648c910ef17555f3ac218c9dc2e82e517d83f0ce",
+          "0xc55f21a81aad6ee5a3a19ad6e91a8cc5abe844cefdaaf709129bd49e5c0b084b",
+          "0xe37fab872e4ad4d2ccbdb38df64c78ca41dcc2b6e5a0417f641259fa57bf9183",
+          "0xb8c14ccae72dc8fca3ef86497f91f4fed6e6673993286e0e0602c169a73848b2",
+          "0x9d33a983100bdfa8ae8a59b6b81b3b88546ecff33067282aedfbb0c187daddc6",
+          "0x62e6546d796d27b0006ca025e8e792cca0f0f61018629c7f8ea738547e82df6a",
+          "0xe7943bba8ac6cabd068b7a4fb6affbd1b3c87b7c89be18832372420fb95f7ef6",
+          "0xd971c07ee3229fe15b7603508d6e9766e24e3ed448d44c1296ce398c89f3d46c",
+          "0xcb9db3ae9e77718df1658bab101e71789e42c84cfc6f911afe23ce502d3afafb",
+          "0xb9de2d9330351a88ea88c693cd387c3885a07c00a78842ea739a7904e0243e13",
+          "0xdb9927ca67080b440a4a0d3fbb89ac05e501c9357031d77c95fc2dcddd1ceb6b",
+          "0x882abb9a2b820742656650a9fc9bc2957ae7cb6e1a4d4f5b165e1330ff0dad9e",
+          "0x0933b5e055b2cfc4541c5d481901f6acb2b3ebe9fcb0d2fbabfdcbc7dd878562",
+          "0x0596fe3bdcfc829e4629ded616d62506caeea986ab1f17f904c38d077e71ecd1",
+          "0xc0b003967a689a2e7c902770dd8c01c6960a49865a15b173438a5314974d13cf",
+          "0x231943aa0bee9f88407664ef39590814950225c4207f8c29509e26bd20dce802",
+          "0xe70b7cf8b8daca5161a76f5d7739a73a46133372efb5dd9e1015cb3fa53a2af3"
+        ]
+      },
+      "claim": {
+        "text": "Milestones typically finalize a transaction within 2 to 5 seconds.",
+        "url": "https://docs.polygon.technology/pos/concepts/finality/finality",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "solana",
+      "name": "Solana",
+      "status": "measured",
+      "rank": 3,
+      "done": 1.105,
+      "final": 8.075,
+      "levels": {
+        "processed": 1.105,
+        "confirmed": 1.105,
+        "finalized": 8.075
+      },
+      "run": {
+        "stamp": "2026-10-18T2118Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/solana/2026-10-18T2118Z.json",
+        "rpc": "solana-mainnet.infura.io",
+        "hashes": [
+          "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"
+        ]
+      },
+      "claim": {
+        "text": "A block the cluster recognizes as finalized with maximum lockout, meaning it has reached the strongest confirmation state used by the network.",
+        "url": "https://solana.com/docs/rpc",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "avalanche",
+      "name": "Avalanche",
+      "status": "measured",
+      "rank": 10,
+      "done": 4.884,
+      "final": 10.958,
+      "levels": {
+        "accepted": 4.884,
+        "settled": 10.958
+      },
+      "run": {
+        "stamp": "2026-10-19T1151Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/avalanche/2026-10-19T1151Z.json",
+        "rpc": "avalanche-mainnet.infura.io",
+        "hashes": [
+          "0x90d03f5356a30a6e141ee2b3df164715decec5342b35398f1a88fd1bb9c53474",
+          "0xb522f24a9c762b1f031230110058793a4aea204d977ae9d099c6cae76708f583",
+          "0xd74dfffa9502e78c9cd1e09e8933ec3e94806587d7a53056c13b146f09b3e3b3",
+          "0xe512f78be6d2f550bcc26bfcf0f92ba27a08bfad6600a44fa0613996924d19c4",
+          "0xe7d69521ffbf2f54fc0a95a69667c1b1e78edbbfc40c51f7416464f570ad0829",
+          "0x8bf63d90a6821fd9db85d35d2b8f2210ee5ecf2d1298b34486d798810ee9428e",
+          "0xe8e67b0ebcfef91e6010bb2dbb604940e5e46be09238bac3606653130c62889f",
+          "0x881250b212743c7e2753de0636dfc5bd4f6a76a295495085e61d6e26a4946048",
+          "0x10bcd7cafa2e2b90acd5758f708c1fe857874ab77ffc18d89d533943e327cce5",
+          "0x6c468a0fdfdbfac6102cfb4414fd3dcdb2402156d48be53dbbb13eab3de0e0f6",
+          "0xad731c786b00bac754d9cd4462744fb11104fdc3e375cf652e55e7a7a6483054",
+          "0xbff82674bbd2f701fc5fa5e30cc504b365304eb42098ce3830382ff16eee8e49",
+          "0x62719998eb1c604a0741ed8edd0ca30f71b66bbc4c1105c5f74f47ba31f8c982",
+          "0x56abc5f5758b7f47d12a6698742b96c3f1efa4c3540c16f8b929559e5627660f",
+          "0xcee007d019a3af2fe0fe5e45b939a8a21f50e5e5a4280a70db87fd2044b834bb",
+          "0xcbaf47e5092a367f13d389e6f10f4b6e9aa27b992f13fbb42679805b4428e96c",
+          "0xe92c4b637623f27a211b1e75bd0ef078b07d32cda2d2428897f08542c5d09f4a",
+          "0x41bcef748a8cfc1721112d1afb9c87ca0502bbc859c064f51c41c72399bbc09c",
+          "0xcc5b8ac18de9bc65e1fd4a32d68798139d9ca767af48ab9ad83530086b451536",
+          "0xf3e10c0a619a6f46c3715ef56b47ea1129634e9d97dfb2d7a767dcfd584e5e52"
+        ]
+      },
+      "claim": {
+        "text": "In Avalanche, acceptance/rejection are final and irreversible and only take a few seconds.",
+        "url": "https://build.avax.network/docs/primary-network/avalanche-consensus",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "xrpl",
+      "name": "XRP Ledger",
+      "status": "measured",
+      "rank": 12,
+      "done": 13.291,
+      "final": 13.291,
+      "levels": {
+        "validated": 13.291
+      },
+      "run": {
+        "stamp": "2026-10-19T1701Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/xrpl/2026-10-19T1701Z.json",
+        "rpc": "xrplcluster.com",
+        "hashes": [
+          "03E81D71D27395C2DCD6983DC6440DB2CC08AC99C117E5110E810D4674CF54AC",
+          "98F1243A50F3889E4069031EED00749DBAD5792FA2F4E29F3A216790124E9CAA",
+          "4B9DBEFD591BC3715AC89FF007047FCDDB4B2BC9B21847804A6DD72A240102A7",
+          "3EE52D2763BBC2F10D503B7237001AE28F5825C408659CBD55D6A22BE4D270D5",
+          "5C4B0549BB78ADA1BFA6C2492D4235E4DC11B07CA76200561D9A085CB087B1AD",
+          "80787B50CAF0BA35342873C111AF1A1B3EB500E3719ECF76FB2CE5EBAC6703BD",
+          "3DF55A065A911F16866B239F17DDA5899DBC42B4A67371A6437E713C73204137",
+          "4C1EF96F0B95FDDE2F6BCD55600AF4729C6CE77796683D01EE6EC8832044A2E3",
+          "32259FEE2109AF19565D3614969BDB2D056CCEAA61CFA99D125CF4F47A1C27A0",
+          "F05465E38E33BE3DBEBBC461690EB8846B52E27D0F2B22D054A5C3B16C8D6AE3",
+          "CC0C6A25209D257F01476E4E6161734ABD50A1BF82468F4D6112DF71D92C6C94",
+          "C4D9508FF2C280B55445FBB8980D35BBA1211B0E2037C91A48818F0D2C4AA6F2",
+          "26833206B437EDF33BF672F933A1136FFDFC3B06079724BF8152E82C01E52AD1",
+          "880243063CE555D4AE226AFF85BBC1FFEBE2DB51749CEC685A0D9B1D093CA9FC",
+          "18DFC901F05B949817355B12F18595E8FF1DA65C4F6FA9B44521194A2EE5A819",
+          "6B259323DA921C7171231156C55A60C895A436534386DA01530D4519198C00C3",
+          "106D05A0B47ECF14BD5266118BE9C82DA44DDB07C167541494662F60F834DB59",
+          "6E92D9216B335C0212184AD78B956F942127E9DF9991FEFD51F1DDC62DE0C55B",
+          "E08358895DA3D0536AAF0105C2AFA33462ECCE0B26E08B6AF8A7256BEF4C5406",
+          "041759964EFFDA1BA764B09E83B7A3AC2233AE11E6FC94294AF264A869CDC6AC"
+        ]
+      },
+      "claim": {
+        "text": "When the network agrees on the contents of a ledger version, that ledger version is validated , and its contents can never change.",
+        "url": "https://xrpl.org/docs/concepts/consensus-protocol/consensus-structure",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "xlayer",
+      "name": "X Layer",
+      "status": "measured",
+      "rank": 9,
+      "done": 1.505,
+      "final": 1007.629,
+      "levels": {
+        "in a block": 1.505,
+        "posted to L1": 72.405,
+        "L1 finalized": 1007.629
+      },
+      "run": {
+        "stamp": "2026-10-19T1755Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/xlayer/2026-10-19T1755Z.json",
+        "rpc": "lb.drpc.org",
+        "hashes": [
+          "0x655336ff58826eee201e7a1614a585e644e5aba1281de1599f640ce6df456829",
+          "0x2d87bcc8a7750ad105d0302d017ea85a0b68f548b70283fe447ee4c116e867b3",
+          "0x974ef19863dcf89e877417e5b705edc15a61b8a733105cd55cd76506af01b062",
+          "0x7ac553a9b205af6e95a93903cbcbb8e15d7d03d331af5c009d02e7164fbcd00b",
+          "0xbdd71562cc2ae248a8b7b4272cd23afb5ab7eebf1d931d7fe82c0a604fe8d35d",
+          "0xc96ceea131c6a5aa2fda35a664df785b98bebeef7389effd0806b764b3150017",
+          "0x6ade051cdb49bcdbe4224105e305f0596d8d61096fa2bfbe23ff01759d9c67b5",
+          "0x21c8c8bef71974127ff04caea8309cb89eeaa676c4c9d10c4de962f5ea35bb66",
+          "0xc3dd3de740f0b3e3d0da84ddce361de1485aa70064233170649134e40f455277",
+          "0x0c2da64eff8b38322a844d159544c01279b698fcd22eacb9ecbe13f6b5f4a67c",
+          "0x858e7a501acc27c59c7a28e2f1e498d9477c16662d8355d8b77943c57848d14d",
+          "0xf8dca7390e61b6afd14e5c8189f5afb4032fb0560e74138a082164e426c64ac4",
+          "0x6b53cd1f0cac12b598dc7a92c036d25397db8944fc4dcd54045c0b94fea9e5c4",
+          "0xe7e1849092b656fe7a303df44e8a3119391709dacee3dc1a48ec534b4fc58f47",
+          "0xdff44f3931eef538a3a6ecaf7b001585eaf8c1c5f09242b73c7aa33955012b17",
+          "0xdb4784624c83b196edb6499f7515e9b66f041ca6b198df3e02755d146822c0e3",
+          "0x1fddc01ef23778bbcd7283b83b024935234b7fe5cf7d02bca3e24dd5eecc8a62",
+          "0x087169844dea774297e40d7710fe752101014f6035fbd7240cfbcb8fd1b6a77e",
+          "0x99d2be70e673c0b8980437fcb14ccefe5ca790628a243f8b902a2f531fc060ba",
+          "0x7ec9c3c62a56d600a8f0f9a1dd192b336055a79f311721a6d3c71263f862e2ea"
+        ]
+      },
+      "claim": {
+        "text": "Fast execution happens on L2 with 1-second block times.",
+        "url": "https://web3.okx.com/onchainos/dev-docs/xlayer/developer/build-on-xlayer/about-xlayer",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "arbitrum",
+      "name": "Arbitrum One",
+      "status": "measured",
+      "rank": 7,
+      "done": 0.743,
+      "final": 1100.443,
+      "levels": {
+        "in a block": 0.743,
+        "posted to L1": 337.63,
+        "L1 finalized": 1100.443
+      },
+      "run": {
+        "stamp": "2026-10-19T1519Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/arbitrum/2026-10-19T1519Z.json",
+        "rpc": "lb.drpc.org",
+        "hashes": [
+          "0x75814d6cb879c57f883c307d1c1164571aac897fff8073804bf5904b3575daaf",
+          "0xa09c8d765a13bee035bcbeb0db53b5e8f9bbc53485a89703853a3d3c4488f189",
+          "0x32f2ad2b2fc19ffed540a02693e06b2a37240f3fa3618a19d1d645870afcc0c5",
+          "0x7e59b8525bc5deff561fe9458cb168a1363edc299ee14d9d4d659e3b98a65f0c",
+          "0x35568d20315a7751b7486c89296d9efd95261276e4f319fa768f3e703e8c11e9",
+          "0x74a3c10cd4eb0111096d18869cab451d1b61049e2010215395de9487bb573b0e",
+          "0x952b407c88cbded2751bac125dea7c1ba3194dfc55b9f624e04651417d7731f6",
+          "0x14fd289080db8d834ca995fde5ab2b6fe6b37948dcf20dc684b9345a843c47df",
+          "0x4713e7d89c027bc40d5967b4fc075712e95991063a859c5812260d58ae597049",
+          "0xc47993cb96eb9f6f652e036c3ea24abac7e5764db46281429321a29e057329d5",
+          "0xa91225ac58ad479ebc176ee10320814dc74e4bc4baf8f4c2e929209cbb0083bd",
+          "0xe698e19a99cdce6466d3b38d81c08f2f4027c8d78fbd3ed9a972448786993a82",
+          "0x90751e4bcaefba4b0c978986e41b104212a2be77931678f3bfef288a5c1127d2",
+          "0x12c8ad5e4dca3f85fe568fd39854a046f3538d9ac5c7e290500c70913d62fbf0",
+          "0x45a13d22fdbed7f34596819fa0fcc8cf840f5d2b55355f39033c4b984a4d071b",
+          "0xae33964170b5e41fa705a7acdf02855ca1119de15df94a9f15bb4f99fb43890c",
+          "0xb1b90f98adc26f7c8b6d25fa2dd86cd571776496ff863f0d4ea0ba25dd45ba2a",
+          "0x7b480ef87904291833c61d9091c15be456524cf4f24624afe683863e171fdbbe",
+          "0x024dbbac9543841931380832f581aad38d14028212a8377e3ef206060bddf6de",
+          "0x6819e41d8daf512450c6222719ced85f6a402a7d933c0a3ec06c2de204cd0bf2"
+        ]
+      },
+      "claim": {
+        "text": "Hard finality—the `safe` and `finalized` tags—is inherited from the parent chain and is what makes a block reorg-proof.",
+        "url": "https://docs.arbitrum.io/how-arbitrum-works/reference/finality-and-reorgs",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "robinhood",
+      "name": "Robinhood Chain",
+      "status": "measured",
+      "rank": 13,
+      "done": 0.843,
+      "final": 1128.202,
+      "levels": {
+        "in a block": 0.843,
+        "posted to L1": 747.856,
+        "L1 finalized": 1128.202
+      },
+      "run": {
+        "stamp": "2026-10-19T1538Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/robinhood/2026-10-19T1538Z.json",
+        "rpc": "lb.drpc.org",
+        "hashes": [
+          "0x24180de9588d2fc88c2520a0acfaa50975be5843583e17fa883cd4b96a49c577",
+          "0x9ba7781eb8098524850844d8126621d3566b03722660f16e7e3bdadc640007a2",
+          "0xe98926724702f9cf9e97cff8f32cde98a6166ee11666b6e7b1c2552d84c8e8d1",
+          "0x97b2abab9cdd906b6743633f5a37a1b82378c5ba3447d5fd15a9f53f1c65a709",
+          "0x6c3393ded7e79af698c53f85defa23766c4dab164ced1ec82d0c0ad169658d70",
+          "0x11d3a434493fbdbc1be11d103892424f44bde47ba23b939a050cf26f8dbadcf0",
+          "0x94d7907721a627281f43220765330657271b8dcb3efee1b2170394e6beac4029",
+          "0x71527711ab3a706b46e7f757fe106d34064e8c58f5cb157b1b73e263f4f58568",
+          "0xf036ad423dd9b7b1cca482f9dd42db24f43c0371fd19585d4621db3023cf0790",
+          "0x7b95e420568a08e4a5b1a4d56fa980fa5449430e20f68729a51c328778cb8308",
+          "0x15d3eb821d57acce9cb699989814240868fafae7f5d5e48b8a247b00acc5b6bb",
+          "0x2082a3cf06003d763b372a463c193fcfdb94117a070cd5d2a4bfdfe8e265037f",
+          "0xcb515fbd60ff0a38b980db3970a15b7c6d0a3f96324a7e35b5ead917b73b07b5",
+          "0xe18d53cbe4ddc421f3c0bd3d90784995a71454b7730f989fe390790c2443462f",
+          "0xcfbcb52d22b1afa76b02a8ea9216bf9deb05a182448ff7a2226a10d50dfcf0f1",
+          "0x5445a63f9583ed69c663dea5b9227ce69032ba0cd9687dd6940d1e25e0391b00",
+          "0x40137a307505b1313aeaca585960e6cc3b661ea488a128b4ef7344486a461504",
+          "0x1e2c6452636716ca7ac562d6f7e658edc74db95832d355bb5cec3314de6a39c2",
+          "0xeb6427924f87000c88727a222ee3a59a73790d41dd1c747af8a0bf3f397d9ce0",
+          "0x81d6c46f86314b71860b07645f8c2806d110ee6a595b16a7a123103a3463fa8d"
+        ]
+      },
+      "claim": {
+        "text": "Full finality — your transaction inherits Ethereum's security and is irreversible.",
+        "url": "https://docs.robinhood.com/chain/transaction-finality/",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "base",
+      "name": "Base",
+      "status": "measured",
+      "rank": 6,
+      "done": 1.295,
+      "final": 1279.094,
+      "levels": {
+        "in a block": 1.295,
+        "posted to L1": 46.58,
+        "L1 finalized": 1279.094
+      },
+      "run": {
+        "stamp": "2026-10-19T1559Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/base/2026-10-19T1559Z.json",
+        "rpc": "base-mainnet.infura.io",
+        "hashes": [
+          "0x1627c7960c12a5ed920b4d21f9c901aafd96067bbd6570f0f17a9ccc28b8230c",
+          "0xf51002d2b213880940207e447a13c13cb64058adcb829c7c3267d7e845429818",
+          "0x7c7f0df6a7efcb984365c7a3864f4ff35ecff4406a37d3ac2c614e5610c35e0f",
+          "0x17605f0fb434599b888b072018fa873a3264f3dfdb2ccdb1884410de10f15854",
+          "0x373bb1b9a6bf9ffbcc8c352cf3b31722e02437365b8b6fab37712263a1269b54",
+          "0xacc8e50ba902e642431f185d1ff56197f73f5963856194e9cc1f76e8aa42c352",
+          "0x36fefefec597dbe5b5551cdcd51bcf874be115534c00221a1a7c1f845864cc00",
+          "0x29f9e5956e61ec1897a316c25d625c19db84a2b2a17c19c6d2225f006500b566",
+          "0x80dcbc59e9c4406a5b850fc54fceb6e3694cbd8afd34cbf4d8814e7b3f7a46e6",
+          "0xddec3c13ee8a3e895d11ea3491e46623812362b6f96fb4b62667f71759a551c2",
+          "0xe28df5a679695ff729da75d71a58f609d5bfe340bf0dcf2d70bf62057517f920",
+          "0x86e2db03475e13a98428d55f6740abb004b103ef091c82061fa6ffaa1e1a97df",
+          "0x97d579037c65e33196bd9f2163287d6b99fc2397b6cf6a127771d460dcfdf660",
+          "0x69ab55063d02b7eb1f31ebeff87c8768a4338966b8167020bca3134d02009ff2",
+          "0x456caafd415f6820662e06dcb16bc595d0d0f47c43fa73b9b9556448ad04555b",
+          "0x07da6d626fe775f006c55b83f68c77af43c1a33b79f4d5e4f28294351e15e4c6",
+          "0x825732ee3cda01f583008556f522d7aba767f8070739a80364757865f6a0bb5e",
+          "0xa63689adb5212bec7c9c89fbb1bcd4673fdc5c56b7d16bb33542f5cdaa64c698",
+          "0x8d8ca7c06f6312bf17c3d35295d3b0e37b13d071d19e4570e52f46b878424d89",
+          "0xf68aaf9ae08f67d80c2997dba71977a73d33e7e173b773f9b0354f6e42333880"
+        ]
+      },
+      "claim": {
+        "text": "After roughly 2 minutes, a Base batch containing the transaction has been posted to Ethereum.",
+        "url": "https://docs.base.org/specifications/transactions/transaction-finality",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "tron",
+      "name": "Tron",
+      "status": "by-design",
+      "rank": 2,
+      "done": 60,
+      "final": 60,
+      "levels": {
+        "in a block": 3,
+        "solidified": 60
+      },
+      "run": null,
+      "claim": {
+        "text": "Blocks become irreversible — solidified — once at least 19 distinct active SRs have each produced a block at that height or above, typically in about 1 minute.",
+        "url": "https://developers.tron.network/docs/concensus",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "status": "by-design",
+      "rank": 1,
+      "done": 384,
+      "final": 768,
+      "levels": {
+        "slot": 12,
+        "safe": 384,
+        "finalized": 768
+      },
+      "run": null,
+      "claim": {
+        "text": "Time in proof-of-stake Ethereum is divided into slots (12 seconds) and epochs (32 slots).",
+        "url": "https://ethereum.org/developers/docs/consensus-mechanisms/pos/",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    },
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "status": "by-design",
+      "rank": null,
+      "done": 600,
+      "final": 3600,
+      "levels": {
+        "one confirmation": 600,
+        "six confirmations": 3600
+      },
+      "run": null,
+      "claim": {
+        "text": "6 confirmations: The network has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks.",
+        "url": "https://developer.bitcoin.org/devguide/payment_processing.html",
+        "read_on": "2026-10-18",
+        "next_read": "2026-11-18"
+      }
+    }
+  ]
+}

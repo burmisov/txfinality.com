@@ -1,0 +1,64 @@
+# txfinality.com
+
+> How long for a stablecoin transfer to finalize on blockchains? Measured, not claimed: the slowest of 20 real transfers of 0.1–1 USDC, USDT or USDG on each chain, sent one at a time, timed from sending to each finality level the chain itself defines, with every transaction hash published. Method v0, built 2026-10-20.
+
+Two figures per chain: done is the earliest level at which the chain says the transfer will not be dropped; final is the chain's own last level. Figures are rounded up (≤). Chains are the top 15 by USD stablecoin supply (DefiLlama, 2026-10-18) plus a few by decision; a chain whose final takes minutes by design is listed with its documented figure and not measured.
+
+chain | done | final | status
+Arc | 1.4 s | 1.4 s | measured, run 2026-10-19T1048Z
+TON | 2.4 s | 2.4 s | measured, run 2026-10-19T1658Z
+BNB Chain | 2.0 s | 2.8 s | measured, run 2026-10-19T1055Z
+Hyperliquid | 2.8 s | 2.8 s | measured, run 2026-10-19T1048Z
+Plasma | 1.1 s | 3.0 s | measured, run 2026-10-19T1456Z
+Polygon PoS | 2.3 s | 7.0 s | measured, run 2026-10-19T1434Z
+Solana | 1.2 s | 8.1 s | measured, run 2026-10-18T2118Z
+Avalanche | 4.9 s | 11 s | measured, run 2026-10-19T1151Z
+XRP Ledger | 14 s | 14 s | measured, run 2026-10-19T1701Z
+X Layer | 1.6 s | 17 min | measured, run 2026-10-19T1755Z
+Arbitrum One | 0.8 s | 19 min | measured, run 2026-10-19T1519Z
+Robinhood Chain | 0.9 s | 19 min | measured, run 2026-10-19T1538Z
+Base | 1.3 s | 22 min | measured, run 2026-10-19T1559Z
+Tron | 60 s | 60 s | by design, from the docs, not measured
+Ethereum | 7 min | 13 min | by design, from the docs, not measured
+Bitcoin | 10 min | 60 min | by design, from the docs, not measured
+
+## Results
+
+- [data.json](https://txfinality.com/data.json): every row as data — figures, every level, the run's stamp, RPC host and hashes
+- [runs/](https://github.com/burmisov/txfinality.com/tree/main/runs): one JSON per run per chain, each transfer with its hash and the seconds to each level
+- [landscape/](https://github.com/burmisov/txfinality.com/tree/main/landscape): the ranking by stablecoin supply on the day, and who is listed
+
+## Chains
+
+- [Arc](https://txfinality.com/#arc): done 1.4 s, final 1.4 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/arc/2026-10-19T1048Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/arc.yaml), [the chain's docs](https://docs.arc.io/integrate/wallets/transaction-lifecycle)
+- [TON](https://txfinality.com/#ton): done 2.4 s, final 2.4 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/ton/2026-10-19T1658Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/ton.yaml), [the chain's docs](https://docs.ton.org/applications/payments/overview)
+- [BNB Chain](https://txfinality.com/#bnb): done 2.0 s, final 2.8 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/bnb/2026-10-19T1055Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/bnb.yaml), [the chain's docs](https://docs.bnbchain.org/bnb-smart-chain/introduction/)
+- [Hyperliquid](https://txfinality.com/#hyperliquid): done 2.8 s, final 2.8 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/hyperliquid/2026-10-19T1048Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/hyperliquid.yaml), [the chain's docs](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm)
+- [Plasma](https://txfinality.com/#plasma): done 1.1 s, final 3.0 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/plasma/2026-10-19T1456Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/plasma.yaml), [the chain's docs](https://www.plasma.org/docs/plasma-chain/architecture/consensus)
+- [Polygon PoS](https://txfinality.com/#polygon): done 2.3 s, final 7.0 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/polygon/2026-10-19T1434Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/polygon.yaml), [the chain's docs](https://docs.polygon.technology/pos/concepts/finality/finality)
+- [Solana](https://txfinality.com/#solana): done 1.2 s, final 8.1 s; measured 18 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/solana/2026-10-18T2118Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/solana.yaml), [the chain's docs](https://solana.com/docs/rpc)
+- [Avalanche](https://txfinality.com/#avalanche): done 4.9 s, final 11 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/avalanche/2026-10-19T1151Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/avalanche.yaml), [the chain's docs](https://build.avax.network/docs/primary-network/avalanche-consensus)
+- [XRP Ledger](https://txfinality.com/#xrpl): done 14 s, final 14 s; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/xrpl/2026-10-19T1701Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/xrpl.yaml), [the chain's docs](https://xrpl.org/docs/concepts/consensus-protocol/consensus-structure)
+- [X Layer](https://txfinality.com/#xlayer): done 1.6 s, final 17 min; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/xlayer/2026-10-19T1755Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/xlayer.yaml), [the chain's docs](https://web3.okx.com/onchainos/dev-docs/xlayer/developer/build-on-xlayer/about-xlayer)
+- [Arbitrum One](https://txfinality.com/#arbitrum): done 0.8 s, final 19 min; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/arbitrum/2026-10-19T1519Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/arbitrum.yaml), [the chain's docs](https://docs.arbitrum.io/how-arbitrum-works/reference/finality-and-reorgs)
+- [Robinhood Chain](https://txfinality.com/#robinhood): done 0.9 s, final 19 min; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/robinhood/2026-10-19T1538Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/robinhood.yaml), [the chain's docs](https://docs.robinhood.com/chain/transaction-finality/)
+- [Base](https://txfinality.com/#base): done 1.3 s, final 22 min; measured 19 Oct 2026; [run file with the 20 hashes](https://github.com/burmisov/txfinality.com/blob/main/runs/base/2026-10-19T1559Z.json); [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/base.yaml), [the chain's docs](https://docs.base.org/specifications/transactions/transaction-finality)
+- [Tron](https://txfinality.com/#tron): done 60 s, final 60 s; by design, from the docs, not measured; [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/tron.yaml), [the chain's docs](https://developers.tron.network/docs/concensus)
+- [Ethereum](https://txfinality.com/#ethereum): done 7 min, final 13 min; by design, from the docs, not measured; [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/ethereum.yaml), [the chain's docs](https://ethereum.org/developers/docs/consensus-mechanisms/pos/)
+- [Bitcoin](https://txfinality.com/#bitcoin): done 10 min, final 60 min; by design, from the docs, not measured; [chain file](https://github.com/burmisov/txfinality.com/blob/main/chains/bitcoin.yaml), [the chain's docs](https://developer.bitcoin.org/devguide/payment_processing.html)
+
+## Method and code
+
+- [METHOD.md](https://github.com/burmisov/txfinality.com/blob/main/docs/METHOD.md): the rules, versioned (v0)
+- [measure/](https://github.com/burmisov/txfinality.com/tree/main/measure): the runner (TypeScript, Node 22+) — run.ts is the clock, chains/*.ts the drivers (evm, solana, ton, xrpl, aptos)
+- [chains/](https://github.com/burmisov/txfinality.com/tree/main/chains): one YAML per chain — asset, levels in the chain's own words, the claim quoted from its docs
+- [docs/research/](https://github.com/burmisov/txfinality.com/tree/main/docs/research): what each chain's docs say, quoted, with dates
+- [README](https://github.com/burmisov/txfinality.com#readme): how to run it yourself for any chain with one wallet and an RPC URL
+- [news.md](https://github.com/burmisov/txfinality.com/blob/main/news.md): what changed, run by run
+
+## Optional
+
+- [Report a correction](https://github.com/burmisov/txfinality.com/issues)
+- [Sergey Burmisov](https://burmisov.com/): who made this
+- The dollar figures beside each chain (stablecoin supply, the coin's market cap) are estimates rounded to the nearest hundred million; market caps powered by CoinGecko
+- Licence: the code is MIT, the data and the text CC BY 4.0 — https://github.com/burmisov/txfinality.com/blob/main/LICENSE

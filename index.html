@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>How long for a stablecoin transfer to finalize on blockchains? · txfinality.com</title>
+<meta name="description" content="Measured, not claimed: the slowest of 20 real transfers of a tenth of a dollar on each major blockchain, timed from sending to each finality level the chain defines, every hash published. Method v0.">
+<link rel="canonical" href="https://txfinality.com/">
+<link rel="preload" href="fonts/schibsted-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/hanken-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/plexmono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="txfinality.com">
+<meta property="og:title" content="How long for a stablecoin transfer to finalize on blockchains?">
+<meta property="og:description" content="Measured, not claimed: the slowest of 20 real transfers on 13 chains, 19 Oct 2026. Final on Arc 1.4 s, TON 2.4 s, BNB Chain 2.8 s, Hyperliquid 2.8 s, Plasma 3.0 s, Polygon PoS 7.0 s….">
+<meta property="og:url" content="https://txfinality.com/">
+<meta property="og:image" content="https://txfinality.com/og.png?v=2026-10-20">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The measured figures: done and final per chain, the slowest of 20 transfers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How long for a stablecoin transfer to finalize on blockchains?">
+<meta name="twitter:description" content="Measured, not claimed: the slowest of 20 real transfers on 13 chains, 19 Oct 2026. Final on Arc 1.4 s, TON 2.4 s, BNB Chain 2.8 s, Hyperliquid 2.8 s, Plasma 3.0 s, Polygon PoS 7.0 s….">
+<meta name="twitter:image" content="https://txfinality.com/og.png?v=2026-10-20">
+<link rel="alternate" type="application/json" href="data.json">
+<style>
+/* Layout: a small title, one small line, one highlight line, the byline right-aligned above the list; eleven questions below it; the list — icon, name, DONE, FINAL — each figure opening the run's output; below it only questions that expand, then the technical line. */
+@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/schibsted-700.woff2) format("woff2")}
+@font-face{font-family:"Schibsted Grotesk Fallback";src:local("Arial Bold");font-weight:700;size-adjust:102.20%;ascent-override:97.66%;descent-override:25.78%;line-gap-override:0.00%}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/hanken-400.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk Fallback";src:local("Arial");font-weight:400;size-adjust:101.70%;ascent-override:100.00%;descent-override:30.30%;line-gap-override:0.00%}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/hanken-500.woff2) format("woff2")}
+@font-face{font-family:"Hanken Grotesk Fallback";src:local("Arial");font-weight:500;size-adjust:102.25%;ascent-override:100.00%;descent-override:30.30%;line-gap-override:0.00%}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/plexmono-400.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono Fallback";src:local("Menlo");font-weight:400;size-adjust:99.66%;ascent-override:102.50%;descent-override:27.50%;line-gap-override:0.00%}
+
+/* burmisov.com identity tokens (draft 3, 2026-10-18), copied in at build time */
+:root{
+  --bm-bg:#FAF8F3; --bm-fg:#262320; --bm-muted:#6F6A61; --bm-line:#262320; --bm-surface:#F3EFE6;
+  --bm-acc:#F2476A; --bm-on-acc:#262320; --bm-sec:#5FD39B;
+  --bm-pop-yellow:#FFD23F; --bm-pop-blue:#1E5BFF;
+  --bm-chart-1:#F2476A; --bm-chart-2:#5FD39B; --bm-chart-3:#E0A83A; --bm-chart-4:#1E5BFF; --bm-chart-5:#6E1E2B;
+  --bm-font-display:"Schibsted Grotesk","Schibsted Grotesk Fallback","Hanken Grotesk",Inter,system-ui,sans-serif;
+  --bm-font-text:"Hanken Grotesk","Hanken Grotesk Fallback",Inter,system-ui,sans-serif;
+  --bm-font-mono:"IBM Plex Mono","IBM Plex Mono Fallback",ui-monospace,Menlo,monospace;
+  --bm-rule:2.5px; --bm-radius:4px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:18px; --s5:28px; --s6:44px;
+  --grid:#262320; --hair:rgba(38,35,32,.16);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bm-bg:#2C2926; --bm-fg:#F0EAE0; --bm-muted:#A39C90; --bm-line:#F0EAE0; --bm-surface:#262320; --bm-on-acc:#262320; --grid:#F0EAE0; --hair:rgba(240,234,224,.18); color-scheme:dark }
+}
+:root[data-theme="dark"]{ --bm-bg:#2C2926; --bm-fg:#F0EAE0; --bm-muted:#A39C90; --bm-line:#F0EAE0; --bm-surface:#262320; --bm-on-acc:#262320; --grid:#F0EAE0; --hair:rgba(240,234,224,.18); color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bm-bg);color:var(--bm-fg);font-family:var(--bm-font-text);font-size:16px;line-height:1.4;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:760px;margin:0 auto;padding-block:var(--s4) var(--s6)}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--bm-pop-blue);outline-offset:2px}
+h1{font-family:var(--bm-font-display);font-weight:700;letter-spacing:-0.025em;line-height:1.05;font-size:clamp(1.25rem,3vw,1.5rem);margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--bm-acc)}
+.head{display:flex;align-items:flex-start;gap:12px}
+.home{flex:none;display:block;width:26px;height:26px;margin-top:2px;color:var(--bm-fg)}
+.home svg{display:block;width:100%;height:100%}
+.home:hover{color:var(--bm-acc)}
+p{margin:0}
+.mono{font-family:var(--bm-font-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--bm-muted)}
+
+/* top */
+.line{font-family:var(--bm-font-mono);font-size:.66rem;letter-spacing:.02em;color:var(--bm-muted);padding:6px 0 var(--s3)}
+.line b{font-weight:400;color:var(--bm-fg)}
+.hl:empty{display:none}
+.hl{display:flex;gap:10px;align-items:baseline;font-size:.88rem;line-height:1.35;white-space:nowrap;min-width:0}
+.hl .d{font-family:var(--bm-font-mono);font-size:.66rem;color:var(--bm-muted);flex:none}
+.hl .d::before{content:"✱ ";color:var(--bm-acc)}
+.hl .t{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.hl a{flex:none;font-family:var(--bm-font-mono);font-size:.66rem;color:var(--bm-muted);text-decoration:none;border-bottom:1px solid var(--hair)}
+.hl a:hover{color:var(--bm-acc);border-color:var(--bm-acc)}
+/* under the news: the byline on the left, the fast threshold on the right */
+.byrow{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3);font-family:var(--bm-font-mono);font-size:.64rem;color:var(--bm-muted);padding:var(--s3) 0 4px}
+.byrow a{text-decoration:none;color:var(--bm-muted);border-bottom:1px solid var(--hair)}
+.byrow a:hover{color:var(--bm-fg);border-color:var(--bm-line)}
+.byrow .ast{color:var(--bm-acc)}
+.byrow label{white-space:nowrap}
+.byrow select{font:inherit;color:var(--bm-fg);background:transparent;border:0;border-bottom:1px solid var(--bm-line);padding:0 2px;cursor:pointer}
+.byrow .mark{display:inline-block;width:14px;height:3px;background:var(--bm-sec);vertical-align:middle;margin-right:5px;border-radius:1px}
+
+/* list */
+.cols,.row{display:grid;grid-template-columns:minmax(0,1fr) 96px 112px;gap:var(--s3);align-items:center}
+.row{align-items:baseline}
+.row .name{align-self:center}
+.cols{font-family:var(--bm-font-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--bm-muted);padding:4px 0 5px;border-bottom:var(--bm-rule) solid var(--bm-line)}
+.cols span{text-align:left;white-space:nowrap}
+.cols a{text-decoration:none;border-bottom:1px dotted var(--bm-muted)}
+.cols a:hover{color:var(--bm-acc);border-color:var(--bm-acc)}
+ol.chains{list-style:none;margin:0;padding:0}
+li.chain{border-bottom:1px solid var(--hair);scroll-margin-top:var(--s4)}
+li.chain.hi{background:color-mix(in srgb,var(--bm-acc) 14%,transparent);box-shadow:0 0 0 8px color-mix(in srgb,var(--bm-acc) 14%,transparent);border-radius:2px}
+li.cut{border-bottom:0;padding:10px 0 4px;font-family:var(--bm-font-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--bm-muted);display:flex;align-items:center;gap:10px}
+li.cut::before,li.cut::after{content:"";flex:1;border-top:1px dashed var(--hair)}
+.row{padding:7px 0;min-height:50px}
+.name{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:center;min-width:0}
+.name img,.name .badge{width:28px;height:28px;border-radius:50%;object-fit:cover;background:var(--bm-surface)}
+.name svg.mark{width:28px;height:28px;display:block;color:var(--bm-fg)}
+.name .badge{display:none;align-items:center;justify-content:center;font-family:var(--bm-font-mono);font-size:.66rem;border:1.5px solid var(--bm-line)}
+.name .t{display:flex;align-items:center;gap:8px;min-width:0}
+.name b{font-weight:500;font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1}
+.name .why{display:block;font-family:var(--bm-font-mono);font-size:.64rem;color:var(--bm-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
+a.open{flex:none;font-family:var(--bm-font-mono);font-size:.64rem;color:var(--bm-muted);text-decoration:none;border-bottom:1px solid var(--hair);line-height:1.2}
+a.open::after{content:" ↓"}
+a.open:hover{color:var(--bm-acc);border-color:var(--bm-acc)}
+li[aria-expanded="true"] a.open{color:var(--bm-acc);border-color:var(--bm-acc)}
+li[aria-expanded="true"] a.open::after{content:" ↑"}
+.tag{font-family:var(--bm-font-mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:var(--bm-muted);border:1px solid var(--hair);padding:1px 5px;border-radius:3px;white-space:nowrap;flex:none}
+.fig{text-align:right;font-family:var(--bm-font-mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-decoration:none;display:block;padding-top:9px}
+.fig span{font-size:.72em;color:var(--bm-muted)}
+.fig.final{font-size:1.45rem;letter-spacing:-0.02em;line-height:1}
+.fig.done{font-size:1.1rem;color:var(--bm-muted);line-height:1}
+/* under the threshold at the top: black, with the green mark under the number; the size never changes */
+.fig.fast{color:var(--bm-fg)}
+.fig i{font-style:normal}
+.fig.fast i{text-decoration:underline;text-decoration-color:var(--bm-sec);text-decoration-thickness:3px;text-underline-offset:5px}
+.fig.final::before,.fig.done::before{content:"≤ ";color:var(--bm-muted);font-size:.6em;vertical-align:.15em}
+.fig.final:hover,.fig.done:hover{color:var(--bm-acc)}
+.fig.doc{font-size:1.05rem;color:var(--bm-muted)}
+.fig.doc::before{content:"≈ "}
+.fig.unknown{font-size:1rem;color:var(--bm-muted)}
+.fig.unknown::before{content:""}
+
+/* the details, opened under a row: one fact per line, a label on the left; then the buttons */
+.out{padding:4px 0 var(--s4) 38px;font-size:.9rem}
+.out[hidden]{display:none}
+.facts{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:7px var(--s3);margin:0;align-items:baseline}
+.facts dt{font-family:var(--bm-font-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--bm-muted);margin:0;padding-top:.2em}
+.facts dd{margin:0;min-width:0;line-height:1.45}
+.facts dd b{font-weight:500}
+.facts dd .mono{font-size:.8rem}
+.facts dd q{quotes:"“" "”"}
+.facts dd .src{display:block;margin-top:3px;font-family:var(--bm-font-mono);font-size:.66rem;color:var(--bm-muted)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--s3);font-family:var(--bm-font-mono);font-size:.7rem}
+.btns a{text-decoration:none;color:var(--bm-fg);border:1px solid var(--hair);border-radius:var(--bm-radius);padding:5px 9px;line-height:1.2}
+.btns a:hover{border-color:var(--bm-acc);color:var(--bm-acc)}
+.btns a.code{border:1.5px solid var(--bm-line);font-weight:500}
+svg.gh{width:1em;height:1em;vertical-align:-.15em;margin-right:.35em;fill:currentColor}
+.btns a.code:hover{background:var(--bm-fg);color:var(--bm-bg);border-color:var(--bm-fg)}
+pre{font-family:var(--bm-font-mono);font-size:.72rem;line-height:1.55;background:var(--bm-surface);padding:9px 11px;border-radius:var(--bm-radius);overflow-x:auto;margin:0}
+pre .c{color:var(--bm-muted)}
+pre .ok{color:var(--bm-sec)}
+pre .hi{color:var(--bm-acc)}
+.kv{font-family:var(--bm-font-mono);font-size:.7rem;color:var(--bm-muted);line-height:1.7}
+.kv b{font-weight:400;color:var(--bm-fg)}
+.claim{font-size:.88rem;line-height:1.45}
+.claim q{quotes:"“" "”"}
+.claim .src{font-family:var(--bm-font-mono);font-size:.66rem;color:var(--bm-muted);display:block;margin-top:3px}
+.note{font-size:.92rem;line-height:1.45;max-width:58ch}
+.note::before{content:"✱ ";color:var(--bm-acc)}
+.links{display:flex;gap:var(--s3) var(--s4);flex-wrap:wrap;font-family:var(--bm-font-mono);font-size:.7rem}
+
+/* questions */
+.qa{margin-top:var(--s5);border-top:var(--bm-rule) solid var(--bm-line)}
+details.q{border-bottom:1px solid var(--hair)}
+details.q summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:var(--s4);align-items:baseline;padding:11px 0;font-size:1rem;font-weight:500}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{content:"+";font-family:var(--bm-font-mono);color:var(--bm-muted);font-weight:400}
+details.q[open] summary::after{content:"–";color:var(--bm-acc)}
+details.q summary:hover{color:var(--bm-acc)}
+details.q .a{padding:0 0 var(--s4);font-size:.92rem;line-height:1.5;max-width:66ch;display:grid;gap:10px}
+details.q .a .rule{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+details.q .a .rule li{display:grid;grid-template-columns:1.5em 1fr;gap:6px}
+details.q .a .rule li b{font-weight:400;opacity:.5;font-family:var(--bm-font-mono);font-size:.85em;padding-top:.15em}
+details.q .a .news{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+details.q .a .news li{display:grid;grid-template-columns:5em 1fr;gap:10px}
+details.q .a .news li .d{font-family:var(--bm-font-mono);font-size:.68rem;color:var(--bm-muted);padding-top:3px}
+details.q .a .below{font-family:var(--bm-font-mono);font-size:.7rem;color:var(--bm-muted);line-height:1.7}
+.tech{font-family:var(--bm-font-mono);font-size:.68rem;color:var(--bm-muted);display:flex;gap:var(--s3) var(--s4);flex-wrap:wrap;padding:var(--s4) 0}
+footer{border-top:var(--bm-rule) solid var(--bm-line);padding-block:var(--s4);display:flex;justify-content:flex-end;align-items:center}
+.byline{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.byline img{height:13px;width:auto;display:block}
+.byline .ast{color:var(--bm-acc)}
+.strip{display:inline-block;height:6px;width:40px;background:var(--bm-sec);border-radius:1px;vertical-align:middle}
+
+/* fingers, not mice: phones and tablets get labels large enough to read and to tap */
+@media (pointer:coarse) and (max-width:1024px){
+  .line{font-size:.8rem;line-height:1.5}
+  .hl{font-size:.95rem}
+  .cols{font-size:.75rem}
+  .name .why{font-size:.78rem}
+  a.open{font-size:.78rem;padding:8px 2px 7px;margin:-8px -2px -4px;line-height:1.1}
+  a.fig{padding:7px 0}
+  li.cut{font-size:.76rem}
+  details.q .a .below,.claim .src,.links,.kv{font-size:.8rem}
+  details.q .a .below{font-size:.875rem}
+  .btns a{padding:8px 11px;font-size:.78rem}
+}
+@media (max-width:560px){
+  /* the name row: the name first and always visible; the tag goes (the ≈ and the cut line say it);
+     "details" sits after the name or wraps under it, never into the figures */
+  .name>div{min-width:0}
+  .name .t{flex-wrap:wrap;row-gap:2px}
+  .name b{flex:0 1 auto;min-width:6ch}
+  .tag{display:none}
+  .name .why{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35}
+  .line{font-size:.75rem}
+  .tag{font-size:.66rem}
+  .cols,.row{grid-template-columns:minmax(0,1fr) 74px 92px;gap:8px}
+  .name b{font-size:.98rem}
+  .fig.final{font-size:1.2rem}
+  .fig.done{font-size:.95rem}
+  .out{padding-left:0}
+  .facts{grid-template-columns:1fr;gap:2px}
+  .facts dt{padding-top:8px}
+}
+.muted{color:var(--bm-muted)}
+pre.code i{font-style:normal}
+pre.code .k{color:var(--bm-pop-blue)}
+pre.code .s{color:var(--bm-sec)}
+pre.code .n{color:var(--bm-acc)}
+pre.code .f{color:var(--bm-fg)}
+pre.code .c{color:var(--bm-muted)}
+@media (prefers-color-scheme: dark){ pre.code .k{color:#7FA3FF} pre.code .s{color:var(--bm-sec)} }
+</style>
+</head>
+<body><svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="gh" viewBox="0 0 98 96"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor"/></symbol></svg>
+
+<div class="wrap">
+<div class="head"><a class="home" href="/" aria-label="txfinality.com, home"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="29" width="42" height="42" rx="4" fill="currentColor"/><rect x="54" y="29" width="42" height="42" rx="4" fill="var(--bm-acc)"/></svg></a><h1>How long for a stablecoin transfer to <em>finalize</em> on blockchains?</h1></div>
+<div class="line">measured, not claimed · the slowest of <b>20 transfers</b> of 0.1–1 USDC, USDT or USDG on each chain, one at a time · last run <b>19 Oct 2026</b></div>
+<div class="hl"></div>
+<div class="byrow"><span>by <a href="https://burmisov.com/" target="_blank" rel="noopener">burmisov.com</a> <span class="ast">✱</span></span><label><span class="mark"></span>fast = under <select id="thr" aria-label="the threshold under which a figure is marked fast"><option value="1">1 s</option><option value="2">2 s</option><option value="3" selected>3 s</option><option value="5">5 s</option><option value="10">10 s</option></select></label></div>
+
+<div class="cols"><span></span><span>done</span><span>final</span></div>
+<ol class="chains" id="chains"><li class="chain" id="arc" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-arc" aria-hidden="true" focusable="false" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="500" height="500" rx="250" fill="#1B3158"/>
+<path d="M250.466 85C291.387 85 327.762 120.453 352.899 184.828C365.973 218.31 375.592 258.091 381.291 301.368C381.801 305.233 382.234 309.161 382.679 313.081C382.824 313.323 382.911 313.548 382.881 313.731C382.881 313.731 386.231 334.649 386.942 371.001H386.564C381.597 366.924 323.011 320.889 225.894 334.219C227.359 317.784 229.374 301.793 231.978 286.465C232.111 285.682 232.265 284.925 232.4 284.147C270.491 282.999 303.831 287.422 329.397 293.219C329.302 292.612 329.223 291.988 329.126 291.384C323.871 258.658 316.118 228.697 306.121 203.093C289.776 161.227 268.447 135.216 250.466 135.216C232.486 135.216 211.157 161.228 194.812 203.093C190.856 213.219 187.254 224.019 184.024 235.41C179.483 251.372 175.668 268.484 172.621 286.464C168.112 313.017 165.295 341.496 164.257 371.001H114C116.319 300.984 128.19 235.639 148.033 184.828C173.165 120.453 209.545 85.0002 250.466 85Z" fill="white"/>
+</svg><div><div class="t"><b>Arc</b><a class="open" href="#arc">details</a></div><span class="why">≈ $0.7 bn stablecoins</span></div></div><a class="fig done fast" data-s="1.4" href="#arc" title="done on Arc: included in a committed block — the chain's only level after pending, and already final"><i>1.4</i><span> s</span></a><a class="fig final fast" data-s="1.4" href="#arc" title="final on Arc: the same block: Arc has no level after it"><i>1.4</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>final</b> — included in a committed block — the chain's only level after pending, and already final (done and final are the same level here)</dd><dt>slowest</dt><dd class="mono">final <b>1.4 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 10:48 UTC · ✓ 20 of 20 reached final · 0.1 USDC each · rpc arc-mainnet.infura.io</dd><dt>docs</dt><dd><q>Arc uses a two-state transaction model.</q> <span class="src"><a href="https://docs.arc.io/integrate/wallets/transaction-lifecycle" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/arc/2026-10-19T1048Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/arc" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#arc">link</a></div></div></li><li class="chain" id="ton" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-ton" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 86 86">
+	<circle cx="43.004" cy="43.004" r="43.004" fill="#30A1F5"/>
+	<path fill="#fff" d="M26.959 22.628c-5.974 0-9.762 6.445-6.756 11.655l19.803 34.325c1.33 2.306 4.663 2.306 5.993 0l19.807-34.325c3.002-5.202-.786-11.655-6.756-11.655zm32.083 6.055c1.362 0 2.163 1.445 1.514 2.57L50.153 49.876l-.002.003-4.127 7.984V28.683zm-19.07.004v29.167l-4.123-7.98-.002-.003-10.406-18.612-.03-.054c-.594-1.118.203-2.518 1.544-2.518z"/>
+</svg><div><div class="t"><b>TON</b><a class="open" href="#ton">details</a></div><span class="why">≈ $0.7 bn stablecoins · TON ≈ $3.8 bn</span></div></div><a class="fig done fast" data-s="2.4" href="#ton" title="done on TON: a masterchain block has sealed the shard block holding the credit on the recipient's jetton wallet; the docs call this final"><i>2.4</i><span> s</span></a><a class="fig final fast" data-s="2.4" href="#ton" title="final on TON: the same masterchain block: nothing comes after it"><i>2.4</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a masterchain block</b> — a masterchain block has sealed the shard block holding the credit on the recipient's jetton wallet; the docs call this final (done and final are the same level here)</dd><dt>slowest</dt><dd class="mono">in a shardchain block <b>2.4 s</b> <span style="opacity:.5">→</span> in a masterchain block <b>2.4 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 16:58 UTC · ✓ 20 of 20 reached in a masterchain block · 0.1 USDT each · rpc toncenter.com</dd><dt>docs</dt><dd><q>TON achieves transaction finality after a single masterchain block confirmation, typically within 1 second.</q> <span class="src"><a href="https://docs.ton.org/applications/payments/overview" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/ton.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/ton/2026-10-19T1658Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/ton" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#ton">link</a></div></div></li><li class="chain" id="bnb" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-bnb" aria-hidden="true" focusable="false" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.8814 14.7044L48.1429 0L73.4043 14.7044L64.117 20.1366L48.1429 10.8644L32.1687 20.1366L22.8814 14.7044ZM73.4043 33.2488L64.117 27.8166L48.1429 37.0888L32.1687 27.8166L22.8814 33.2488V44.1132L38.8555 53.3854V71.9297L48.1429 77.362L57.4302 71.9297V53.3854L73.4043 44.1132V33.2488ZM73.4043 62.6576V51.7932L64.117 57.2254V68.0898L73.4043 62.6576ZM79.9984 66.4976L64.0243 75.7698V86.6341L89.2857 71.9297V42.521L79.9984 47.9532V66.4976ZM70.7111 23.9766L79.9984 29.4088V40.2732L89.2857 34.841V23.9766L79.9984 18.5444L70.7111 23.9766ZM38.8555 79.7034V90.5678L48.1429 96L57.4302 90.5678V79.7034L48.1429 85.1356L38.8555 79.7034ZM22.8814 62.6576L32.1687 68.0898V57.2254L22.8814 51.7932V62.6576ZM38.8555 23.9766L48.1429 29.4088L57.4302 23.9766L48.1429 18.5444L38.8555 23.9766ZM16.2873 29.4088L25.5746 23.9766L16.2873 18.5444L7 23.9766V34.841L16.2873 40.2732V29.4088ZM16.2873 47.9532L7 42.521V71.9297L32.2615 86.6341V75.7698L16.2873 66.4976V47.9532Z" fill="#F0B90B"/>
+</svg><div><div class="t"><b>BNB Chain</b><a class="open" href="#bnb">details</a></div><span class="why">≈ $14 bn stablecoins · BNB ≈ $95 bn</span></div></div><a class="fig done fast" data-s="2" href="#bnb" title="done on BNB Chain: included in a block by a validator"><i>2.0</i><span> s</span></a><a class="fig final fast" data-s="2.8" href="#bnb" title="final on BNB Chain: fast finality: two thirds of the validators have justified the block"><i>2.8</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a block by a validator</dd><dt>final</dt><dd><b>fast finality</b> — fast finality: two thirds of the validators have justified the block</dd><dt>slowest</dt><dd class="mono">in a block <b>2.0 s</b> <span style="opacity:.5">→</span> fast finality <b>2.8 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 10:55 UTC · ✓ 20 of 20 reached fast finality · 0.1 USDT each · rpc bsc-mainnet.infura.io</dd><dt>docs</dt><dd><q>With Fast Finality enabled (since the Plato upgrade), the chain is finalized within two blocks if ⅔*N or more…</q> <span class="src"><a href="https://docs.bnbchain.org/bnb-smart-chain/introduction/" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/bnb/2026-10-19T1055Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/bnb" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#bnb">link</a></div></div></li><li class="chain" id="hyperliquid" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-hyperliquid" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <style>svg.mark-hyperliquid .cls-1{
+        fill:currentColor;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M175.11589,99.27891c0,49.46366-30.3687,65.33789-46.47302,51.30413-13.11357-11.5031-17.02471-35.88989-36.81018-38.42055-25.07698-2.99085-27.37764,30.36839-43.94216,30.36839-19.3254,0-23.00642-27.83773-23.00642-42.33179,0-14.72405,4.14115-34.73961,20.47565-34.73961,19.09528,0,20.24566,28.75802,44.17226,27.14754,23.69661-1.61047,24.1567-31.51877,39.80103-44.17224,13.57335-11.27313,45.78283.69019,45.78283,50.84413Z"/>
+</svg><div><div class="t"><b>Hyperliquid</b><a class="open" href="#hyperliquid">details</a></div><span class="why">≈ $7.1 bn stablecoins · HYPE ≈ $17 bn</span></div></div><a class="fig done fast" data-s="2.8" href="#hyperliquid" title="done on Hyperliquid: included in a block; HyperBFT commits in one step, so this is also final"><i>2.8</i><span> s</span></a><a class="fig final fast" data-s="2.8" href="#hyperliquid" title="final on Hyperliquid: the same block: the one level HyperEVM names"><i>2.8</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a block; HyperBFT commits in one step, so this is also final (done and final are the same level here)</dd><dt>slowest</dt><dd class="mono">in a block <b>2.8 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 10:48 UTC · ✓ 20 of 20 reached in a block · 0.1 USDC each · rpc hyperevm-mainnet.infura.io</dd><dt>docs</dt><dd><q>The HyperEVM consists of EVM blocks built as part of Hyperliquid's execution, inheriting all security from HyperBFT…</q> <span class="src"><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/hyperliquid/2026-10-19T1048Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/hyperliquid" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#hyperliquid">link</a></div></div></li><li class="chain" id="plasma" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-plasma" aria-hidden="true" focusable="false" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M154 77.4127C154 78.1934 153.989 78.9741 153.967 79.7548H153.877H116.515V78.0484H80.4686C80.4686 77.6915 80.4797 77.3346 80.4797 76.9888C80.4797 76.6431 80.4797 76.2751 80.4686 75.9293H116.515V74.2341H116.571H153.933C153.978 75.2936 154 76.3531 154 77.4127ZM79.8328 69.7283L115.11 65.3898L115.322 67.085L152.572 62.5012C152.216 60.6721 151.792 58.8653 151.312 57.092L114.641 61.6089L114.853 63.3042L79.409 67.665C79.5652 68.3565 79.7102 69.0479 79.8328 69.7506V69.7283ZM77.9926 62.9027L111.708 54.4822L112.121 56.1328L147.899 47.1993C147.163 45.4706 146.371 43.7642 145.524 42.1024L110.793 50.7794L111.206 52.43L77.2119 60.9286C77.4907 61.5866 77.7472 62.2446 77.9926 62.9138V62.9027ZM75.0036 56.512L106.522 44.6118L107.124 46.2067L140.471 33.615C139.39 32.0313 138.252 30.4922 137.048 28.9977L105.172 41.0317L105.775 42.6266L73.8772 54.6718C74.2675 55.274 74.6467 55.8875 75.0036 56.512ZM70.8659 50.601L98.7036 36.091L99.4843 37.6078L130.267 21.5587C128.85 20.1868 127.378 18.882 125.861 17.6217L96.9303 32.7005L97.711 34.2173L69.4048 48.9726C69.8956 49.508 70.3863 50.0433 70.8547 50.601H70.8659ZM64.1518 44.2215L89.3575 28.1947L90.272 29.6334L118.087 11.9448C116.336 10.8295 114.552 9.79229 112.712 8.82199L87.3165 24.9715L88.231 26.4102L62.3004 42.8943C62.9361 43.3181 63.5495 43.7642 64.1629 44.2215H64.1518ZM58.1961 40.4964L79.3198 23.1758L80.4016 24.4919L104.191 4.97422C102.172 4.20466 100.098 3.51318 98.001 2.91092L76.8996 20.2203L77.9815 21.5364L56.0882 39.4926C56.802 39.8049 57.5046 40.1395 58.1961 40.4964ZM50.311 37.4293L66.9958 20.8226L68.1892 22.0271L89.3909 0.959154C87.0934 0.579954 84.7625 0.30113 82.398 0.122682L64.3191 18.1124L65.5125 19.3169L47.8908 36.8494C48.705 37.0167 49.508 37.2063 50.311 37.4293ZM41.0875 36.0352L54.393 19.908L55.709 20.9899L73.0295 0C70.3975 0.122682 67.7988 0.3792 65.2448 0.758401L51.4486 17.4767L52.7646 18.5585L38.355 36.024C38.7565 36.0129 39.1692 36.0017 39.5707 36.0017C40.0837 36.0017 40.5856 36.0017 41.0875 36.024V36.0352ZM33.1131 36.5148L43.3627 20.6553L44.7903 21.581L57.1812 2.39789C54.3483 3.13398 51.5824 4.02622 48.8834 5.06344L40.1618 18.5697L41.5894 19.4954L30.2357 37.0724C31.1837 36.8494 32.1428 36.6598 33.1131 36.5036V36.5148ZM24.2577 38.9796L31.6298 25.1611L33.1243 25.9641L42.8831 7.68438C39.7491 9.21234 36.7378 10.941 33.8604 12.8594L28.2504 23.3654L29.7561 24.1685L21.0791 40.4295C22.1052 39.9053 23.1647 39.4257 24.2465 38.9907L24.2577 38.9796ZM17.9005 42.2251L21.0345 33.325L22.6405 33.8938L28.73 16.6067C25.6406 19.0604 22.7409 21.7371 20.053 24.6257L17.4321 32.0647L19.0381 32.6335L14.9338 44.2772C15.893 43.5523 16.8744 42.872 17.8893 42.2362L17.9005 42.2251ZM10.0823 48.5934L11.4652 42.1247L13.127 42.4816L15.9153 29.455C12.982 33.18 10.3834 37.1839 8.16396 41.4109L9.40194 41.6786L6.85907 52.3854C7.85168 51.0582 8.93352 49.7868 10.0823 48.5934ZM4.3385 56.1551V47.5897C2.26405 53.0658 0.79186 59.8802 0 66.5608C0.970307 62.8581 2.4425 59.3672 4.3385 56.1551ZM0.0557648 87.6399C0.86993 93.3391 2.29751 98.8375 4.28273 104.068V97.7445C2.45365 94.6217 1.01492 91.2312 0.0557648 87.6399ZM7.12674 101.971L9.34618 112.321L8.1082 112.589C10.3276 116.827 12.9263 120.82 15.8595 124.545L13.0713 111.518L11.4095 111.875L10.0042 105.328C8.98928 104.258 8.01897 103.143 7.12674 101.96V101.971ZM14.8557 109.667L18.9823 121.378L17.3763 121.946L19.9972 129.385C22.6851 132.274 25.5849 134.951 28.6742 137.404L22.5847 120.117L20.9787 120.686L17.8336 111.741C16.8187 111.095 15.826 110.414 14.8669 109.689L14.8557 109.667ZM21.0122 113.537L29.7115 129.843L28.2058 130.646L33.8158 141.152C36.6932 143.07 39.7045 144.799 42.8385 146.327L33.0797 128.047L31.574 128.85L24.1796 114.998C23.0978 114.563 22.0382 114.072 21.001 113.548L21.0122 113.537ZM30.1687 116.905L41.5336 134.505L40.106 135.43L48.8276 148.937C51.5266 149.974 54.2926 150.866 57.1254 151.602L44.7345 132.419L43.3069 133.345L33.0462 117.463C32.0759 117.307 31.1056 117.117 30.1576 116.894L30.1687 116.905ZM38.2881 117.976L52.6977 135.441L51.3817 136.523L65.1779 153.242C67.7319 153.621 70.3305 153.877 72.9626 154L55.6421 132.999L54.326 134.081L41.0206 117.954C40.541 117.976 40.0503 117.976 39.5595 117.976C39.1357 117.976 38.7008 117.976 38.2769 117.954L38.2881 117.976ZM47.8462 117.151L65.4567 134.672L64.2633 135.876L82.3423 153.866C84.7067 153.688 87.0377 153.409 89.3352 153.03L68.1445 131.951L66.94 133.166L50.2664 116.571C49.4745 116.783 48.6603 116.983 47.8462 117.151ZM56.0547 114.53L77.9257 132.475L76.8439 133.791L97.9452 151.1C100.042 150.498 102.116 149.806 104.135 149.037L80.3347 129.519L79.2529 130.835L58.1515 113.526C57.46 113.883 56.7574 114.217 56.0436 114.53H56.0547ZM62.2558 111.117L88.1529 127.59L87.2384 129.029L112.634 145.178C114.474 144.208 116.27 143.159 118.009 142.055L90.1939 124.367L89.2794 125.805L64.1072 109.801C63.4938 110.258 62.8804 110.704 62.2446 111.128L62.2558 111.117ZM69.3937 105.05L97.6664 119.783L96.8857 121.3L125.816 136.378C127.333 135.118 128.805 133.813 130.222 132.441L99.4397 116.392L98.659 117.909L70.8547 103.421C70.3863 103.979 69.9067 104.525 69.4048 105.05H69.3937ZM73.866 99.3394L105.719 111.373L105.117 112.968L136.992 125.002C138.185 123.508 139.323 121.969 140.416 120.385L107.068 107.793L106.466 109.388L74.9925 97.4991C74.6356 98.1237 74.2564 98.7371 73.866 99.3394ZM77.2008 93.0937L111.139 101.57L110.727 103.221L145.457 111.898C146.316 110.236 147.107 108.529 147.844 106.801L112.065 97.8672L111.652 99.5178L77.9815 91.1085C77.7361 91.7777 77.4684 92.4357 77.2008 93.0937ZM79.409 86.3573L114.797 90.707L114.585 92.4022L151.256 96.9192C151.736 95.1347 152.16 93.3279 152.517 91.51L115.266 86.9261L115.054 88.6214L79.8328 84.2829C79.7102 84.9855 79.5652 85.677 79.409 86.3685V86.3573Z" fill="currentColor"/>
+</svg><div><div class="t"><b>Plasma</b><a class="open" href="#plasma">details</a></div><span class="why">≈ $1.3 bn stablecoins · XPL ≈ $0.3 bn</span></div></div><a class="fig done fast" data-s="1.1" href="#plasma" title="done on Plasma: included in a block"><i>1.1</i><span> s</span></a><a class="fig final" data-s="3" href="#plasma" title="final on Plasma: finalized: two consecutive quorum certificates, the RPC's finalized tag"><i>3.0</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a block</dd><dt>final</dt><dd><b>finalized</b> — finalized: two consecutive quorum certificates, the RPC's finalized tag</dd><dt>slowest</dt><dd class="mono">in a block <b>1.1 s</b> <span style="opacity:.5">→</span> finalized <b>3.0 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 14:56 UTC · ✓ 20 of 20 reached finalized · 0.1 USDC each · rpc plasma-mainnet.core.chainstack.com</dd><dt>docs</dt><dd><q>Block finality is achieved in seconds with minimal communication overhead, and validator selection is driven by a…</q> <span class="src"><a href="https://www.plasma.org/docs/plasma-chain/architecture/consensus" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/plasma/2026-10-19T1456Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/plasma" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#plasma">link</a></div></div></li><li class="chain" id="polygon" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-polygon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="4" fill="#670de5"/><g transform="translate(6.284 6.293) scale(0.8)"><path d="M17.41 1.22363L10.5949 5.13771V17.3537L6.8346 19.5335L3.05135 17.352V12.9906L6.8346 10.8303L9.2672 12.241V8.71235L6.81339 7.31926L0 11.2775V19.1075L6.83637 23.0445L13.6498 19.1075V6.89321L17.433 4.71165L21.2145 6.89321V11.2351L17.433 13.4361L14.9792 12.013V15.524L17.41 16.9259L24.2906 13.0118V5.13771L17.41 1.22363Z" fill="#ffffff"/></g></svg><div><div class="t"><b>Polygon PoS</b><a class="open" href="#polygon">details</a></div><span class="why">≈ $2.9 bn stablecoins · POL ≈ $1.0 bn</span></div></div><a class="fig done fast" data-s="2.3" href="#polygon" title="done on Polygon PoS: included in a Bor block"><i>2.3</i><span> s</span></a><a class="fig final" data-s="7" href="#polygon" title="final on Polygon PoS: a Heimdall milestone covers the block; the RPC's finalized tag"><i>7.0</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a Bor block</dd><dt>final</dt><dd><b>milestone</b> — a Heimdall milestone covers the block; the RPC's finalized tag</dd><dt>slowest</dt><dd class="mono">in a block <b>2.3 s</b> <span style="opacity:.5">→</span> milestone <b>7.0 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 14:34 UTC · ✓ 20 of 20 reached milestone · 0.1 USDC each · rpc polygon-mainnet.infura.io</dd><dt>docs</dt><dd><q>Milestones typically finalize a transaction within 2 to 5 seconds.</q> <span class="src"><a href="https://docs.polygon.technology/pos/concepts/finality/finality" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/polygon/2026-10-19T1434Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/polygon" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#polygon">link</a></div></div></li><li class="chain" id="solana" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-solana" aria-hidden="true" focusable="false" viewBox="0 0 101 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M100.48 69.3817L83.8068 86.8015C83.4444 87.1799 83.0058 87.4816 82.5185 87.6878C82.0312 87.894 81.5055 88.0003 80.9743 88H1.93563C1.55849 88 1.18957 87.8926 0.874202 87.6912C0.558829 87.4897 0.31074 87.2029 0.160416 86.8659C0.0100923 86.529 -0.0359181 86.1566 0.0280382 85.7945C0.0919944 85.4324 0.263131 85.0964 0.520422 84.8278L17.2061 67.408C17.5676 67.0306 18.0047 66.7295 18.4904 66.5234C18.9762 66.3172 19.5002 66.2104 20.0301 66.2095H99.0644C99.4415 66.2095 99.8104 66.3169 100.126 66.5183C100.441 66.7198 100.689 67.0067 100.84 67.3436C100.99 67.6806 101.036 68.0529 100.972 68.415C100.908 68.7771 100.737 69.1131 100.48 69.3817ZM83.8068 34.3032C83.4444 33.9248 83.0058 33.6231 82.5185 33.4169C82.0312 33.2108 81.5055 33.1045 80.9743 33.1048H1.93563C1.55849 33.1048 1.18957 33.2121 0.874202 33.4136C0.558829 33.6151 0.31074 33.9019 0.160416 34.2388C0.0100923 34.5758 -0.0359181 34.9482 0.0280382 35.3103C0.0919944 35.6723 0.263131 36.0083 0.520422 36.277L17.2061 53.6968C17.5676 54.0742 18.0047 54.3752 18.4904 54.5814C18.9762 54.7875 19.5002 54.8944 20.0301 54.8952H99.0644C99.4415 54.8952 99.8104 54.7879 100.126 54.5864C100.441 54.3849 100.689 54.0981 100.84 53.7612C100.99 53.4242 101.036 53.0518 100.972 52.6897C100.908 52.3277 100.737 51.9917 100.48 51.723L83.8068 34.3032ZM1.93563 21.7905H80.9743C81.5055 21.7907 82.0312 21.6845 82.5185 21.4783C83.0058 21.2721 83.4444 20.9704 83.8068 20.592L100.48 3.17219C100.737 2.90357 100.908 2.56758 100.972 2.2055C101.036 1.84342 100.99 1.47103 100.84 1.13408C100.689 0.79713 100.441 0.510296 100.126 0.308823C99.8104 0.107349 99.4415 1.24074e-05 99.0644 0L20.0301 0C19.5002 0.000878397 18.9762 0.107699 18.4904 0.313848C18.0047 0.519998 17.5676 0.821087 17.2061 1.19848L0.524723 18.6183C0.267681 18.8866 0.0966198 19.2223 0.0325185 19.5839C-0.0315829 19.9456 0.0140624 20.3177 0.163856 20.6545C0.31365 20.9913 0.561081 21.2781 0.875804 21.4799C1.19053 21.6817 1.55886 21.7896 1.93563 21.7905Z" fill="url(#paint0_linear_174_4403)"/>
+<defs>
+<linearGradient id="paint0_linear_174_4403" x1="8.52558" y1="90.0973" x2="88.9933" y2="-3.01622" gradientUnits="userSpaceOnUse">
+<stop offset="0.08" stop-color="#9945FF"/>
+<stop offset="0.3" stop-color="#8752F3"/>
+<stop offset="0.5" stop-color="#5497D5"/>
+<stop offset="0.6" stop-color="#43B4CA"/>
+<stop offset="0.72" stop-color="#28E0B9"/>
+<stop offset="0.97" stop-color="#19FB9B"/>
+</linearGradient>
+</defs>
+</svg><div><div class="t"><b>Solana</b><a class="open" href="#solana">details</a></div><span class="why">≈ $16 bn stablecoins · SOL ≈ $61 bn</span></div></div><a class="fig done fast" data-s="1.2" href="#solana" title="done on Solana: confirmed: a supermajority of stake voted on the slot"><i>1.2</i><span> s</span></a><a class="fig final" data-s="8.1" href="#solana" title="final on Solana: finalized: the slot is rooted and cannot be reverted"><i>8.1</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>confirmed</b> — confirmed: a supermajority of stake voted on the slot</dd><dt>final</dt><dd><b>finalized</b> — finalized: the slot is rooted and cannot be reverted</dd><dt>slowest</dt><dd class="mono">processed <b>1.2 s</b> <span style="opacity:.5">→</span> confirmed <b>1.2 s</b> <span style="opacity:.5">→</span> finalized <b>8.1 s</b></dd><dt>run</dt><dd class="mono">18 Oct 2026 21:18 UTC · ✓ 20 of 20 reached finalized · 1 USDC each · rpc solana-mainnet.infura.io</dd><dt>docs</dt><dd><q>A block the cluster recognizes as finalized with maximum lockout, meaning it has reached the strongest confirmation…</q> <span class="src"><a href="https://solana.com/docs/rpc" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/solana.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/solana/2026-10-18T2118Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/solana" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#solana">link</a></div></div></li><li class="chain" id="avalanche" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-avalanche" aria-hidden="true" focusable="false" viewBox="0 0 257 227" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M160.944 226.789H246.964C254.554 226.789 259.304 218.569 255.504 211.999L212.494 137.509C208.694 130.939 199.214 130.939 195.414 137.509L152.404 211.999C148.604 218.569 153.354 226.789 160.944 226.789Z" fill="#FF394A"/>
+<path d="M171.704 66.8581L136.354 5.61809C132.784 -0.571914 123.844 -0.571914 120.274 5.61809L1.38358 211.538C-2.52642 218.318 2.36358 226.778 10.1836 226.778H80.9736C88.5236 226.778 95.4936 222.748 99.2636 216.218L171.704 90.7481C175.974 83.3581 175.974 74.2481 171.704 66.8581Z" fill="#FF394A"/>
+</svg><div><div class="t"><b>Avalanche</b><a class="open" href="#avalanche">details</a></div><span class="why">≈ $1.3 bn stablecoins · AVAX ≈ $4.3 bn</span></div></div><a class="fig done" data-s="4.9" href="#avalanche" title="done on Avalanche: accepted by Snowman consensus; the docs call acceptance irreversible"><i>4.9</i><span> s</span></a><a class="fig final" data-s="11" href="#avalanche" title="final on Avalanche: settled: the block's execution results are in an accepted block (the RPC's finalized tag)"><i>11</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>accepted</b> — accepted by Snowman consensus; the docs call acceptance irreversible</dd><dt>final</dt><dd><b>settled</b> — settled: the block's execution results are in an accepted block (the RPC's finalized tag)</dd><dt>slowest</dt><dd class="mono">accepted <b>4.9 s</b> <span style="opacity:.5">→</span> settled <b>11 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 11:51 UTC · ✓ 20 of 20 reached settled · 0.1 USDC each · rpc avalanche-mainnet.infura.io</dd><dt>docs</dt><dd><q>In Avalanche, acceptance/rejection are final and irreversible and only take a few seconds.</q> <span class="src"><a href="https://build.avax.network/docs/primary-network/avalanche-consensus" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/avalanche/2026-10-19T1151Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/avalanche" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#avalanche">link</a></div></div></li><li class="chain" id="xrpl" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-xrpl" aria-hidden="true" focusable="false" viewBox="0 0 211 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M135.007 43.7415C127.265 51.6966 117.426 56.0898 105.496 56.0898C93.5668 56.0898 83.7273 51.6966 75.9853 43.7415L34.1255 0H0.00763497L57.7784 57.7678C70.5469 70.5356 87.2893 78.6966 105.504 78.6966C123.718 78.6966 140.461 70.5356 153.229 57.7678L211 0H176.882L135.022 43.7415H135.007ZM176.874 180H210.992L153.222 122.232C140.453 109.464 123.711 101.303 105.496 101.303C87.2817 101.303 70.5393 109.464 57.7708 122.232L0 180H34.1179L75.9777 136.258C83.7196 128.303 93.5591 123.91 105.489 123.91C117.418 123.91 127.258 128.303 134.999 136.258L176.859 180H176.874Z" fill="currentColor"/>
+</svg><div><div class="t"><b>XRP Ledger</b><a class="open" href="#xrpl">details</a></div><span class="why">≈ $1.1 bn stablecoins · XRP ≈ $82 bn</span></div></div><a class="fig done" data-s="14" href="#xrpl" title="done on XRP Ledger: in a validated ledger with tesSUCCESS: validators agreed on the ledger"><i>14</i><span> s</span></a><a class="fig final" data-s="14" href="#xrpl" title="final on XRP Ledger: the same ledger: nothing comes after validation"><i>14</i><span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>validated</b> — in a validated ledger with tesSUCCESS: validators agreed on the ledger (done and final are the same level here)</dd><dt>slowest</dt><dd class="mono">validated <b>14 s</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 17:01 UTC · ✓ 20 of 20 reached validated · 0.1 USDC each · rpc xrplcluster.com</dd><dt>docs</dt><dd><q>When the network agrees on the contents of a ledger version, that ledger version is validated , and its contents can…</q> <span class="src"><a href="https://xrpl.org/docs/concepts/consensus-protocol/consensus-structure" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/xrpl.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/xrpl/2026-10-19T1701Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/xrpl" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#xrpl">link</a></div></div></li><li class="chain" id="xlayer" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-xlayer" aria-hidden="true" focusable="false" viewBox="0 0 63 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_11375_9124" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="51" y="32" width="7" height="18">
+<rect width="5.54422" height="16.3218" transform="matrix(-1 0 0 1 57.3105 32.9375)" fill="currentColor"/>
+</mask>
+<g mask="url(#mask0_11375_9124)">
+<path d="M56.2181 32.9375H42.0725C41.4715 32.9375 40.9844 33.4247 40.9844 34.0256V48.171C40.9844 48.772 41.4715 49.2591 42.0725 49.2591H56.2181C56.819 49.2591 57.3062 48.772 57.3062 48.171V34.0256C57.3062 33.4247 56.819 32.9375 56.2181 32.9375Z" fill="currentColor" fill-opacity="0.5"/>
+</g>
+<mask id="mask1_11375_9124" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="51" y="0" width="7" height="17">
+<rect width="5.54422" height="16.3218" transform="matrix(-1 0 0 1 57.3105 0.257812)" fill="url(#paint0_linear_11375_9124)"/>
+</mask>
+<g mask="url(#mask1_11375_9124)">
+<path d="M56.2181 0.257812H42.0725C41.4715 0.257812 40.9844 0.744976 40.9844 1.34592V15.4913C40.9844 16.0923 41.4715 16.5795 42.0725 16.5795H56.2181C56.819 16.5795 57.3062 16.0923 57.3062 15.4913V1.34592C57.3062 0.744976 56.819 0.257812 56.2181 0.257812Z" fill="currentColor" fill-opacity="0.5"/>
+</g>
+<mask id="mask2_11375_9124" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="60" y="0" width="3" height="17">
+<rect width="2.75805" height="16.3218" transform="matrix(-1 0 0 1 62.8672 0.257812)" fill="currentColor"/>
+</mask>
+<g mask="url(#mask2_11375_9124)">
+<path d="M61.7747 0.257812H47.6291C47.0282 0.257812 46.541 0.744976 46.541 1.34592V15.4913C46.541 16.0923 47.0282 16.5795 47.6291 16.5795H61.7747C62.3757 16.5795 62.8629 16.0923 62.8629 15.4913V1.34592C62.8629 0.744976 62.3757 0.257812 61.7747 0.257812Z" fill="currentColor" fill-opacity="0.3"/>
+</g>
+<mask id="mask3_11375_9124" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="60" y="32" width="3" height="18">
+<rect width="2.75805" height="16.3218" transform="matrix(-1 0 0 1 62.877 32.9375)" fill="currentColor"/>
+</mask>
+<g mask="url(#mask3_11375_9124)">
+<path d="M61.7845 32.9375H47.6389C47.038 32.9375 46.5508 33.4247 46.5508 34.0256V48.171C46.5508 48.772 47.038 49.2591 47.6389 49.2591H61.7845C62.3855 49.2591 62.8726 48.772 62.8726 48.171V34.0256C62.8726 33.4247 62.3855 32.9375 61.7845 32.9375Z" fill="currentColor" fill-opacity="0.3"/>
+</g>
+<path d="M31.5287 16.6172H17.4502C16.852 16.6172 16.3672 17.0986 16.3672 17.6924V31.6702C16.3672 32.2641 16.852 32.7455 17.4502 32.7455H31.5287C32.1268 32.7455 32.6117 32.2641 32.6117 31.6702V17.6924C32.6117 17.0986 32.1268 16.6172 31.5287 16.6172Z" fill="currentColor"/>
+<path d="M15.2337 0.257812H1.08812C0.487169 0.257812 0 0.744976 0 1.34592V15.4913C0 16.0923 0.487169 16.5795 1.08812 16.5795H15.2337C15.8347 16.5795 16.3218 16.0923 16.3218 15.4913V1.34592C16.3218 0.744976 15.8347 0.257812 15.2337 0.257812Z" fill="currentColor"/>
+<path d="M47.8704 0.257812H33.7248C33.1239 0.257812 32.6367 0.744976 32.6367 1.34592V15.4913C32.6367 16.0923 33.1239 16.5795 33.7248 16.5795H47.8704C48.4714 16.5795 48.9586 16.0923 48.9586 15.4913V1.34592C48.9586 0.744976 48.4714 0.257812 47.8704 0.257812Z" fill="currentColor"/>
+<path d="M15.2337 32.9004H1.08812C0.487169 32.9004 0 33.3876 0 33.9885V48.1339C0 48.7349 0.487169 49.222 1.08812 49.222H15.2337C15.8347 49.222 16.3218 48.7349 16.3218 48.1339V33.9885C16.3218 33.3876 15.8347 32.9004 15.2337 32.9004Z" fill="currentColor"/>
+<path d="M47.8704 32.9004H33.7248C33.1239 32.9004 32.6367 33.3876 32.6367 33.9885V48.1339C32.6367 48.7349 33.1239 49.222 33.7248 49.222H47.8704C48.4714 49.222 48.9586 48.7349 48.9586 48.1339V33.9885C48.9586 33.3876 48.4714 32.9004 47.8704 32.9004Z" fill="currentColor"/>
+<defs>
+<linearGradient id="paint0_linear_11375_9124" x1="6.01807" y1="9.10319" x2="0.0559558" y2="7.89601" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+</defs>
+</svg><div><div class="t"><b>X Layer</b><a class="open" href="#xlayer">details</a></div><span class="why">≈ $1.5 bn stablecoins · OKB ≈ $2.4 bn</span></div></div><a class="fig done fast" data-s="1.6" href="#xlayer" title="done on X Layer: included in a block by the sequencer — its word, not Ethereum's"><i>1.6</i><span> s</span></a><a class="fig final" data-s="1020" href="#xlayer" title="final on X Layer: the batch holding the block is finalized on Ethereum"><i>17</i><span> min</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a block by the sequencer — its word, not Ethereum's</dd><dt>final</dt><dd><b>L1 finalized</b> — the batch holding the block is finalized on Ethereum</dd><dt>slowest</dt><dd class="mono">in a block <b>1.6 s</b> <span style="opacity:.5">→</span> posted to L1 <b>73 s</b> <span style="opacity:.5">→</span> L1 finalized <b>17 min</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 17:55 UTC · ✓ 20 of 20 reached L1 finalized · 0.1 USDC each · reads lb.drpc.org · sends rpc.xlayer.tech · the next sent once the previous was in a block</dd><dt>docs</dt><dd><q>Fast execution happens on L2 with 1-second block times.</q> <span class="src"><a href="https://web3.okx.com/onchainos/dev-docs/xlayer/developer/build-on-xlayer/about-xlayer" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/xlayer/2026-10-19T1755Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/xlayer" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#xlayer">link</a></div></div></li><li class="chain" id="arbitrum" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-arbitrum" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 2500 2500">
+<style>svg.mark-arbitrum .st0{fill:none;}svg.mark-arbitrum .st1{fill:#213147;}svg.mark-arbitrum .st2{fill:#12AAFF;}svg.mark-arbitrum .st3{fill:#9DCCED;}svg.mark-arbitrum .st4{fill:#FFFFFF;}
+</style>
+<g id="Layer_x0020_1">
+	<g id="_2405588477232">
+		<rect class="st0" width="2500" height="2500"></rect>
+		<g>
+			<g>
+				<path class="st1" d="M226,760v980c0,63,33,120,88,152l849,490c54,31,121,31,175,0l849-490c54-31,88-89,88-152V760      c0-63-33-120-88-152l-849-490c-54-31-121-31-175,0L314,608c-54,31-87,89-87,152H226z"></path>
+				<g>
+					<g>
+						<g>
+							<path class="st2" d="M1435,1440l-121,332c-3,9-3,19,0,29l208,571l241-139l-289-793C1467,1422,1442,1422,1435,1440z"></path>
+						</g>
+						<g>
+							<path class="st2" d="M1678,882c-7-18-32-18-39,0l-121,332c-3,9-3,19,0,29l341,935l241-139L1678,883V882z"></path>
+						</g>
+					</g>
+				</g>
+				<g>
+					<path class="st3" d="M1250,155c6,0,12,2,17,5l918,530c11,6,17,18,17,30v1060c0,12-7,24-17,30l-918,530c-5,3-11,5-17,5       s-12-2-17-5l-918-530c-11-6-17-18-17-30V719c0-12,7-24,17-30l918-530c5-3,11-5,17-5l0,0V155z M1250,0c-33,0-65,8-95,25L237,555       c-59,34-95,96-95,164v1060c0,68,36,130,95,164l918,530c29,17,62,25,95,25s65-8,95-25l918-530c59-34,95-96,95-164V719       c0-68-36-130-95-164L1344,25c-29-17-62-25-95-25l0,0H1250z"></path>
+				</g>
+				<polygon class="st1" points="642,2179 727,1947 897,2088 738,2234     "></polygon>
+				<g>
+					<path class="st4" d="M1172,644H939c-17,0-33,11-39,27L401,2039l241,139l550-1507c5-14-5-28-19-28L1172,644z"></path>
+					<path class="st4" d="M1580,644h-233c-17,0-33,11-39,27L738,2233l241,139l620-1701c5-14-5-28-19-28V644z"></path>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg><div><div class="t"><b>Arbitrum One</b><a class="open" href="#arbitrum">details</a></div><span class="why">≈ $3.7 bn stablecoins · ARB ≈ $1.3 bn</span></div></div><a class="fig done fast" data-s="0.8" href="#arbitrum" title="done on Arbitrum One: included in a block by the sequencer — its word, not Ethereum's"><i>0.8</i><span> s</span></a><a class="fig final" data-s="1140" href="#arbitrum" title="final on Arbitrum One: the batch holding the block is finalized on Ethereum"><i>19</i><span> min</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a block by the sequencer — its word, not Ethereum's</dd><dt>final</dt><dd><b>L1 finalized</b> — the batch holding the block is finalized on Ethereum</dd><dt>slowest</dt><dd class="mono">in a block <b>0.8 s</b> <span style="opacity:.5">→</span> posted to L1 <b>6 min</b> <span style="opacity:.5">→</span> L1 finalized <b>19 min</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 15:19 UTC · ✓ 20 of 20 reached L1 finalized · 0.1 USDC each · reads lb.drpc.org · sends arb1.arbitrum.io · the next sent once the previous was in a block</dd><dt>docs</dt><dd><q>Hard finality—the `safe` and `finalized` tags—is inherited from the parent chain and is what makes a block reorg-proof.</q> <span class="src"><a href="https://docs.arbitrum.io/how-arbitrum-works/reference/finality-and-reorgs" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/arbitrum/2026-10-19T1519Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/arbitrum" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#arbitrum">link</a></div></div></li><li class="chain" id="robinhood" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-robinhood" aria-hidden="true" focusable="false" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.237711 42H1.14916C1.31483 42 1.48056 41.9157 1.53587 41.7753C8.41284 23.9672 15.8974 15.1474 20.5926 9.86673C20.786 9.64201 20.7031 9.47355 20.4269 9.47355H12.0309C11.727 9.47355 11.4702 9.59707 11.2576 9.86673L5.23667 17.4507C4.3529 18.5742 4.13199 19.6134 4.13199 21.1021V28.8546C2.17104 34.4442 0.92819 38.2362 0.0168015 41.663C-0.038442 41.882 0.0444232 42 0.237711 42ZM30.5353 1.13119C29.2372 -0.273195 23.3821 -0.329391 20.6754 0.738011C20.1121 0.959852 19.5707 1.33622 19.3221 1.5525C16.8364 3.71537 15.1794 5.4288 13.6051 7.11409C13.4117 7.31068 13.4947 7.50727 13.7709 7.50727H23.0783C23.9345 7.50727 24.4316 8.01291 24.4316 8.88359V19.5573C24.4316 19.8382 24.6525 19.9225 24.8183 19.6696L30.4248 12.2261C31.3362 11.0183 31.6124 10.6532 31.8609 8.96792C32.1924 6.49613 31.999 2.70423 30.5353 1.13119ZM18.5212 29.4445L22.3601 23.0121C22.4431 22.8437 22.4706 22.647 22.4706 22.5066V11.7767C22.4706 11.4958 22.2773 11.3836 22.0841 11.6082C16.3118 18.1529 11.8099 25.0346 7.6395 33.3207C7.53455 33.5285 7.66712 33.7139 7.91572 33.6297L16.5327 30.9332C17.5048 30.6298 18.0517 30.231 18.5212 29.4445Z" fill="currentColor"/>
+</svg><div><div class="t"><b>Robinhood Chain</b><a class="open" href="#robinhood">details</a></div><span class="why">≈ $1.1 bn stablecoins</span></div></div><a class="fig done fast" data-s="0.9" href="#robinhood" title="done on Robinhood Chain: included in a block by the sequencer — its word, not Ethereum's"><i>0.9</i><span> s</span></a><a class="fig final" data-s="1140" href="#robinhood" title="final on Robinhood Chain: the batch holding the block is finalized on Ethereum"><i>19</i><span> min</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a block by the sequencer — its word, not Ethereum's</dd><dt>final</dt><dd><b>L1 finalized</b> — the batch holding the block is finalized on Ethereum</dd><dt>slowest</dt><dd class="mono">in a block <b>0.9 s</b> <span style="opacity:.5">→</span> posted to L1 <b>13 min</b> <span style="opacity:.5">→</span> L1 finalized <b>19 min</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 15:38 UTC · ✓ 20 of 20 reached L1 finalized · 0.1 USDG each · reads lb.drpc.org · sends rpc.mainnet.chain.robinhood.com · the next sent once the previous was in a block</dd><dt>docs</dt><dd><q>Full finality — your transaction inherits Ethereum's security and is irreversible.</q> <span class="src"><a href="https://docs.robinhood.com/chain/transaction-finality/" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/robinhood/2026-10-19T1538Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/robinhood" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#robinhood">link</a></div></div></li><li class="chain" id="base" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-base" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1280">
+  <defs>
+    <style>svg.mark-base .cls-1{
+        fill: blue;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M0,101.12c0-34.64,0-51.95,6.53-65.28,6.25-12.76,16.56-23.07,29.32-29.32C49.17,0,66.48,0,101.12,0h1077.76c34.63,0,51.96,0,65.28,6.53,12.75,6.25,23.06,16.56,29.32,29.32,6.52,13.32,6.52,30.64,6.52,65.28v1077.76c0,34.63,0,51.96-6.52,65.28-6.26,12.75-16.57,23.06-29.32,29.32-13.32,6.52-30.65,6.52-65.28,6.52H101.12c-34.64,0-51.95,0-65.28-6.52-12.76-6.26-23.07-16.57-29.32-29.32-6.53-13.32-6.53-30.65-6.53-65.28V101.12Z"/>
+</svg><div><div class="t"><b>Base</b><a class="open" href="#base">details</a></div><span class="why">≈ $5.2 bn stablecoins</span></div></div><a class="fig done fast" data-s="1.3" href="#base" title="done on Base: included in a block by the sequencer — its word, not Ethereum's"><i>1.3</i><span> s</span></a><a class="fig final" data-s="1320" href="#base" title="final on Base: the batch holding the block is finalized on Ethereum"><i>22</i><span> min</span></a></div><div class="out" hidden><dl class="facts"><dt>done</dt><dd><b>in a block</b> — included in a block by the sequencer — its word, not Ethereum's</dd><dt>final</dt><dd><b>L1 finalized</b> — the batch holding the block is finalized on Ethereum</dd><dt>slowest</dt><dd class="mono">in a block <b>1.3 s</b> <span style="opacity:.5">→</span> posted to L1 <b>47 s</b> <span style="opacity:.5">→</span> L1 finalized <b>22 min</b></dd><dt>run</dt><dd class="mono">19 Oct 2026 15:59 UTC · ✓ 20 of 20 reached L1 finalized · 0.1 USDC each · reads base-mainnet.infura.io · sends mainnet.base.org · the next sent once the previous was in a block</dd><dt>docs</dt><dd><q>After roughly 2 minutes, a Base batch containing the transaction has been posted to Ethereum.</q> <span class="src"><a href="https://docs.base.org/specifications/transactions/transaction-finality" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a class="code" href="https://github.com/burmisov/txfinality.com/blob/main/measure/chains/evm.ts" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the code ↗</a><a href="https://github.com/burmisov/txfinality.com/blob/main/runs/base/2026-10-19T1559Z.json" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>the 20 hashes ↗</a><a href="https://github.com/burmisov/txfinality.com/tree/main/runs/base" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>every run ↗</a><a href="https://github.com/burmisov/txfinality.com#readme" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>run it yourself ↗</a><a href="#base">link</a></div></div></li><li class="cut">not measured · final takes minutes by design</li><li class="chain" id="tron" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-tron" aria-hidden="true" focusable="false" viewBox="290 485 2094 2094" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M1846.58 697.896L331.913 485L1177.89 2579L2344 1086.49L1846.58 697.896ZM2061.99 1059.18L1569.71 1164.51L1825.74 874.649L2061.92 1059.18H2061.99ZM1665.74 826.042L1349.76 1183.77L722.156 693.477L1665.74 826.108V826.042ZM1163.25 2136.79L628.569 813.313L1278.01 1320.69L1163.31 2136.79H1163.25ZM1313.88 2157.89L1427.39 1350.43L2048.6 1217.54L1313.95 2157.89H1313.88Z" fill="#EA0029"/>
+</svg><div><div class="t"><b>Tron</b><span class="tag">by design</span><a class="open" href="#tron">details</a></div><span class="why">≈ $95 bn stablecoins · TRX ≈ $32 bn</span></div></div><span class="fig done"></span><a class="fig doc" href="#tron">60<span> s</span></a></div><div class="out" hidden><dl class="facts"><dt>by design</dt><dd>By design: a block every three seconds, but the docs call that pending; the only level Tron stands behind is &quot;solidified&quot;, nineteen producers later, about a minute.</dd><dt>levels</dt><dd class="mono">in a block <b>3.0 s</b> <span style="opacity:.5">→</span> solidified <b>60 s</b></dd><dt>docs</dt><dd><q>Blocks become irreversible — solidified — once at least 19 distinct active SRs have each produced a block at that…</q> <span class="src"><a href="https://developers.tron.network/docs/concensus" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a href="https://github.com/burmisov/txfinality.com/blob/main/chains/tron.yaml" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>chain file ↗</a><a href="#tron">link</a></div></div></li><li class="chain" id="ethereum" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-ethereum" aria-hidden="true" focusable="false" fill="currentColor" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 1920 1920" viewBox="0 0 1920 1920"><path d="m959.8 730.9-539.8 245.4 539.8 319.1 539.9-319.1z" opacity=".6"/><path d="m420.2 976.3 539.8 319.1v-564.5-650.3z" opacity=".45"/><path d="m960 80.6v650.3 564.5l539.8-319.1z" opacity=".8"/><path d="m420 1078.7 539.8 760.7v-441.8z" opacity=".45"/><path d="m959.8 1397.6v441.8l540.2-760.7z" opacity=".8"/></svg><div><div class="t"><b>Ethereum</b><span class="tag">by design</span><a class="open" href="#ethereum">details</a></div><span class="why">≈ $145 bn stablecoins · ETH ≈ $291 bn</span></div></div><span class="fig done"></span><a class="fig doc" href="#ethereum">13<span> min</span></a></div><div class="out" hidden><dl class="facts"><dt>by design</dt><dd>By design: a slot every twelve seconds, and a block is finalized once the checkpoint after its epoch's checkpoint is justified.</dd><dt>levels</dt><dd class="mono">slot <b>12 s</b> <span style="opacity:.5">→</span> safe <b>7 min</b> <span style="opacity:.5">→</span> finalized <b>13 min</b></dd><dt>docs</dt><dd><q>Time in proof-of-stake Ethereum is divided into slots (12 seconds) and epochs (32 slots).</q> <span class="src"><a href="https://ethereum.org/developers/docs/consensus-mechanisms/pos/" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a href="https://github.com/burmisov/txfinality.com/blob/main/chains/ethereum.yaml" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>chain file ↗</a><a href="#ethereum">link</a></div></div></li><li class="chain" id="bitcoin" aria-expanded="false"><div class="row"><div class="name"><svg class="mark mark-bitcoin" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><g fill="none" fill-rule="evenodd"><circle cx="16" cy="16" r="16" fill="#F7931A"/><path fill="#FFF" fill-rule="nonzero" d="M23.189 14.02c.314-2.096-1.283-3.223-3.465-3.975l.708-2.84-1.728-.43-.69 2.765c-.454-.114-.92-.22-1.385-.326l.695-2.783L15.596 6l-.708 2.839c-.376-.086-.746-.17-1.104-.26l.002-.009-2.384-.595-.46 1.846s1.283.294 1.256.312c.7.175.826.638.805 1.006l-.806 3.235c.048.012.11.03.18.057l-.183-.045-1.13 4.532c-.086.212-.303.531-.793.41.018.025-1.256-.313-1.256-.313l-.858 1.978 2.25.561c.418.105.828.215 1.231.318l-.715 2.872 1.727.43.708-2.84c.472.127.93.245 1.378.357l-.706 2.828 1.728.43.715-2.866c2.948.558 5.164.333 6.097-2.333.752-2.146-.037-3.385-1.588-4.192 1.13-.26 1.98-1.003 2.207-2.538zm-3.95 5.538c-.533 2.147-4.148.986-5.32.695l.95-3.805c1.172.293 4.929.872 4.37 3.11zm.535-5.569c-.487 1.953-3.495.96-4.47.717l.86-3.45c.975.243 4.118.696 3.61 2.733z"/></g></svg><div><div class="t"><b>Bitcoin</b><span class="tag">by design</span><a class="open" href="#bitcoin">details</a></div><span class="why">no stablecoins · BTC ≈ $1.64 tn</span></div></div><span class="fig done"></span><a class="fig doc" href="#bitcoin">60<span> min</span></a></div><div class="out" hidden><dl class="facts"><dt>by design</dt><dd>By design: a block about every ten minutes, and six of them is the custom, which the docs themselves call somewhat arbitrary.</dd><dt>levels</dt><dd class="mono">one confirmation <b>10 min</b> <span style="opacity:.5">→</span> six confirmations <b>60 min</b></dd><dt>docs</dt><dd><q>6 confirmations: The network has spent about an hour working to protect the transaction against double spends and…</q> <span class="src"><a href="https://developer.bitcoin.org/devguide/payment_processing.html" target="_blank" rel="noopener">the chain’s docs ↗</a> · read 18 Oct 2026</span></dd></dl><div class="btns"><a href="https://github.com/burmisov/txfinality.com/blob/main/chains/bitcoin.yaml" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>chain file ↗</a><a href="#bitcoin">link</a></div></div></li></ol>
+
+
+
+<div class="tech"><span>≈ dollar figures are estimates, rounded to $0.1 bn · market caps powered by <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a></span><a href="data.json" target="_blank" rel="noopener">data.json</a><a href="llms.txt" target="_blank" rel="noopener">llms.txt</a><a href="https://github.com/burmisov/txfinality.com" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>github.com/burmisov/txfinality.com</a><a href="https://github.com/burmisov/txfinality.com/issues" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>report a correction</a><span>method v0</span><span>built 2026-10-20</span><a href="https://github.com/burmisov/txfinality.com/blob/main/LICENSE" target="_blank" rel="noopener"><svg class="gh" aria-hidden="true"><use href="#gh"/></svg>code MIT · data CC BY 4.0</a></div>
+
+<footer>
+  <span class="strip"></span>
+</footer>
+</div>
+
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"How long for a stablecoin transfer to finalize on blockchains — measured by chain","description":"Slowest of 20 transfers of 0.1–1 USDC, USDT or USDG, one at a time, from sending to each finality level the chain defines, with transaction hashes. Method v0.","url":"https://txfinality.com/","creator":{"@type":"Person","name":"Sergey Burmisov","url":"https://burmisov.com/"},"isBasedOn":"https://github.com/burmisov/txfinality.com","distribution":[{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://txfinality.com/data.json"}],"dateModified":"2026-10-20"}</script>
+
+<script>
+(function(){
+  var rows = {};
+  document.querySelectorAll("li.chain").forEach(function(li){
+    var o = li.querySelector(".out");
+    li._set = function(x){ o.hidden = !x; li.setAttribute("aria-expanded", x ? "true" : "false"); };
+    li.querySelectorAll("a.open, a.fig").forEach(function(a){ a.addEventListener("click", function(e){ e.preventDefault(); li._set(o.hidden); }); });
+    rows[li.id] = li;
+  });
+  // A link to one chain (#solana) opens and highlights its row; a link to a question (#q-done) opens the answer.
+  function arrive(){
+    var id = (location.hash || "").slice(1);
+    Object.keys(rows).forEach(function(k){ rows[k].classList.remove("hi"); });
+    if (rows[id]){ rows[id]._set(true); rows[id].classList.add("hi"); rows[id].scrollIntoView({block:"start"}); }
+    var q = document.getElementById(id);
+    if (q && q.tagName === "DETAILS"){ q.open = true; q.scrollIntoView({block:"start"}); }
+  }
+  window.addEventListener("hashchange", arrive);
+  if (location.hash) arrive();
+  // the fast mark: every measured figure under the threshold, both columns; the choice is remembered on this device
+  var sel = document.getElementById("thr");
+  function mark(){
+    var thr = Number(sel.value);
+    document.querySelectorAll("a.fig[data-s]").forEach(function(a){ a.classList.toggle("fast", Number(a.getAttribute("data-s")) < thr); });
+  }
+  try { var saved = localStorage.getItem("txfinality.fast"); if (saved && sel.querySelector('option[value="' + saved + '"]')) sel.value = saved; } catch (e) {}
+  sel.addEventListener("change", function(){ try { localStorage.setItem("txfinality.fast", sel.value); } catch (e) {} mark(); });
+  mark();
+})();
+</script>
+
+</body>
+</html>
