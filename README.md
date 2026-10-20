@@ -41,7 +41,7 @@ the cleanup by hand.
 Without a wallet, `npx txfinality watch --chain solana` times other people's transfers from first sight,
 to see the levels move. It sends nothing.
 
-The page is built elsewhere from these files; the figures on it are the figures in `runs/`. If you think a
+The page at https://txfinality.com/ is built from these files; the figures on it are the figures in `runs/`. If you think a
 figure is wrong, open an issue with your run file.
 
 ## Status
