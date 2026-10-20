@@ -31,9 +31,16 @@ beyond that (6.2); a public product needs a user agreement and privacy policy na
 The pricing page's Demo column says "Attribution required", 10k calls/month, 100/min, and its License
 cell is an ✗ where every paid plan says "Commercial" (Basic, $29/mo yearly, "for personal use cases").
 
-Use, as of 2026-10-19: the carrier coin's market cap in each row's second line, rounded to the nearest
+Use, 2026-10-19 only: the carrier coin's market cap in each row's second line, rounded to the nearest
 hundred million and marked ≈, credited on the page ("market caps powered by CoinGecko", linked) and in
 llms.txt, under the Demo plan.
+
+Not used since 2026-10-20 (decision): the attribution guide (`brand.coingecko.com/resources/attribution-guide`)
+accepts only "Data provided by CoinGecko", "Price data by CoinGecko", "Source: CoinGecko" or "Powered by
+CoinGecko API", placed close to the data and linked, and the terms' 7.1 asks a public product for a user
+agreement and privacy policy naming CoinGecko; rather than meet that for one secondary figure, the page
+shows no market caps and carries no CoinGecko credit. The landscape files keep the readings of 2026-10-18
+for the record, as for DeFiLlama; `txfinality select` still reads the API when run.
 
 ## CoinMarketCap — Basic plan (free, key)
 
