@@ -98,7 +98,7 @@ li.chain{scroll-margin-top:18px}
 .tile span.badge{width:24px;height:24px;font-size:12px;color:var(--muted);border:1px solid var(--faint);border-radius:22%;display:grid;place-items:center}
 .name{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fig{display:grid;grid-template-columns:minmax(0,1fr) var(--unitw);align-items:baseline;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--figfs);line-height:1;white-space:nowrap}
-.fig .n{display:flex;justify-content:space-between;align-items:baseline}  /* the sign at the left edge, the number at the right: a column each */
+.fig .n{display:block;text-align:right}  /* the sign sits right before the digits and moves with them (his pick of two renders, 2026-10-20) */
 .fig .u{text-align:left;padding-left:5px;font-family:var(--text);font-size:14px;color:var(--muted)}
 .fig .le{color:var(--quiet);font-size:14px;margin-right:.25em}  /* the sign is small text, never under the 14 px floor */
 .fig.done{color:var(--muted)}
