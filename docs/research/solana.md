@@ -1,6 +1,6 @@
 # Solana — what the docs say
 
-Read 2026-10-18. Quotes are verbatim from the page named; nothing here is paraphrased. Re-read monthly (see `claim.next_read` in `chains/solana.yaml`).
+Read 2026-10-18; re-read 2026-10-23 after Alpenglow (below). Quotes are verbatim from the page named; nothing here is paraphrased. Re-read monthly (see `claim.next_read` in `chains/solana.yaml`).
 
 ## Pages
 
@@ -29,3 +29,19 @@ Read 2026-10-18. Quotes are verbatim from the page named; nothing here is paraph
 
 - No page states a total time to finalized; only the 32-slot gap after confirmed, which the docs call about 13 seconds.
 - Measured here on 2026-10-18: finalized 7.2–8.1 s from sending, through Infura.
+
+## Re-read 2026-10-23: Alpenglow
+
+Alpenglow replaced TowerBFT on mainnet at epoch 1064 (2026-10-21); the cluster answered `solana-core` 4.3.2
+on 2026-10-23.
+
+- “Under Alpenglow, the Confirmed and Finalized commitment statuses are equivalent: both mean that a transaction has been permanently committed to the ledger and cannot be rolled back.”
+  — https://docs.anza.xyz/consensus/commitments
+- Its table gives, for both: “60%+ stake voted finalize or 80%+ stake voted notarize on block”; under TowerBFT, finalized was “31+ confirmed blocks built atop block”.
+  — https://docs.anza.xyz/consensus/commitments
+
+- https://solana.com/docs/rpc still carried the TowerBFT definitions above on 2026-10-23 (“finalized with maximum lockout”), with no Alpenglow note; the chain file now quotes Anza's page.
+- `getSignatureStatuses` is unchanged and still reports `confirmationStatus`; the runner needed no change.
+- Measured here on 2026-10-23: confirmed and finalized on the same poll in all twenty transfers, 0.663–0.884 s from sending, through Infura (`runs/solana/2026-10-23T0634Z.json`).
+- Not established here: the “150 ms” finality Anza and the Foundation give as a target. That time starts at a block; ours starts before the send and includes landing in a block and our 100 ms polling.
+

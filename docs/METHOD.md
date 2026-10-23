@@ -1,7 +1,7 @@
 # Method v0 (draft, 2026-10-18)
 
 a. A wallet of ours sends 0.1 USDC (USDT where the chain has only USDT; the first Solana run, on
-   2026-10-18, sent 1 USDC — the amount is in every run file and has no bearing on the time) to a second wallet of
+   2026-10-18, sent 1 USDC, and the run of 2026-10-23 0.04 USDC — the amount is in every run file and has no bearing on the time) to a second wallet of
    ours, one the runner derives from the first wallet's key and never stores. Nothing else is in the transaction beyond what makes it land and tells it apart: on Solana, a
    memo naming the run and a small priority fee.
 b. The clock starts the instant before the signed transaction leaves our machine. The machine and the

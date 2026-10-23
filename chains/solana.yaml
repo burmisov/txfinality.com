@@ -15,13 +15,14 @@ wallets:
   from_env: SOLANA_FROM_KEY
 levels:                      # seconds: what the docs say, until measured; role done-final = one level is both
   - { name: "processed", detect: "commitment=processed" }   # "can still be rolled back"
-  - { name: "confirmed", detect: "commitment=confirmed", role: done }   # "voted on by a supermajority of stake"
-  - { name: "finalized", detect: "commitment=finalized", role: final }   # "maximum lockout"; "at least a 32 slot difference" after confirmed
+  - { name: "confirmed", detect: "commitment=confirmed", role: done }   # under Alpenglow (since 2026-10-21): "equivalent" to finalized
+  - { name: "finalized", detect: "commitment=finalized", role: final }   # "permanently committed to the ledger and cannot be rolled back"
 claim:
-  text: "A block the cluster recognizes as finalized with maximum lockout, meaning it has reached the strongest confirmation state used by the network."
-  url: "https://solana.com/docs/rpc"
-  read_on: 2026-10-18
-  next_read: 2026-11-18
+  text: "Under Alpenglow, the Confirmed and Finalized commitment statuses are equivalent: both mean that a transaction has been permanently committed to the ledger and cannot be rolled back."
+  url: "https://docs.anza.xyz/consensus/commitments"
+  read_on: 2026-10-23
+  next_read: 2026-11-23
 note: |
-  "Confirmed" is what wallets show; "finalized" is the rooted slot, about thirty-two slots later,
-  which the docs call about thirteen seconds. Both are real, and they are seconds apart.
+  Alpenglow replaced TowerBFT at epoch 1064 (2026-10-21). Before it, "finalized" was the rooted slot about
+  thirty-two slots after "confirmed", about thirteen seconds by the docs, and measured here at 7.2–8.1 s on
+  2026-10-18. Now the two arrive together: in the run of 2026-10-23 every transfer showed both on the same poll.

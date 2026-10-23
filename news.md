@@ -125,3 +125,13 @@ to the chain's own endpoint while its receipts were read from a third-party node
 that node's replication lag. The runner now asks for the receipt at the endpoint that took the send;
 block tags still come from the reader. The same change touches Base, Arbitrum and Robinhood, whose
 figures through dRPC were already under a second.
+
+## 2026-10-23 — Solana after Alpenglow
+
+Alpenglow replaced Solana's consensus on 2026-10-21. `runs/solana/2026-10-23T0634Z.json`: twenty transfers,
+one at a time, from runner-1 through Infura; *finalized* arrived on the same poll as *confirmed* in all twenty,
+0.663–0.884 s after sending. On 2026-10-18 *finalized* took 7.164–8.075 s. Nothing in the runner changed:
+the RPC reports the same three levels. The transfers were 0.04 USDC each, because that is what the wallet
+could cover, and the amount has no bearing on the time. The chain file now quotes Anza's definition, under
+which the two levels are equivalent.
+
