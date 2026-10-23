@@ -7,7 +7,7 @@ icon: solana.jpg
 asset:
   symbol: USDC
   contract: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
-  amount: "0.1"
+  amount: "0.04"               # 0.1 until 2026-10-23; the wallet held 0.95 USDC, his pick: 20 × 0.04
 rpc:
   env: SOLANA_RPC_URL
   provider: ""

@@ -1,0 +1,233 @@
+{
+  "chain": "solana",
+  "method": "v0",
+  "stamp": "2026-10-23T0634Z",
+  "machine": "runner-1",
+  "rpc": "solana-mainnet.infura.io",
+  "asset": "USDC",
+  "amount": "0.04",
+  "chainFile": "b64cb393f2e19546bdb4d5523f7c066e7279fcade501a77d5acf4a8f5a731f41",
+  "wallets": {
+    "from": "EhvBPVjkbQzFkZZ9Ve92TRASpji7uekMWurZ2Xu2yRzJ",
+    "to": "FzdP3W866mrwuKUddnMFor41sWdoCuLUrYUqzLW7Ujs5"
+  },
+  "setup": [
+    "4XDaFroNMVGyFFLKmrbitnWi6KA1mXXJyTuo4LNxZ7Rz8fSJPx2Gq8EUQToX9DBbzGriehtEjKY82cFNzAZeJucK"
+  ],
+  "teardown": [
+    "4VVAG261SpUMSTBdXEdt54Mr2baiZUVBuMEgi6vACeoHk78F2D9X3hiDxeJEYZmDB7sUJe6W2oTvZYSfJhAkzrsR"
+  ],
+  "runs": 20,
+  "pollMs": 100,
+  "slowPollMs": 2000,
+  "slowLevels": [],
+  "overlapAfter": null,
+  "capMinutes": 30,
+  "transfers": [
+    {
+      "id": "3q4DWKbijzHibKUYsdng4uvSwMDfD3ncmv32AM7XaGfRFag4KvnBViSS8Y2M68AzSbk4x6YYC1T7Zwix4hnyRkAN",
+      "sent": "2026-10-23T06:34:37.919Z",
+      "levels": {
+        "processed": 0.46,
+        "confirmed": 0.675,
+        "finalized": 0.675
+      },
+      "polls": 3
+    },
+    {
+      "id": "n4bWAZGmyhN3cFZpGhna3picPtDRy7XpM61oyFfdj6sg55QuxgvDLE83Kbvx7JrNLPRRY9MjfQF1m5AR2wEYEsw",
+      "sent": "2026-10-23T06:34:38.735Z",
+      "levels": {
+        "processed": 0.459,
+        "confirmed": 0.68,
+        "finalized": 0.68
+      },
+      "polls": 3
+    },
+    {
+      "id": "4wpGdmozKBWt62hUZbKiP4KgBH7XjMBmccEfujhQ3X3Ur5o6WiRWB6b8Y2Zdaf9RAoNkyBXcX8Y2c7bcr2JhYm5x",
+      "sent": "2026-10-23T06:34:39.566Z",
+      "levels": {
+        "processed": 0.461,
+        "confirmed": 0.673,
+        "finalized": 0.673
+      },
+      "polls": 3
+    },
+    {
+      "id": "3Aanayuf5oWhazpaVAjGGX8amEdtLJGW73L6F4DkcYrBrtLD7mjcDUgBbqr9XurR5NX7wuYvv162E2HeMotKkLKH",
+      "sent": "2026-10-23T06:34:40.363Z",
+      "levels": {
+        "processed": 0.879,
+        "confirmed": 0.879,
+        "finalized": 0.879
+      },
+      "polls": 4
+    },
+    {
+      "id": "NuxPJ4ULY7VsNqwxFfqM7EH7CLccNA4YU2CmhnELLxLg4umKYpT5zgU3xPKrfULcXXsWbR8YxUKmiU9zHyyEmkS",
+      "sent": "2026-10-23T06:34:41.373Z",
+      "levels": {
+        "processed": 0.665,
+        "confirmed": 0.665,
+        "finalized": 0.665
+      },
+      "polls": 3
+    },
+    {
+      "id": "23LduL8J7WzR2tvL9eE3AY9QFnLbVVjhEvRCXSqdypaqse7UcBD835K3iD59p3tJvrgZ7Y5vG8guXPbBVx8u8Vxd",
+      "sent": "2026-10-23T06:34:42.164Z",
+      "levels": {
+        "processed": 0.666,
+        "confirmed": 0.666,
+        "finalized": 0.666
+      },
+      "polls": 3
+    },
+    {
+      "id": "4cittgjczjnNBjSL2iYgdXNcsTJCzBFtooDarGEh3FArZAFatZkZpLDuhz3UhCZKqaCxYtfYik8s8cas9Bz9uqM5",
+      "sent": "2026-10-23T06:34:42.970Z",
+      "levels": {
+        "processed": 0.668,
+        "confirmed": 0.668,
+        "finalized": 0.668
+      },
+      "polls": 3
+    },
+    {
+      "id": "63JN1QiwjwHfWFPqdEoXwKBm6tBHVB7RNyj5qxRiWqtfbaVoSNDiCYw3oWp5oXwwUuihtop4DHvaNz7tbPEJRs3Z",
+      "sent": "2026-10-23T06:34:43.766Z",
+      "levels": {
+        "processed": 0.67,
+        "confirmed": 0.884,
+        "finalized": 0.884
+      },
+      "polls": 4
+    },
+    {
+      "id": "gqy1JsMbga6EfxsG2S9c5bpbEPLTBCPRNLfjYZGKcWcm5Aqm1MCxFRzZ4z2ZtySKbbcz81KSSHPskX8xZSQvVUa",
+      "sent": "2026-10-23T06:34:44.776Z",
+      "levels": {
+        "processed": 0.447,
+        "confirmed": 0.877,
+        "finalized": 0.877
+      },
+      "polls": 4
+    },
+    {
+      "id": "5JXuWZGJ7pxe1HTMAmn755cL5TMuSVstQyyzf3UeUw6fXzbPoYZK4wMNxbFz84jdesm4B764VcMTRBDE6Y2a9XGv",
+      "sent": "2026-10-23T06:34:45.782Z",
+      "levels": {
+        "processed": 0.687,
+        "confirmed": 0.687,
+        "finalized": 0.687
+      },
+      "polls": 3
+    },
+    {
+      "id": "jKeLHaFHPRLfACRe4T7iZv4uV2U8fHtMha2PB7xhZETttKgLfVnBmCZwxxBc881iKevucB2ACEB4mg6kiBy9dnE",
+      "sent": "2026-10-23T06:34:46.600Z",
+      "levels": {
+        "processed": 0.668,
+        "confirmed": 0.668,
+        "finalized": 0.668
+      },
+      "polls": 3
+    },
+    {
+      "id": "2mgBAnFd2XyBjxdCNxXpv9wwNtPwzU3NjUpXeRNEaqVYbEkJmUbX98TJ6dmsEhBq5whrDVd5b2jhFsvx3HjYwLyJ",
+      "sent": "2026-10-23T06:34:47.399Z",
+      "levels": {
+        "processed": 0.67,
+        "confirmed": 0.67,
+        "finalized": 0.67
+      },
+      "polls": 3
+    },
+    {
+      "id": "64UtCWP7cEoLZTs89ohxUoiAG6MPVQxuR9xQ8PWS6p1Erc3RKayE9hpZNjmrycTUPqTv9PzqZx7qh2py7hF23hUr",
+      "sent": "2026-10-23T06:34:48.196Z",
+      "levels": {
+        "processed": 0.673,
+        "confirmed": 0.673,
+        "finalized": 0.673
+      },
+      "polls": 3
+    },
+    {
+      "id": "4MLQfpxECfVwYQ2QGcJccfqMk6q7YMoXhHfmUvJLBsteDSQWLzzXcpsTe2rU4aVpSarfJ5NTbkHcfG2CXf4ArNsp",
+      "sent": "2026-10-23T06:34:49.008Z",
+      "levels": {
+        "processed": 0.678,
+        "confirmed": 0.678,
+        "finalized": 0.678
+      },
+      "polls": 3
+    },
+    {
+      "id": "eLs1pjy7mNtkwHXp1oDHxzZAxXf2dSbYkWneUzpyk4mPUoaXRiGcHsKXuswYyDVMQiaC4AJ4ZZaVQqVTow1ARTP",
+      "sent": "2026-10-23T06:34:49.805Z",
+      "levels": {
+        "processed": 0.664,
+        "confirmed": 0.877,
+        "finalized": 0.877
+      },
+      "polls": 4
+    },
+    {
+      "id": "4bj9WYzbe2z166Ek6TKpT4oeLHijg14FbuBWvxZ71nEdASUgDHU4BSSzs3LyehLrAHwjsgpkwfQP8CL14ejn22Nh",
+      "sent": "2026-10-23T06:34:50.814Z",
+      "levels": {
+        "processed": 0.665,
+        "confirmed": 0.878,
+        "finalized": 0.878
+      },
+      "polls": 4
+    },
+    {
+      "id": "27hAGirQGjyQo8fkp8jX88hc7XfVYVHKihefsWV8HZzFV8Y63LYehkMQZJxbUYQMMPBTGYYiw2uGhUAEiqxPp1sc",
+      "sent": "2026-10-23T06:34:51.824Z",
+      "levels": {
+        "processed": 0.453,
+        "confirmed": 0.665,
+        "finalized": 0.665
+      },
+      "polls": 3
+    },
+    {
+      "id": "2PqCKKQsn555jPY2uz8FQnPqSnN7ByMRSEiLymW8ro3vdSyMmEfWdbNdUm1WaRhEktTyA3yMstZS1VBQbo9u8uSr",
+      "sent": "2026-10-23T06:34:52.610Z",
+      "levels": {
+        "processed": 0.663,
+        "confirmed": 0.663,
+        "finalized": 0.663
+      },
+      "polls": 3
+    },
+    {
+      "id": "4oAg7aAnxfR51pMFsU7S8RtLd6Db9LKw9ioPNDSJdFTyZ6edZ9rFoaecfx89CdzLSLsMWzrD9MPRsVyMfy7wWm6D",
+      "sent": "2026-10-23T06:34:53.404Z",
+      "levels": {
+        "processed": 0.668,
+        "confirmed": 0.668,
+        "finalized": 0.668
+      },
+      "polls": 3
+    },
+    {
+      "id": "5gyoTMBxTP4bkbbwKELySMCnKrFQjo8UfmgdVE3VKjSbWTZU6mrRjVFspeVcPZdcnYp5MVMfpCBRXg8Wkdz9JzpJ",
+      "sent": "2026-10-23T06:34:54.204Z",
+      "levels": {
+        "processed": 0.452,
+        "confirmed": 0.664,
+        "finalized": 0.664
+      },
+      "polls": 3
+    }
+  ],
+  "slowest": {
+    "done": 0.884,
+    "final": 0.884
+  },
+  "notReached": []
+}
