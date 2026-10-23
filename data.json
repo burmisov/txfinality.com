@@ -1,9 +1,55 @@
 {
-  "built": "2026-10-20T19:52:13.600Z",
+  "built": "2026-10-23T06:37:28.300Z",
   "method": "v0",
   "landscape": "2026-10-18",
   "source": "https://github.com/burmisov/txfinality.com",
   "chains": [
+    {
+      "id": "solana",
+      "name": "Solana",
+      "status": "measured",
+      "rank": 3,
+      "done": 0.884,
+      "final": 0.884,
+      "levels": {
+        "processed": 0.879,
+        "confirmed": 0.884,
+        "finalized": 0.884
+      },
+      "run": {
+        "stamp": "2026-10-23T0634Z",
+        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/solana/2026-10-23T0634Z.json",
+        "rpc": "solana-mainnet.infura.io",
+        "hashes": [
+          "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"
+        ]
+      },
+      "claim": {
+        "text": "Under Alpenglow, the Confirmed and Finalized commitment statuses are equivalent: both mean that a transaction has been permanently committed to the ledger and cannot be rolled back.",
+        "url": "https://docs.anza.xyz/consensus/commitments",
+        "read_on": "2026-10-23",
+        "next_read": "2026-11-23"
+      }
+    },
     {
       "id": "arc",
       "name": "Arc",
@@ -268,52 +314,6 @@
       "claim": {
         "text": "Milestones typically finalize a transaction within 2 to 5 seconds.",
         "url": "https://docs.polygon.technology/pos/concepts/finality/finality",
-        "read_on": "2026-10-18",
-        "next_read": "2026-11-18"
-      }
-    },
-    {
-      "id": "solana",
-      "name": "Solana",
-      "status": "measured",
-      "rank": 3,
-      "done": 1.105,
-      "final": 8.075,
-      "levels": {
-        "processed": 1.105,
-        "confirmed": 1.105,
-        "finalized": 8.075
-      },
-      "run": {
-        "stamp": "2026-10-18T2118Z",
-        "file": "https://github.com/burmisov/txfinality.com/blob/main/runs/solana/2026-10-18T2118Z.json",
-        "rpc": "solana-mainnet.infura.io",
-        "hashes": [
-          "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"
-        ]
-      },
-      "claim": {
-        "text": "A block the cluster recognizes as finalized with maximum lockout, meaning it has reached the strongest confirmation state used by the network.",
-        "url": "https://solana.com/docs/rpc",
         "read_on": "2026-10-18",
         "next_read": "2026-11-18"
       }
