@@ -126,11 +126,13 @@ that node's replication lag. The runner now asks for the receipt at the endpoint
 block tags still come from the reader. The same change touches Base, Arbitrum and Robinhood, whose
 figures through dRPC were already under a second.
 
-## 2026-10-23 — Solana's Alpenglow upgrade: final in 0.9 s, was 8.1 s
+## 2026-10-23 — Solana's Alpenglow: final 8.1 s → 0.9 s
 
-Solana's consensus was replaced by [Alpenglow](https://solana.com/upgrades/alpenglow) on 2026-10-21. In the run of
-2026-10-23 (`runs/solana/2026-10-23T0634Z.json`: twenty transfers, one at a time, from runner-1 through Infura)
-*finalized* arrived on the same poll as *confirmed* in all twenty, 0.663–0.884 s after sending; on 2026-10-18
-*finalized* took 7.164–8.075 s. Nothing in the runner changed: the RPC reports the same three levels, and under
-Alpenglow [Anza's docs](https://docs.anza.xyz/consensus/commitments) call confirmed and finalized equivalent. The
-transfers were 0.04 USDC each, what the wallet could cover; the amount has no bearing on the time.
+Solana switched to [Alpenglow](https://solana.com/upgrades/alpenglow), its new consensus, on 21 October. Final now
+arrives together with confirmed: the slowest of twenty transfers took 0.9 s, against 8.1 s on 18 October.
+
+`runs/solana/2026-10-23T0634Z.json`: twenty transfers, one at a time, from runner-1 through Infura; *finalized*
+arrived on the same poll as *confirmed* in all twenty, 0.663–0.884 s after sending; on 2026-10-18 *finalized*
+took 7.164–8.075 s. Nothing in the runner changed: the RPC reports the same three levels, and under Alpenglow
+[Anza's docs](https://docs.anza.xyz/consensus/commitments) call confirmed and finalized equivalent. The transfers
+were 0.04 USDC each, what the wallet could cover; the amount has no bearing on the time.
